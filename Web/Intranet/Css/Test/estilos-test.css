@@ -1,0 +1,435 @@
+
+html{
+    overflow-y:hidden;
+}
+
+header {
+    text-align: center;
+    padding: 10px 0px;
+    background-color: #fff;
+    position: fixed;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    z-index: 2;
+}
+header img{
+    width: 200px;
+}
+.sidebar{
+    position:fixed;
+    width:28%;
+}
+.centrado{
+    text-align:center;
+}
+
+/*******PORTADA*******/
+.bienvenida{
+    text-align: center;
+    background-color: #fff;
+    margin-top: 100px;
+    padding-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+}
+.bienvenida h1{
+    font-size: 3em;
+    padding: 10px 0px;
+    color: #1c4b81;
+}
+.boton-link{
+    color: #4daea9;
+    font-weight: 600;
+    font-size: 16px;
+}
+.boton-link:hover{
+    text-decoration: none;
+    color: #ccc;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.icono-prueba:before {
+    content: "\f0f6";
+    font-family: FontAwesome;
+    color: #1ca5cb;
+    font-weight: 200;
+    margin-right: 5px;
+    
+}
+.icono-reloj:before {
+    content: "\f017";
+    font-family: FontAwesome;
+    color: #1ca5cb;
+    font-weight: 200;
+    margin-right: 5px;
+    
+}
+
+.icono-pdf:before {
+    font-family: FontAwesome;
+    color: #1ca5cb;
+    font-weight: 200;
+    margin-right: 5px;
+    
+}
+.icono-pdf:before {
+    font-family: FontAwesome;
+    color: #1ca5cb;
+    font-weight: 200;
+    margin-right: 5px;
+    
+}
+
+.grilla{
+    margin-top: 20px;
+    padding: 0px;
+}
+.grilla h2{
+    margin: 0px;
+    padding: 10px 5px 5px 5px;
+    font-size: 1.7em;
+    color: #1ca5cb;
+}
+.grilla p{
+    padding: 10px;
+}
+.grilla table{
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    border: 1px solid #1c4b81;
+}
+.grilla table th{
+    font-size: 1.2em;
+    color: #fff;
+    font-weight: 400;
+    background-color: #1c4b81 ;
+}
+.grilla table td{
+    color: #6d6d6d;
+}
+.boton-grilla{
+    color: #fff;
+    background-color: #4daea9;
+    padding: 5px 15px;
+}
+.boton-grilla:hover{
+    color: #fff;
+    background-color: #ccc;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+
+/*******PDR*******/
+.progreso{
+    background-color: #fff;
+    padding: 0px 10px 10px ;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+}
+.progreso h3{
+    padding:5px;
+    font-size: 1.7em;
+    color: #1ca5cb;
+    background-color: #fff;
+    font-weight :600;
+    margin:0px;
+}
+.progreso .progress{
+    margin-bottom:15px !important;
+}
+.progreso h4{
+    font-size: 1.2em;
+    color: #1c4b81;
+    background-color: #fff;
+    padding-bottom: 5px;
+    margin-bottom:0px;
+}
+.progreso h4 span {
+    display: block;
+    padding-left: 25px;
+    font-size: 0.87em;
+    font-weight: 600;
+}
+#preguntas{
+    display:block;
+    font-weight:600;
+    padding-left:25px;
+    color:#1c4b81;
+}
+
+/*resumen informacion prueba*/
+.resumen-info{
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+}
+.resumen-info h3{
+    font-size: 1.4em;
+    color: #1c4b81;
+    text-align:center;
+}
+.resumen-info p{
+    color: #808080;
+    font-size:12px;
+}
+.prueba{
+    background-color: #fff;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    padding: 0px;
+    border: 1px solid #1c4b81;
+    overflow-y:scroll;
+    height:550px;
+}
+.prueba h3{
+    font-size: 1.4em;
+    text-align: left;
+    margin: 0px;
+    padding: 15px 5px;
+    font-weight: 300;
+    background-color: #1c4b81;
+    color: #fff;
+}
+.prueba figure{
+    overflow:hidden;
+}
+.prueba img{
+    float:left;
+    width:62%;
+}
+.prueba figcaption{
+    text-align: left;
+    text-transform:uppercase;
+    font-weight:600 !important;
+}
+.prueba figcaption .checkbox{
+    margin:0px;
+}
+.prueba figcaption .checkbox label{
+    padding-bottom:5px;
+    position:relative;
+    bottom:5px;
+}
+.prueba figcaption [type="radio"]{
+    width:20px;
+    height:20px;
+}
+.prueba figcaption [type="checkbox"]{
+    position: relative;
+    width: 20px;
+    height: 20px;
+}
+.prueba .center-align .col-lg-6, .prueba .center-align .col-md-6, .prueba .center-align .col-xs-6{
+    padding-left:5px;
+    padding-right:5px;
+}
+/*******INSTRUCCIONES*******/
+.instrucciones{
+    background-color: #fff;
+    border: 1px solid #1c4b81;
+    margin-top: 0px;
+}
+.instrucciones h3{
+    padding: 15px 5px;
+    background-color: #1c4b81;
+    color: #fff;
+    margin: 70px;
+}
+.mensaje h3 {
+    padding: 15px 10px;
+    background-color: #1c4b81;
+    color: #fff;
+    margin: 120px;
+    font-size:2em;
+    text-align:center;
+}
+
+.info-instrucciones{
+    padding: 15px 20px;
+    text-align: center;
+}
+.info-instrucciones h4{
+    color: #1ca5cb;
+    font-size: 1.7em;
+    text-align:left;
+}
+.info-instrucciones p{
+    text-align: left;
+}
+.info-instrucciones .checkbox{
+    padding: 25px 0px;
+}
+.info-instrucciones .checkbox span{
+    color: #4daea9;
+    font-weight: 600;
+}
+.boton-verde{
+    padding: 5px 25px;
+    background-color: #4daea9;
+    color: #fff;
+    font-size: 1.5em;
+    border: none;
+}
+.boton-verde:hover{
+    background-color: #ccc;
+    color: #fff;
+    transition: 0.3s;
+}
+.boton-azul{
+    padding: 5px 25px;
+    background-color: #1c4b81;
+    color: #fff;
+    font-size: 1.5em;
+    border: none;
+}
+.boton-azul:hover{
+    background-color: #ccc;
+    color: #fff;
+    transition: 0.3s;
+}
+
+/*******ECT*******/
+.ect h3{
+    background-color: transparent;
+    color: #1ca5cb;
+    padding: 0px;
+    padding-left: 20px;
+    padding-top: 5px;
+    margin: 0px;
+}
+.opciones-ect{
+    overflow: hidden;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+.opciones-ect p{
+    font-weight: 600;
+    color: #313131;
+    text-align:center;
+    margin-top:5px;
+}
+
+.opciones-ect p span{
+    font-size: 1em;
+    background-color: #fff;
+    border: none;
+}
+
+
+.opciones-ect input[type="radio"]{
+    visibility: hidden;
+    height: 0;
+    width: 0;
+}
+.opciones-ect label .fa-check{
+    font-size: 20px;
+}
+.opciones-ect label .fa-times{
+    font-size: 20px;
+}
+.opciones-ect label {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    background-color: #cccccc;
+    color: #000;
+    padding-top: 8px;
+    border-radius: 3px;
+    width: 80px;
+    height: 40px;
+}
+.opciones-ect input[type="radio"]:hover + .icono-close{
+    background-color: #bc0505;
+    color: #fff;
+    transition:0.3s;
+}
+.opciones-ect input[type="radio"]:hover + .icono-check{
+    background-color: #2f965c;
+    color: #fff;
+    transition:0.3s;
+}
+.opciones-ect input[type="radio"]:checked + .icono-close{
+    background-color: #bc0505;
+    color: #fff;
+}
+.opciones-ect input[type="radio"]:checked + .icono-check{
+    background-color: #2f965c;
+    color: #fff;
+}
+
+
+
+/*******ECT-DESCRIPCION*******/
+.descripcion{
+    background-color: #fff;
+    margin-top: 90px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    padding: 0px;
+    border: 1px solid #1c4b81;
+}
+.descripcion h3{
+    margin: 0px;
+    font-size: 1.4em;
+    color: #1c4b81;
+    text-align: left;
+    margin: 0px;
+    padding: 15px;
+    background-color: #1c4b81;
+    color: #fff;
+    margin-bottom: 10px;
+    
+}
+.tiempo-expirado{
+    display: block;
+    padding: 10px 0px;
+}
+.info-descripcion{
+    padding: 20px 15px;
+}
+.info-descripcion h4{
+    color: #1ca5cb;
+    font-size: 1.3em;
+    padding-left: 15px;
+}
+.centrado{
+    text-align: center;
+}
+
+
+
+@media (max-width:767px){
+    .sidebar{
+        width:100%;
+        z-index:2;
+        background-color:#fff;
+        top:20%;
+        left:0px !important;
+        box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    }
+    .progreso h3, .resumen-info h3{
+        font-size:1.3em;
+        padding:5px;
+        margin:0px;
+    }
+    .progreso{
+        width:40%;
+        float:left;
+        overflow:hidden;
+    }
+    .resumen-info{
+        width:60%;
+        overflow:hidden;
+    }
+    .progreso, .resumen-info{
+        box-shadow:none;
+    }
+    .tiempo h4, .respuestas h4{
+        margin:0px;
+        font-size:12px;
+    }
+    .prueba{
+        margin-top:175px;
+        margin-left:0px;
+        width:100%;
+    }
+}
+

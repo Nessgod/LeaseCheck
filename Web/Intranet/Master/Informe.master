@@ -1,0 +1,33 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Informe.master.cs" Inherits="Master_Informe" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head runat="server">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta http-equiv="X-UA-Compatible"  content="IE=edge,chrome=1"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>LeaseCheck</title>
+        <link href="../Css/Test/testInforme.css" rel="stylesheet" />
+        <%--<link href="../css/font-awesome.css" rel="stylesheet" />--%>
+        <asp:ContentPlaceHolder id="cphHeder" runat="server">
+        </asp:ContentPlaceHolder> 
+    </head>
+    <body>
+        <form id="form1" runat="server">
+            <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" AsyncPostBackTimeout="3600"
+                EnableScriptGlobalization="true" EnableScriptLocalization="true">
+                <Scripts>
+                    <asp:ScriptReference Path="~/Js/jquery-1.11.3.min.js" />
+                    
+                </Scripts>
+            </asp:ScriptManager>
+
+            <asp:ContentPlaceHolder id="cphBody" runat="server">
+            </asp:ContentPlaceHolder>
+
+            <asp:ContentPlaceHolder id="chpScript" runat="server">
+            </asp:ContentPlaceHolder>
+        </form>
+    </body>
+</html>

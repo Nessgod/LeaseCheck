@@ -1,0 +1,16 @@
+.RadComboBox_Bootstrap {
+    font: 14px/1.42857143 "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI" !important;
+    height: calc(1.5em + .75rem + 2px) !important;
+}
+.rcbList {
+    font: 14px/1.42857143 "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI" !important;
+    background-color: #ffffff;
+}
+.rcbItem {
+    
+}
+.rcbHovered {
+    background-color:#eeeeee !important;
+}

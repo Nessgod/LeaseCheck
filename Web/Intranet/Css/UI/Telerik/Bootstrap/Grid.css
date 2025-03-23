@@ -1,0 +1,136 @@
+.btn-pad{
+    margin-right:8px;
+    margin-bottom:4px;
+}
+.content_botones {
+    display: flex;
+}
+
+.icono_guardar {
+    font-family: Roboto,sans-serif;
+    background-color: #20a6cf;
+    line-height: 20px;
+    font-size: 14px;
+    color: #fff !important;
+    padding: 10px 18px;
+    padding-left: 30px;
+    background-image: url('Grid/icon_agregar2.png');
+    background-repeat: no-repeat;
+}
+
+.icono_guardar:hover {
+    background-color: #1a83a3 !important;
+    color: #fff !important;
+    background-image: url('Grid/icon_agregar2.png');
+    background-repeat: no-repeat;
+}
+
+.icono_descargar_excel {
+    font-family: Roboto,sans-serif;
+    background-color: forestgreen;
+    line-height: 20px;
+    font-size: 14px;
+    color: #fff !important;
+    padding: 10px 18px;
+    padding-left: 30px;
+    background-image: url('Grid/excel.svg');
+    background-position: left;
+    background-position-x: 0.5rem;
+    background-repeat: no-repeat;
+}
+
+.icono_ok {
+    font-family: Roboto,sans-serif;
+    background-color: #2b78e4;
+    line-height: 20px;
+    font-size: 14px;
+    color: #fff !important;
+    padding: 10px 30px;
+    padding-left: 30px;
+    background-image: url('Grid/check.png');
+    background-position: left;
+    background-position-x: 0.5rem;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+}
+
+.icono_descargar_excel:hover {
+    background-color: darkgreen !important;
+    color: #fff !important;
+    background-image: url('Grid/excel.svg');
+    background-repeat: no-repeat;
+}
+
+.icono_eliminar {
+    font-family: Roboto,sans-serif;
+    background-color: #6c757d;
+    font-size: 14px;
+    color: #fff !important;
+    padding: 10px 18px;
+    padding-left: 30px;
+    background-image: url('Grid/icon_eliminar2.png');
+    background-repeat: no-repeat;
+}
+
+.icono_eliminar:hover {
+    background-color: #4a5157;
+    color: #fff !important;
+    background-image: url('Grid/icon_eliminar2.png');
+    background-repeat: no-repeat;
+}
+
+.icono_Editar {
+    font-family: Roboto,sans-serif;
+    font-size: 16px;
+    color: white;
+    margin: 5px;
+    padding-left: 20px;
+    background-image: url('Grid/icon_editar2.png');
+    background-repeat: no-repeat;
+}
+
+.icono_ver_Lupa {
+    font-family: Roboto,sans-serif;
+    font-size: 16px;
+    color: white;
+    margin: 5px;
+    padding-left: 20px;
+    background-image: url('Grid/icon_lupa.png');
+    background-repeat: no-repeat;
+}
+
+/*Fuente*/
+/*.RadGrid_Bootstrap .rgMasterTable, .RadGrid_Bootstrap .rgDetailTable, 
+  .RadGrid_Bootstrap .rgGroupPanel table, .RadGrid_Bootstrap 
+  .rgCommandRow table, .RadGrid_Bootstrap .rgEditForm table, .RadGrid_Bootstrap .rgPager table {
+    font: 10px/1.42857143 "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+}*/
+
+.RadGrid {
+    border: 0px !important;
+    border-color: #fff !important;
+}
+
+/*.rgHeader {
+    border-left: 0px !important;
+    border-color: #fff !important;
+}
+
+.rgRow {
+    border-left: 0px !important;
+    border-color: #fff !important;
+}*/
+
+.rgCommandCell {
+    height: 45px;
+    background: #fff;
+}
+
+@media only screen and (min-width: 600px) {
+    .left-boton {
+        float: left;
+    }
+    .right-boton {
+        float: right;
+    }
+}
