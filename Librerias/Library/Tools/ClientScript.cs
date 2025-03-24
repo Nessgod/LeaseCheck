@@ -20,78 +20,64 @@ namespace Tools
             RegisterScriptBlock(page, "alert" + DateTime.Now.ToString(), "alert(\"" + Message + "\");");
         }
 
-        public static void ClientAlert(string mensaje, string tipo, bool cerrar = false, string nombreFuncion = "")
+        public static void ClientAlert(string mensaje, string tipo, bool cerrar = false)
         {
-            mensaje = mensaje.Replace("\"", "");
-            mensaje = mensaje.Replace("''", "'");
-            mensaje = mensaje.Replace("''''", "'");
-            mensaje = mensaje.Replace("'", "");
-            mensaje = mensaje.Replace("\n", "");
-            mensaje = mensaje.Replace("\r", "");
+            mensaje = mensaje.Replace("\"", "").Replace("''", "'").Replace("''''", "'").Replace("'", "").Replace("\n", "").Replace("\r", "");
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine("function ClientAlert(mensaje, tipo) {");
+            stringBuilder.AppendLine("$(\"#myModal\").remove();");
+            stringBuilder.AppendLine("var icono = ''; var botonClase = '';");
+            stringBuilder.AppendLine("switch (tipo) {");
+            stringBuilder.AppendLine(" case 'error':");
+            stringBuilder.AppendLine("     icono = '<div class=\"sa\"><div class=\"sa-error\"><div class=\"sa-error-x\"><div class=\"sa-error-left\"></div><div class=\"sa-error-right\"></div></div><div class=\"sa-error-placeholder\"></div><div class=\"sa-error-fix\"></div></div></div>'; ");
+            stringBuilder.AppendLine("     botonClase = 'ButtonSweetError';");
+            stringBuilder.AppendLine("     break;");
+            stringBuilder.AppendLine(" case 'ok':");
+            stringBuilder.AppendLine("     icono = '<div class=\"sa\"><div class=\"sa-success\"><div class=\"sa-success-tip\"></div><div class=\"sa-success-long\"></div><div class=\"sa-success-placeholder\"></div><div class=\"sa-success-fix\"></div></div></div>'; ");
+            stringBuilder.AppendLine("     botonClase = 'ButtonSweetOk';");
+            stringBuilder.AppendLine("     break;");
+            stringBuilder.AppendLine(" case 'alerta':");
+            stringBuilder.AppendLine("     icono = '<div class=\"sa\"><div class=\"sa-warning\"><div class=\"sa-warning-body\"></div><div class=\"sa-warning-dot\"></div></div></div>'; ");
+            stringBuilder.AppendLine("     botonClase = 'ButtonSweetAlerta';");
+            stringBuilder.AppendLine("     break;");
+            stringBuilder.AppendLine("}");
+            stringBuilder.AppendLine("var modal = '';");
+            stringBuilder.AppendLine("modal += '<div class=\"modal fade\" id=\"myModal\" role=\"dialog\" data-backdrop=\"static\" data-keyboard=\"false\">';");
+            stringBuilder.AppendLine("modal += '   <div class=\"modal-dialog\">';");
+            stringBuilder.AppendLine("modal += '       <div class=\"modal-content\">';");
+            stringBuilder.AppendLine("modal += '           <div class=\"modal-header\">';");
+            stringBuilder.AppendLine("modal += '               ' + icono + ' ';");
+            stringBuilder.AppendLine("modal += '               <h4 class=\"modal-title\"></h4>';");
+            stringBuilder.AppendLine("modal += '           </div>';");
+            stringBuilder.AppendLine("modal += '           <div class=\"modal-body\">';");
+            stringBuilder.AppendLine("modal += '               <div style=\"font-size:14px;\">';");
+            stringBuilder.AppendLine("modal += '                   <p>' + mensaje + '</p>';");
+            stringBuilder.AppendLine("modal += '               </div>';");
+            stringBuilder.AppendLine("modal += '           </div>';");
+            stringBuilder.AppendLine("modal += '           <div class=\"modal-footer\">';");
+            stringBuilder.AppendLine("modal += '               <button type=\"button\" class=\"' + botonClase + '\" onclick=\"CloseWindows()\">Aceptar</button>';");
+            stringBuilder.AppendLine("modal += '           </div>';");
+            stringBuilder.AppendLine("modal += '       </div>';");
+            stringBuilder.AppendLine("modal += '   </div>';");
+            stringBuilder.AppendLine("modal += '</div>';");
+            stringBuilder.AppendLine("$(\"body\").append(modal);");
+            stringBuilder.AppendLine("$(\"#myModal\").modal();");
+            stringBuilder.AppendLine("}");
 
-            sb.AppendLine("function ClientAlert(mensaje, tipo) {");
-
-            sb.AppendLine("$(\"#myModal\").remove();");
-
-            sb.AppendLine("var icono = '';");
-            sb.AppendLine("var boton = '';");
-
-            sb.AppendLine("switch (tipo) {");
-            sb.AppendLine(" case \"error\":");
-            sb.AppendLine("     icono = '<div class=\"sa\"><div class=\"sa-error\"><div class=\"sa-error-x\"><div class=\"sa-error-left\"></div><div class=\"sa-error-right\"></div></div><div class=\"sa-error-placeholder\"></div><div class=\"sa-error-fix\"></div></div></div>'");
-            sb.AppendLine("     boton = '<button type=\"button\" class=\"ButtonSweetError\" onclick=\"CloseWindows()\">Aceptar</button>'");
-            sb.AppendLine("     break;");
-            sb.AppendLine(" case \"ok\":");
-            sb.AppendLine("     icono = '<div class=\"sa\"><div class=\"sa-success\"><div class=\"sa-success-tip\"></div><div class=\"sa-success-long\"></div><div class=\"sa-success-placeholder\"></div><div class=\"sa-success-fix\"></div></div></div>'");
-            sb.AppendLine("     boton = '<button type=\"button\" class=\"ButtonSweetOk\" onclick=\"CloseWindows()\">Aceptar</button>'");
-            sb.AppendLine("     break;");
-            sb.AppendLine("case \"alerta\":");
-            sb.AppendLine("     icono = '<div class=\"sa\"><div class=\"sa-warning\"><div class=\"sa-warning-body\"></div><div class=\"sa-warning-dot\"></div></div></div>'");
-            sb.AppendLine("     boton = '<button type=\"button\" class=\"ButtonSweetAlerta\" onclick=\"CloseWindows()\">Aceptar</button>'");
-            sb.AppendLine("     break;");
-            sb.AppendLine("}");
-
-            sb.AppendLine("var modal = '';");
-
-            sb.AppendLine("modal += '<div class=\"modal fade\" id=\"myModal\" role =\"dialog\" data-backdrop=\"static\" data-keyboard=\"false\" >';");
-            sb.AppendLine("modal += '   <div class=\"modal-dialog\">';");
-            sb.AppendLine("modal += '       <div class=\"modal-content\">';");
-            sb.AppendLine("modal += '           <div class=\"modal-header\">';");
-            sb.AppendLine("modal += '               ' + icono + ' ';");
-            sb.AppendLine("modal += '               <h4 class=\"modal-title\"></h4>';");
-            sb.AppendLine("modal += '           </div>';");
-            sb.AppendLine("modal += '           <div class=\"modal-body\">';");
-            sb.AppendLine("modal += '               <div>';");
-            sb.AppendLine("modal += '                   <p>' + mensaje + '</p>';");
-            sb.AppendLine("modal += '               </div>';");
-            sb.AppendLine("modal += '           </div>';");
-            sb.AppendLine("modal += '           <div class=\"modal-footer\">';");
-            sb.AppendLine("modal += '               ' + boton + ' ';");
-            sb.AppendLine("modal += '           </div>';");
-            sb.AppendLine("modal += '       </div>'");
-            sb.AppendLine("modal += '   </div>';");
-            sb.AppendLine("modal += '</div>';");
-
-            sb.AppendLine("$(\"body\").append(modal);");
-            sb.AppendLine("$(\"#myModal\").modal();");
-
-            sb.AppendLine("}");
-
-            sb.AppendLine("function CloseWindows() {");
-            if (cerrar) sb.AppendLine("if (window.closeWindow) window.closeWindow();");
-            if (nombreFuncion != "") sb.AppendLine(nombreFuncion);
-            sb.AppendLine("$('#myModal').modal('hide');");
-            sb.AppendLine("}");
+            stringBuilder.AppendLine("function CloseWindows() {");
+            if (cerrar)
+            {
+                stringBuilder.AppendLine("if (window.closeWindow) window.closeWindow();");
+            }
+            stringBuilder.AppendLine("$('#myModal').modal('hide');");
+            stringBuilder.AppendLine("}");
 
             Page page = (Page)HttpContext.Current.Handler;
-
-            RegisterScriptBlock(page, "ClientAlert" + DateTime.Now.ToString(), sb.ToString());
-
+            RegisterScriptBlock(page, "ClientAlert" + DateTime.Now.ToString(), stringBuilder.ToString());
             ClientExecute("ClientAlert('" + mensaje + "','" + tipo + "');");
-
         }
+
 
         #endregion
 

@@ -37,7 +37,7 @@
     <link href="../Css/UI/WebControls/TextBox.css" rel="stylesheet" />
     
     <!-- SweetAlert CSS -->
-    <link href="../Css/SweetAlert/sweetalert.css?vrs=2" rel="stylesheet" />
+    <link href="../Css/SweetAlert/sweetalert.css?vrs=5" rel="stylesheet" />
 	<link href="../Css/SweetAlert/sweetalert2.min.css" rel="stylesheet" /> 
 
     <asp:ContentPlaceHolder id="cphHeder" runat="server">
@@ -53,7 +53,7 @@
                 EnableScriptGlobalization="true" EnableScriptLocalization="true">
                 <Scripts>
                     <asp:ScriptReference Path="~/Js/jquery-1.11.3.min.js" />
-                    <asp:ScriptReference Path="~/Js/Library.js?vrs=3" />
+                    <asp:ScriptReference Path="~/Js/Library.js?vrs=4" />
                     <asp:ScriptReference Path="~/Css/AjaxProgress/jsUpdateProgress.js" />
                     <asp:ScriptReference Path="~/Css/UI/WebControls/calendar/PopCalendarFunctionsAjaxNet.js" />
 					<asp:ScriptReference Path="~/Css/SweetAlert/sweetalert2.min.js" />
@@ -140,14 +140,6 @@
                         </span>
                     </a>
                 </div>
-
-                <!--Incio Tiempo Carga -->
-                <%--<div class="tiempoCarga">
-                    <asp:HiddenField ID="hdfTiempoCargaInicial" runat="server" />
-                    <asp:HiddenField ID="hdfTiempoCargaFinal" runat="server" />
-                    <span>Tiempo de Carga: <label id="lblMinutos">0</label> Minutos <label id="lblSegundos">0</label> Segundos </span>
-                </div>--%>
-                <!--Fin Tiempo Carga -->
 
                 <ul class="list-unstyled topnav-menu topnav-menu-left mb-0">
                     <li>

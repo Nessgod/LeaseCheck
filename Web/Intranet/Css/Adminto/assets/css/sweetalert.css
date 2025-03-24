@@ -404,9 +404,9 @@
     }
 }
 
-.ButtonSweetAlert {
+.ButtonSweetOk {
     border: none !important;
-    padding: 10px 12px !important;
+    padding: 10px 30px !important;
     background: #10c469 !important;
     color: white !important;
     text-transform: uppercase;
@@ -416,4 +416,39 @@
     font-weight: bold;
     margin-top: 15px;
     margin-right: 10px;
+    width: fit-content;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.15) !important;
 }
+
+.ButtonSweetError {
+    border: none !important;
+    padding: 10px 30px !important;
+    background: #d90429 !important;
+    color: white !important;
+    text-transform: uppercase;
+    font-family: arial;
+    font-size: 12px;
+    border-radius: 3px;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-right: 10px;
+    width: fit-content;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.15) !important;
+}
+
+.ButtonSweetAlerta {
+    border: none !important;
+    padding: 10px 30px !important;
+    background: #ffc300 !important;
+    color: white !important;
+    text-transform: uppercase;
+    font-family: arial;
+    font-size: 12px;
+    border-radius: 3px;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-right: 10px;
+    width: fit-content;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.15) !important;
+}
+

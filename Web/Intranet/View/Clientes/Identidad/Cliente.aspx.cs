@@ -95,21 +95,6 @@ public partial class View_Clientes_Identidad_Cliente : System.Web.UI.Page
             }
         }
 
-        //txtNombre.Enabled = false;
-        //txtGiro.Enabled = false;
-        //txtRut.Enabled = false;
-        //txtDv.Enabled = false;
-        //txtAlias.Enabled = false;
-        //cboPais.Enabled = false;
-        //cboComuna.Enabled = false;
-        //txtDireccion.Enabled = false;
-        //txtEmail.Enabled = false;
-        //txtTelefono.Enabled = false;
-        //txtContactoNombre.Enabled = false;
-        //txtContactoEmail.Enabled = false;
-        //txtContactoTelefono.Enabled = false;
-        //chkDemo.Enabled = false;
-
         txtNombre.ReadOnly = true;
         txtGiro.ReadOnly = true;
         txtRut.ReadOnly = true;

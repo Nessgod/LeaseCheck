@@ -540,6 +540,22 @@
     }
 }
 
+.ButtonSweetAlert {
+    border: 2px solid #0a4d71 !important;
+    border-radius: .25em;
+    background-color: #0a4d71 !important;
+    color: white;
+    width: 140px;
+    height: fit-content;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    font-family: arial !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.15);
+    padding: 4px;
+}
+
+
 .ButtonSweetOk {
     border: none !important;
     padding: 10px 30px !important;

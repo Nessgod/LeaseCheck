@@ -442,26 +442,29 @@ function soloLetras(e) {
 
 //***Inicio SweetAlert******
 function AlertSweet(titulo, mensaje, tipo) {
-
     $("#myAlertSweet").remove();
 
     var icono = '';
+    var botonClase = '';
 
     switch (tipo) {
         case "error":
             icono = '<div class="sa"><div class="sa-error"><div class="sa-error-x"><div class="sa-error-left"></div><div class="sa-error-right"></div></div><div class="sa-error-placeholder"></div><div class="sa-error-fix"></div></div></div>';
+            botonClase = 'ButtonSweetError';
             break;
         case "ok":
             icono = '<div class="sa"><div class="sa-success"><div class="sa-success-tip"></div><div class="sa-success-long"></div><div class="sa-success-placeholder"></div><div class="sa-success-fix"></div></div></div>';
+            botonClase = 'ButtonSweetOk';
             break;
         case "alerta":
             icono = '<div class="sa"><div class="sa-warning"><div class="sa-warning-body"></div><div class="sa-warning-dot"></div></div></div>';
+            botonClase = 'ButtonSweetAlerta';
             break;
     }
 
     var modal = '';
 
-    modal += '<div class="modal fade" id="myAlertSweet" role ="dialog" data-backdrop="static" data-keyboard="false">';
+    modal += '<div class="modal fade" id="myAlertSweet" role="dialog" data-backdrop="static" data-keyboard="false">';
     modal += '   <div class="modal-dialog">';
     modal += '       <div class="modal-content">';
     modal += '           <div class="modal-header">';
@@ -477,15 +480,14 @@ function AlertSweet(titulo, mensaje, tipo) {
     modal += '               </div>';
     modal += '           </div>';
     modal += '           <div class="modal-footer">';
-    modal += '               <button type="button" class="ButtonSweetAlert" onclick="AlertSweetCloseWindows()">Aceptar</button>';
+    modal += '               <button type="button" class="' + botonClase + '" onclick="AlertSweetCloseWindows()">Aceptar</button>';
     modal += '           </div>';
-    modal += '       </div>'
+    modal += '       </div>';
     modal += '   </div>';
     modal += '</div>';
 
     $("body").append(modal);
     $("#myAlertSweet").modal();
-
 }
 
 function AlertSweetCloseWindows() {

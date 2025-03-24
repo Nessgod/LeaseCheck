@@ -1,15 +1,13 @@
-﻿using LeaseCheck.Clientes.Model;
-using LeaseCheck.Controller;
+﻿using LeaseCheck.Controller;
 using LeaseCheck.Model;
-using LeaseCheck.Root.Controller;
 using LeaseCheck.Root.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using Library;
+
 using Telerik.Web.UI;
+using LeaseCheck.Clientes.Model;
+using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 public partial class View_Root_Mantenedores_Cliente_ClienteInstalacion : System.Web.UI.Page
 {
@@ -19,11 +17,12 @@ public partial class View_Root_Mantenedores_Cliente_ClienteInstalacion : System.
         set { ViewState.Add("Id", value); }
     }
 
-    protected string tipo_dato
+    public int IdClienteInstalacion
     {
-        get { return Convert.ToString(ViewState["tipo_dato"]); }
-        set { ViewState.Add("tipo_dato", value); }
+        get { return Convert.ToInt32(ViewState["IdClienteInstalacion"]); }
+        set { ViewState.Add("IdClienteInstalacion", value); }
     }
+
 
     protected int Cliente
     {
@@ -59,12 +58,12 @@ public partial class View_Root_Mantenedores_Cliente_ClienteInstalacion : System.
                         Cliente = Int32.Parse(array[1].ToString());
                         break;
 
-                    case "tipo_dato":
-                        tipo_dato = array[1].ToString();
+                    case "IdClienteInstalacion":
+                        IdClienteInstalacion = Int32.Parse(array[1].ToString());
                         break;
                 }
             }
-            
+            ConfigurarGrid();
             
         }
     }
@@ -73,18 +72,13 @@ public partial class View_Root_Mantenedores_Cliente_ClienteInstalacion : System.
     {
         if (!IsPostBack)
             CargaDatos();
-
+      
         if (Id == 0)
-        {
             lblTitulo.Text = "Identidad de la instalación";
 
+        CargaDatos();
+        CargarGridUsuarios();
 
-        }
-        else
-        {
-
-        }
-        
     }
 
     public void LoadControls(object sender, System.EventArgs e)
@@ -128,6 +122,13 @@ public partial class View_Root_Mantenedores_Cliente_ClienteInstalacion : System.
                 rdbNo.Checked = false;
                 rdbSi.Checked = true;
             }
+            CargarGridUsuarios();
+            pnlGrillUsuarios.Visible = true;
+        }
+        else
+        {
+            pnlGrillUsuarios.Visible = false;
+            CargarGridVacia();
         }
     }
 
@@ -155,19 +156,122 @@ public partial class View_Root_Mantenedores_Cliente_ClienteInstalacion : System.
                 item.cin_habilitado = false;
 
             if (Id > 0)
+            {
                 respuesta = clienteInstalacionController.UpdateClienteInstalacion(item);
+                pnlGrillUsuarios.Visible = true;
+                CargarGridUsuarios();
+                Tools.tools.ClientAlert(respuesta.detalle, "ok");
+            }
             else
                 respuesta = clienteInstalacionController.InsertClienteInstalacion(item);
-
-            if (!respuesta.error)
-                Tools.tools.ClientAlert(respuesta.detalle, "ok", true);
-            else
-                Tools.tools.ClientAlert(respuesta.detalle, "alerta");
+                Tools.tools.ClientAlert(respuesta.detalle, "ok");
+                IdClienteInstalacion = respuesta.codigo;
+                pnlGrillUsuarios.Visible = true;
+                CargarGridVacia();
         }
         catch (Exception ex)
         {
             Tools.tools.ClientAlert(ex.Message, "error");
         }
     }
+
+    protected void ConfigurarGrid()
+    {
+        GridUsuarios.Columns.Clear();
+        GridUsuarios.AddSelectColumn();
+        GridUsuarios.AddColumn("CIU_ID", "", Width: "5%", Align: HorizontalAlign.Left);
+        GridUsuarios.AddColumn("CIU_ID", "ID", Width: "5%", Align: HorizontalAlign.Left);
+        GridUsuarios.AddColumn("NOMBRE_COMPLETO", "NOMBRE", Align: HorizontalAlign.Left);
+        GridUsuarios.AddColumn("USU_CORREO", "CORREO", Align: HorizontalAlign.Left);
+        GridUsuarios.AddCheckboxColumn("CIU_RESPONSABLE", "RESPONSABLE");
+        GridUsuarios.AddCheckboxColumn("CIU_HABILITADO", "HABILITADO");
+
+        Tools.tools.RegisterPostBackScript(GridUsuarios);
+    }
+    protected void CargarGridVacia()
+    {
+        List<ClienteInstalacionUsuario> items = new List<ClienteInstalacionUsuario>();
+
+        GridUsuarios.DataSource = items;
+        GridUsuarios.DataBind();
+    }
+
+    protected void CargarGridUsuarios()
+    {
+        ClienteInstalacionUsuario item = new ClienteInstalacionUsuario();
+        ClienteInstalacionusuarioController controller = new ClienteInstalacionusuarioController();
+        item.ciu_instalacion = IdClienteInstalacion;
+
+        GridUsuarios.DataSource = controller.GetClienteInstalacionUsuarios(item);
+        GridUsuarios.DataBind();
+    }
+
+    protected void GridUsuarios_ItemDataBound(object sender, GridItemEventArgs e)
+    {
+        if (e.Item.ItemType == GridItemType.AlternatingItem | e.Item.ItemType == GridItemType.Item)
+        {
+            if (((e.Item) is GridDataItem))
+            {
+                GridDataItem item = e.Item as GridDataItem;
+                string id = item.GetDataKeyValue("ciu_id").ToString();
+
+                string query = Server.UrlEncode(Tools.Crypto.Encrypt("Id=" + id + "&IdClienteInstalacion=" + IdClienteInstalacion));
+
+                HyperLink Editar = new HyperLink();
+                Editar.ID = "lnkEditar" + id;
+                //Editar.Text = "&nbsp";
+                Editar.CssClass = "icono_Editar";
+                Editar.NavigateUrl = "javascript:void(0)";
+                Editar.Attributes.Add("onclick", "abrirAsociarUsuario('" + query + "')");
+
+                GridDataItem DataItem = e.Item as GridDataItem;
+                TableCell ciu_id = DataItem["ciu_id"];
+
+                ciu_id.Controls.Add(Editar);
+            }
+        }
+    }
+
+    protected void lnkAñadirUsuario_Click(object sender, EventArgs e)
+    {
+        string query = Server.UrlEncode(Tools.Crypto.Encrypt("IdCliente=" + Cliente + "&IdClienteInstalacion=" + IdClienteInstalacion));
+        Tools.tools.ClientExecute("abrirAsociarUsuario('" + query + "')");
+    }
+
+    protected void lnkEliminarUsuario_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (GridUsuarios.SelectedIndexes.Count == 0)
+            {
+                Tools.tools.ClientAlert("Debe seleccionar al menos un registro.");
+            }
+            else
+            {
+                Respuesta respuesta = new Respuesta();
+                ClienteInstalacionUsuario clienteInstalacionUsuario = new ClienteInstalacionUsuario();
+                ClienteInstalacionusuarioController clienteInstalacionUsuarioController = new ClienteInstalacionusuarioController();
+
+                foreach (string item in GridUsuarios.SelectedIndexes)
+                {
+                    Telerik.Web.UI.DataKey value = GridUsuarios.MasterTableView.DataKeyValues[Int32.Parse(item)];
+                    int id = Int32.Parse(value["ciu_id"].ToString());
+
+                    clienteInstalacionUsuario.ciu_id = id;
+
+                    respuesta = clienteInstalacionUsuarioController.DeleteClienteInstalacionUsuario(clienteInstalacionUsuario);
+                }
+                if (!respuesta.error)
+                    Tools.tools.ClientAlert(respuesta.detalle, "ok", false);
+                else
+                    Tools.tools.ClientAlert(respuesta.detalle, "alerta");
+            }
+        }
+        catch (Exception ex)
+        {
+            Tools.tools.ClientAlert(ex.Message);
+        }
+    }
+
 
 }

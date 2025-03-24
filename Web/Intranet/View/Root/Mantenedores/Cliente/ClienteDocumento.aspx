@@ -16,35 +16,6 @@
             if (window.BrowserWindow.refresh) window.BrowserWindow.refresh();
             window.close();
         }
-
-        <%--function Panel() {
-            var rdoPlan = $('#<%=rdoPlan.ClientID %>');
-             var rdoBolsa = $('#<%=rdoBolsa.ClientID %>');
-             var rdoProducto = $('#<%=rdoProducto.ClientID %>');
-             var trPlan = $('#<%=pnlPlan.ClientID %>');
-             var trBolsa = $('#<%=pnlBolsas.ClientID %>');
-             var trProducto = $('#<%=pnlProductos.ClientID %>');
-             var HDFopcion = $('#<%=HDFopcion.ClientID %>');
-
-            if (rdoPlan.is(':checked')) {
-                trBolsa.hide();
-                trProducto.hide();
-                trPlan.show();
-                HDFopcion.val('1');
-            }
-            else if (rdoBolsa.is(':checked')) {
-                trPlan.hide();
-                trProducto.hide();
-                trBolsa.show();
-                HDFopcion.val('2');
-            }
-            else {
-                trPlan.hide();
-                trBolsa.hide();
-                trProducto.show();
-                HDFopcion.val('3');
-            }
-        }--%>
     </script>
 </asp:Content>
 

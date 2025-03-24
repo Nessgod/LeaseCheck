@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Master/Simple.master" AutoEventWireup="true" CodeFile="ClienteInstalacion.aspx.cs" Inherits="View_Root_Mantenedores_Cliente_ClienteInstalacion" %>
 
-<asp:Content ID="ContenHeder" ContentPlaceHolderID="chpScript" runat="server">
+
+<asp:Content ID="Content1" ContentPlaceHolderID="chpScript" runat="server">
     <script type="text/javascript" language="javascript">
         function getRadWindow() {
             var oWindow = null;
@@ -17,14 +18,27 @@
             window.close();
         }
 
+        function abrirAsociarUsuario(query) {
+            var oWin = $find("<%=rwiDetalle.ClientID %>");
+            console.log(oWin);
+              oWin.setUrl('<%=ResolveUrl("~/View/Root/Mantenedores/Cliente/ClienteInstalacionUsuarioAsociar.aspx") %>?query=' + query);
+              oWin.show();
+
+          }
+
+     <%--   function refresh() {
+            __doPostBack("<%=GridUsuarios.ClientID %>", '')
+        }--%>
+
 
     </script>
 </asp:Content>
 
-<asp:Content ID="ContentBody" ContentPlaceHolderID="cphBody" runat="Server">
-    <rad:RadWindow2 ID="rwiDetalle" runat="server" />
+<asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="Server">
+    <rad:RadWindow2 ID="rwiDetalle" runat="server" Title="Asociar Usuarios" Width="1000" Height="500 " />
 
     <asp:UpdatePanel runat="server" ID="udPanel" UpdateMode="Conditional">
+
         <ContentTemplate>
             <div class="SubTitulos">
                 <asp:Label ID="lblTitulo" runat="server"></asp:Label>
@@ -103,14 +117,32 @@
                     </div>
                 </div>
 
+                <asp:Panel ID="pnlGrillUsuarios" runat="server" Visible="true">
+                    <div class="SubTitulos col-lg-12 col-md-12 col-xs-12">
+                        Usuarios Asociados
+                    </div>
+                    <rad:RadGrid2 ID="GridUsuarios" runat="server" OnItemDataBound="GridUsuarios_ItemDataBound">
+                        <MasterTableView CommandItemDisplay="Top" DataKeyNames="ciu_id">
+                            <CommandItemTemplate>
+                                <div>
+                                    <asp:LinkButton ID="lnkAñadirUsuario" runat="server" Text="Añadir" CssClass="icono_guardar" OnClick="lnkAñadirUsuario_Click" />
+                                    <asp:LinkButton ID="lnkEliminarUsuario" runat="server" Text="Quitar" CssClass="icono_eliminar" OnClick="lnkEliminarUsuario_Click"
+                                        OnClientClick="return ConfirSweetAlert(this, '', '¿Está seguro que desea eliminar los registros seleccionados?');" />
+                                </div>
+                            </CommandItemTemplate>
+                        </MasterTableView>
+                        <ClientSettings>
+                            <Scrolling AllowScroll="True" ScrollHeight="320" />
+                        </ClientSettings>
+                    </rad:RadGrid2>
+                </asp:Panel>
+
+
                 <div class="col-lg-12 col-md-12 col-xs-12 form-col-center">
                     <WebControls:PushButton ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" ValidationGroup="Instalacion" />
                 </div>
 
-
-
             </asp:Panel>
-
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
