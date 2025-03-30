@@ -8,7 +8,6 @@ public partial class View_Root_Mantenedores_Perfiles_Perfil : System.Web.UI.Page
 {
     PerfilesController perfilesController = new PerfilesController();
     Perfiles perfil = new Perfiles();
-    EmpresaController empresaController = new EmpresaController();
 
     TipoPerfil tipoPerfil = new TipoPerfil();
     TipoPerfilController tipoPerfilController = new TipoPerfilController();

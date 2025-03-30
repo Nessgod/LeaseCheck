@@ -1,5 +1,10 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Master/Simple.master" AutoEventWireup="true" CodeFile="ClienteInstalacion.aspx.cs" Inherits="View_Root_Mantenedores_Cliente_ClienteInstalacion" %>
 
+<%@ Register Src="~/View/Comun/Controls/Cliente/IdentidadInstalacion.ascx" TagPrefix="wuc" TagName="IdentidadInstalacion" %>
+<%@ Register Src="~/View/Comun/Controls/Cliente/UsuarioInstalacion.ascx" TagPrefix="wuc" TagName="UsuarioInstalacion" %>
+
+
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="chpScript" runat="server">
     <script type="text/javascript" language="javascript">
@@ -18,131 +23,31 @@
             window.close();
         }
 
-        function abrirAsociarUsuario(query) {
-            var oWin = $find("<%=rwiDetalle.ClientID %>");
-            console.log(oWin);
-              oWin.setUrl('<%=ResolveUrl("~/View/Root/Mantenedores/Cliente/ClienteInstalacionUsuarioAsociar.aspx") %>?query=' + query);
-              oWin.show();
-
-          }
-
-     <%--   function refresh() {
-            __doPostBack("<%=GridUsuarios.ClientID %>", '')
-        }--%>
-
-
     </script>
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="Server">
-    <rad:RadWindow2 ID="rwiDetalle" runat="server" Title="Asociar Usuarios" Width="1000" Height="500 " />
-
+<asp:Content ID="ContenHead" ContentPlaceHolderID="cphBody" runat="server">
     <asp:UpdatePanel runat="server" ID="udPanel" UpdateMode="Conditional">
-
         <ContentTemplate>
-            <div class="SubTitulos">
-                <asp:Label ID="lblTitulo" runat="server"></asp:Label>
+            <rad:RadTabStrip2 ID="ragTab" runat="server" MultiPageID="MultiPage" Skin="Bootstrap" RenderMode="Lightweight" SelectedIndex="0">
+                <Tabs>
+                    <rad:RadTab Text="Identidad" runat="server" PageViewID="rtvIdentidad" />
+                    <rad:RadTab Text="Usuario Instalación" runat="server" PageViewID="rtvUsuarioInstalacion" />
+    
+                </Tabs>
+            </rad:RadTabStrip2>
+            <rad:RadMultiPage ID="MultiPage" runat="server" SelectedIndex="0">
+                <rad:RadPageView ID="rtvIdentidad" runat="server">
+                    <wuc:IdentidadInstalacion runat="server" id="wucIdentidadInstalacion" />
+                </rad:RadPageView>
+                <rad:RadPageView ID="rtvUsuarioInstalacion" runat="server">
+                    <wuc:UsuarioInstalacion runat="server" ID="wucUsuarioInstalacion" />
+                </rad:RadPageView>
+            </rad:RadMultiPage>
+            <div class="col-lg-12 col-md-12 col-xs-12 form-col-center" style="margin-top: 10px;">
+                <WebControls:PushButton ID="btnCerrar" runat="server" Text="Cerrar" CssClass="ButtonCerrar" Width="102px"
+                    OnClientClick="closeWindow();" />
             </div>
-
-            </div>
-            <asp:Panel runat="server" ID="pnlInstalacion">
-                <div class="row col-lg-12 col-md-12 col-xs-12">
-                    <div class="col-lg-2 col-md-2 col-xs-12">
-                        <label>ID</label>
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-xs-12">
-                        <asp:Label ID="lblId" runat="server"></asp:Label>
-                    </div>
-                </div>
-                <div class="row col-lg-12 col-md-12 col-xs-12">
-                    <div class="col-lg-2 col-md-2 col-xs-12">
-                        <label>Nombre(*):</label>
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-xs-12">
-                        <WebControls:TextBox2 ID="txtNombre" runat="server" MaxLength="200" />
-                        <asp:CustomValidator ID="CustomValidator3" runat="server"
-                            ControlToValidate="txtNombre"
-                            ValidateEmptyText="true"
-                            ClientValidationFunction="validaControl"
-                            ValidationGroup="Instalacion" />
-                    </div>
-                </div>
-                <div class="row col-lg-12 col-md-12 col-xs-12">
-                    <div class="col-lg-2 col-md-2 col-xs-12">
-                        <label>Descripción(*):</label>
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-xs-12">
-                        <WebControls:TextBox2 ID="txtDescripcion" runat="server" MaxLength="2000" />
-                        <asp:CustomValidator ID="CustomValidator2" runat="server"
-                            ControlToValidate="txtDescripcion"
-                            ValidateEmptyText="true"
-                            ClientValidationFunction="validaControl"
-                            ValidationGroup="Instalacion" />
-                    </div>
-                </div>
-                <div class="row col-lg-12 col-md-12 col-xs-12">
-                    <div class="col-lg-2 col-md-2 col-xs-12">
-                        <label>Ubicacion(*):</label>
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-xs-12">
-                        <WebControls:TextBox2 ID="txtDireccion" runat="server" MaxLength="200" />
-                        <asp:CustomValidator ID="CustomValidator1" runat="server"
-                            ControlToValidate="txtDireccion"
-                            ValidateEmptyText="true"
-                            ClientValidationFunction="validaControl"
-                            ValidationGroup="Instalacion" />
-                    </div>
-                </div>
-                <div class="row col-lg-12 col-md-12 col-xs-12">
-                    <div class="col-lg-2 col-md-2 col-xs-12">
-                        <label>Telefono(*):</label>
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-xs-12">
-                        <WebControls:TextBox2 ID="txtTelefono" runat="server" MaxLength="2000" />
-                        <asp:CustomValidator ID="CustomValidator4" runat="server"
-                            ControlToValidate="txtTelefono"
-                            ValidateEmptyText="true"
-                            ClientValidationFunction="validaControl"
-                            ValidationGroup="Instalacion" />
-                    </div>
-                </div>
-
-                <div class="row col-lg-12 col-md-12 col-xs-12">
-                    <div class="col-lg-2 col-md-2 col-xs-12">
-                        <label>Habilitado(*):</label>
-                    </div>
-                    <div class="col-lg-10 col-md-10 col-xs-12">
-                        <asp:RadioButton ID="rdbSi" runat="server" Text="SI" GroupName="Habilitado" Checked="true" ValidationGroup="Instalacion" />
-                        <asp:RadioButton ID="rdbNo" runat="server" Text="NO" GroupName="Habilitado" ValidationGroup="Instalacion" />
-                    </div>
-                </div>
-
-                <asp:Panel ID="pnlGrillUsuarios" runat="server" Visible="true">
-                    <div class="SubTitulos col-lg-12 col-md-12 col-xs-12">
-                        Usuarios Asociados
-                    </div>
-                    <rad:RadGrid2 ID="GridUsuarios" runat="server" OnItemDataBound="GridUsuarios_ItemDataBound">
-                        <MasterTableView CommandItemDisplay="Top" DataKeyNames="ciu_id">
-                            <CommandItemTemplate>
-                                <div>
-                                    <asp:LinkButton ID="lnkAñadirUsuario" runat="server" Text="Añadir" CssClass="icono_guardar" OnClick="lnkAñadirUsuario_Click" />
-                                    <asp:LinkButton ID="lnkEliminarUsuario" runat="server" Text="Quitar" CssClass="icono_eliminar" OnClick="lnkEliminarUsuario_Click"
-                                        OnClientClick="return ConfirSweetAlert(this, '', '¿Está seguro que desea eliminar los registros seleccionados?');" />
-                                </div>
-                            </CommandItemTemplate>
-                        </MasterTableView>
-                        <ClientSettings>
-                            <Scrolling AllowScroll="True" ScrollHeight="320" />
-                        </ClientSettings>
-                    </rad:RadGrid2>
-                </asp:Panel>
-
-
-                <div class="col-lg-12 col-md-12 col-xs-12 form-col-center">
-                    <WebControls:PushButton ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" ValidationGroup="Instalacion" />
-                </div>
-
-            </asp:Panel>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

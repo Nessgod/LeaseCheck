@@ -50,12 +50,6 @@ public partial class View_Clientes_Identidad_ClientePlan : System.Web.UI.Page
                         break;
                 }
             }
-            
-            Grid.AddColumn("bolsa_nombre", "BOLSA", "", HorizontalAlign.Left);
-            Grid.AddColumn("cpb_fecha_creacion", "FECHA CONTRATACION", "", HorizontalAlign.Left);
-            Grid.AddColumn("bolsa_cantidad", "CANTIDAD", "", HorizontalAlign.Left);
-            Grid.AddColumn("cpb_fecha_hasta", "MAX DURACION", "", HorizontalAlign.Left);
-            Grid.AddColumn("bolsa_valor", "VALOR", "", HorizontalAlign.Left, DataFormat: "{0:N0}");
         }
     }
 
@@ -63,8 +57,6 @@ public partial class View_Clientes_Identidad_ClientePlan : System.Web.UI.Page
     {
         if (!IsPostBack)
             CargaDatos();
-
-        CargaGrid();
     }
 
     public void LoadControls(object sender, System.EventArgs e)
@@ -106,9 +98,7 @@ public partial class View_Clientes_Identidad_ClientePlan : System.Web.UI.Page
       
 
             TxtValorPlan.Value = item.clp_valor_plan;
-   
-
-            pnlBolsa.Visible = true;
+  
         }
 
         txtDesde.ReadOnly = true;
@@ -123,36 +113,14 @@ public partial class View_Clientes_Identidad_ClientePlan : System.Web.UI.Page
 
     }
 
-    protected void CargaGrid()
-    {
-        if (Id > 0)
-        {
-            ClientePlanBolsa item = new ClientePlanBolsa();
-           
-
-            var listado = controller.GetPlanBolsas(item);
-            hdfTotalBalsa.Value = listado.Select(x => x.bolsa_valor).Sum().ToString();
-            lblTotalBolsa.Text = "$" + Tools.Formato.Miles(listado.Select(x => x.bolsa_valor).Sum().ToString());
-
-            Grid.DataSource = listado;
-            Grid.DataBind();
-
-            calculo();
-        }
-        else
-            hdfTotalBalsa.Value = "0";
-    }
 
     protected void calculo()
     {
         int valor_plan = 0;
-        int total_bolsa = 0;
+
 
         valor_plan = Convert.ToInt32(TxtValorPlan.Value);
-
-
-        total_bolsa = int.Parse(hdfTotalBalsa.Value);
-        lblTotal.Text = "$" + Tools.Formato.Miles((valor_plan + total_bolsa).ToString());
-        hdfTotal.Value = (valor_plan + total_bolsa).ToString();
+        lblTotal.Text = "$" + Tools.Formato.Miles((valor_plan).ToString());
+        hdfTotal.Value = (valor_plan).ToString();
     }
 }

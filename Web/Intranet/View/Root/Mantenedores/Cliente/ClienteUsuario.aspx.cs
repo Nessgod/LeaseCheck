@@ -96,19 +96,10 @@ public partial class View_Root_Mantenedores_Cliente_ClienteUsuario : System.Web.
     {
         if (Id > 0)
         {
-            //ragTab.Tabs[1].Visible = true;
-            //ragTab.Tabs[2].Visible = true;
-            //ragTab.Tabs[3].Visible = true;
-            //ragTab.Tabs[4].Visible = true;
-            //pnlNombre.Visible = true;
         }
         else
         {
-            //ragTab.Tabs[1].Visible = false;
-            //ragTab.Tabs[2].Visible = false;
-            //ragTab.Tabs[3].Visible = false;
-            //ragTab.Tabs[4].Visible = false;
-            //pnlNombre.Visible = false;
+            
             lblTituloUsuario.Text = "Nuevo Usuario";
         }
     }

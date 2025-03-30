@@ -1,7 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Master/Simple.master" AutoEventWireup="true" CodeFile="Instalacion.aspx.cs" Inherits="View_Clientes_Instalacion_Instalacion" %>
-<%@ Register Src="~/View/Clientes/Controls/Instalaciones/Identidad.ascx" TagPrefix="wuc" TagName="Identidad" %>
-
-
+﻿<%@ Page Language="C#" MasterPageFile="~/Master/Default.master" AutoEventWireup="true" CodeFile="Instalacion.aspx.cs" Inherits="View_Clientes_Instalacion_Instalacion" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="chpScript" runat="server">
     <script type="text/javascript">
@@ -25,21 +22,24 @@
 <asp:Content ID="ContenHead" ContentPlaceHolderID="cphBody" runat="server">
     <asp:UpdatePanel runat="server" ID="udPanel" UpdateMode="Conditional">
         <ContentTemplate>
-            <rad:RadTabStrip2 ID="ragTab" runat="server" MultiPageID="MultiPage" Skin="Bootstrap" RenderMode="Lightweight" SelectedIndex="0">
-                <Tabs>
-                    <rad:RadTab Text="Identidad" runat="server" PageViewID="rtvIdentidad" />
+              <asp:Panel ID="pnlInstalaciones" runat="server">
+           </br>
+            <div class="SubTitulos">Instalaciones</div>
+           <rad:RadGrid2 ID="GridInstalaciones" runat="server" OnItemDataBound="gridInstalaciones_ItemDataBound" AllowPaging="false">
+               <MasterTableView CommandItemDisplay="Top" DataKeyNames="cin_id">
+                   <CommandItemTemplate>
+                       <div>
+                           <asp:LinkButton ID="lnkNuevaInstalacion" runat="server" Text="Nuevo" CssClass="icono_guardar" OnClick="lnkNuevaInstalacion_Click" />
+                           <asp:LinkButton ID="lnkEliminarInstalacion" runat="server" Text="Eliminar" CssClass="icono_eliminar" OnClick="lnkEliminarInstalacion_Click"
+                               OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea eliminar los registros seleccionados?');" />
 
-                </Tabs>
-            </rad:RadTabStrip2>
-            <rad:RadMultiPage ID="MultiPage" runat="server" SelectedIndex="0">
-                <rad:RadPageView ID="rtvIdentidad" runat="server">
-                    <wuc:Identidad runat="server" ID="wucIdentidad" />
-                </rad:RadPageView>
-            </rad:RadMultiPage>
-            <div class="col-lg-12 col-md-12 col-xs-12 form-col-center" style="margin-top: 10px;">
-                <WebControls:PushButton ID="btnCerrar" runat="server" Text="Cerrar" CssClass="ButtonCerrar" Width="102px"
-                    OnClientClick="closeWindow();" />
-            </div>
+                       </div>
+                   </CommandItemTemplate>
+               </MasterTableView>
+               <ClientSettings>
+               </ClientSettings>
+           </rad:RadGrid2>
+       </asp:Panel>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

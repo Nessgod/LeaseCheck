@@ -1,9 +1,12 @@
-﻿using System;
+﻿using LeaseCheck.Controller;
+using LeaseCheck.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Telerik.Web.UI;
 
 public partial class View_Clientes_Instalacion_Instalacion : System.Web.UI.Page
 {
@@ -19,10 +22,10 @@ public partial class View_Clientes_Instalacion_Instalacion : System.Web.UI.Page
         set { ViewState.Add("IdClienteInstalacion", value); }
     }
 
-    public int IdCliente
+    public int Cliente
     {
-        get { return Convert.ToInt32(ViewState["IdCliente"]); }
-        set { ViewState.Add("IdCliente", value); }
+        get { return Convert.ToInt32(ViewState["Cliente"]); }
+        set { ViewState.Add("Cliente", value); }
     }
 
  
@@ -30,70 +33,70 @@ public partial class View_Clientes_Instalacion_Instalacion : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            string[] query = Tools.Crypto.Decrypt(Server.UrlDecode(Request.QueryString["query"].ToString())).Split('&');
-
-            foreach (string arr in query)
-            {
-                string[] array = arr.ToString().Split('=');
-                switch (array[0].ToString())
-                {
-                    case "IdCliente":
-                        IdCliente = Int32.Parse(array[1].ToString());
-                        break;
-
-                    case "IdClienteInstalacion":
-                        IdClienteInstalacion = Int32.Parse(array[1].ToString());
-                        break;
-
-                    case "ReadOnly":
-                        ReadOnly = bool.Parse(array[1].ToString());
-                        break;
-
-                }
-            }
+           
+            
         }
+
+        GridInstalaciones.AddSelectColumn();
+        GridInstalaciones.AddColumn("cin_id", "", "2%", Align: HorizontalAlign.Center);
+        GridInstalaciones.AddColumn("cin_id", "ID", "2%", Align: HorizontalAlign.Center);
+        GridInstalaciones.AddColumn("cin_nombre", "NOMBRE", "", HorizontalAlign.Left);
+        GridInstalaciones.AddColumn("cin_direccion", "DIRECCIÓN", "", HorizontalAlign.Left);
+        GridInstalaciones.AddCheckboxColumn("cin_habilitado", "HABILITADO", "10%");
     }
 
     protected void Page_PreRender(object sender, EventArgs e)
     {
-        cargar();
-        bloqueo();
+        CargaGridInstalaciones();
     }
-    
-    protected void cargar()
+
+    protected void CargaGridInstalaciones()
     {
-        if (IdClienteInstalacion == 0)
-        {
-            IdClienteInstalacion = wucIdentidad.IdClienteInstalacion;
-        }
-        
-        wucIdentidad.IdCliente = IdCliente;
-        wucIdentidad.IdClienteInstalacion = IdClienteInstalacion;
-        wucIdentidad.ReadOnly = ReadOnly;
 
-
-        //wucResponsable.IdCliente = IdCliente;
-        //wucResponsable.TipoPerfil = (int)SitioBase.SitioBase.TipoPefil.Sistema;
-
-        //string Perfiles = SitioBase.SitioBase.Parametros("Asignar_Perfiles");
-        //wucResponsable.Perfiles = string.Join(",", Perfiles);
-        //wucResponsable.IdClienteInstalacion = IdClienteInstalacion;
-        //wucResponsable.ReadOnly = ReadOnly;
-        //wucResponsable.Asociar = true;
-    }
-    
-    protected void bloqueo()
-    {
-        if (IdClienteInstalacion == 0)
+        if (bool.Parse(LeaseCheck.Session.Usuario_Es_Cliente()))
         {
-            ragTab.Tabs[1].Visible = false;
-            
-        }
-        else
-        {
-            ragTab.Tabs[1].Visible = true;
           
+            ClienteInstalacion item = new ClienteInstalacion();
+            ClienteInstalacionController controllerInstalacion = new ClienteInstalacionController();
+
+            GridInstalaciones.DataSource = controllerInstalacion.GetClienteInstalaciones(item);
+            GridInstalaciones.DataBind();
         }
+
+    }
+
+
+    protected void gridInstalaciones_ItemDataBound(object sender, GridItemEventArgs e)
+    {
+        if (e.Item.ItemType == GridItemType.AlternatingItem | e.Item.ItemType == GridItemType.Item)
+        {
+            if (((e.Item) is GridDataItem))
+            {
+                GridDataItem item = e.Item as GridDataItem;
+                string id = item.GetDataKeyValue("cin_id").ToString();
+                string query = Server.UrlEncode(Tools.Crypto.Encrypt("Id=" + id + "&Cliente=" + Cliente));
+
+                HyperLink Editar = new HyperLink();
+                Editar.ID = "lnk" + id;
+                Editar.CssClass = "icono_Editar";
+                Editar.NavigateUrl = "javascript:void(0)";
+                Editar.Attributes.Add("onclick", "abrirInstalacion('" + query + "')");
+
+                GridDataItem DataItem = e.Item as GridDataItem;
+                TableCell cin_id = DataItem["cin_id"];
+                cin_id.Controls.Add(Editar);
+            }
+        }
+    }
+    protected void lnkNuevaInstalacion_Click(object sender, EventArgs e)
+    {
+        string query = Server.UrlEncode(Tools.Crypto.Encrypt("Cliente=" + Cliente));
+        Tools.tools.ClientExecute("abrirInstalacion('" + query + "')");
+    }
+
+    protected void lnkEliminarInstalacion_Click(object sender, EventArgs e)
+    {
+
     }
 
 }

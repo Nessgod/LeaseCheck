@@ -30,7 +30,6 @@ public partial class View_Root_Mantenedores_Cliente_ClientePlan : System.Web.UI.
 
     private ClienteController controller = new ClienteController();
     private PlanProductoController planProductoController = new PlanProductoController();
-    private BolsaController bolsaController = new BolsaController();
     private ProductoController productoController = new ProductoController();
     
     protected void Page_Load(object sender, EventArgs e)
@@ -67,7 +66,7 @@ public partial class View_Root_Mantenedores_Cliente_ClientePlan : System.Web.UI.
             Grid.AddColumn("producto_nombre", "PRODUCTO", Align: HorizontalAlign.Left);
 
             
-            GridBolsa.AddColumn("producto_nombre", "PRODUCTO", Align: HorizontalAlign.Left);
+            
         }
     }
 
@@ -85,29 +84,25 @@ public partial class View_Root_Mantenedores_Cliente_ClientePlan : System.Web.UI.
                 if(HDFopcion.Value == "1")
                 {
                     pnlPlan.Style.Add("display", "block");
-                    pnlBolsas.Style.Add("display", "none");
-                    pnlProductos.Style.Add("display", "none");
+                 
                 }
 
                 if (HDFopcion.Value == "2")
                 {
                     pnlPlan.Style.Add("display", "none");
-                    pnlBolsas.Style.Add("display", "block");
-                    pnlProductos.Style.Add("display", "none");
+                
                 }
 
                 if (HDFopcion.Value == "3")
                 {
                     pnlPlan.Style.Add("display", "none");
-                    pnlBolsas.Style.Add("display", "none");
-                    pnlProductos.Style.Add("display", "block");
+  
                 }
             }
             else
             {
                 pnlPlan.Style.Add("display", "block");
-                pnlBolsas.Style.Add("display", "none");
-                pnlProductos.Style.Add("display", "none");
+
             }
         }
     }
@@ -131,25 +126,7 @@ public partial class View_Root_Mantenedores_Cliente_ClientePlan : System.Web.UI.
 
                         break;
 
-                    case "cboBolsas":
-                        ctrl.AppendDataBoundItems = true;
-                        ctrl.Items.Add(new RadComboBoxItem("Seleccione", ""));
-                        ctrl.DataSource = controller.GetBolsas();
-                        ctrl.DataValueField = "bls_id";
-                        ctrl.DataTextField = "bls_nombre";
-                        ctrl.DataBind();
-
-                        break;
-
-                    case "cboProducto":
-                        ctrl.AppendDataBoundItems = true;
-                        ctrl.Items.Add(new RadComboBoxItem("Seleccione", ""));
-                        ctrl.DataSource = controller.GetProductosAdicionales();
-                        ctrl.DataValueField = "pra_id";
-                        ctrl.DataTextField = "pra_nombre";
-                        ctrl.DataBind();
-
-                        break;
+      
                 }
             }
         }
@@ -160,9 +137,6 @@ public partial class View_Root_Mantenedores_Cliente_ClientePlan : System.Web.UI.
         if (Id > 0)
         {
             rdoPlan.Visible = false;
-            rdoBolsa.Visible = false;
-            rdoProducto.Visible = false;
-
             if (tipo_dato == "PLAN")
             {
                 lblTitulo.Text = "Planes";
@@ -179,70 +153,11 @@ public partial class View_Root_Mantenedores_Cliente_ClientePlan : System.Web.UI.
                 ChkAdmIlimitados.Checked = item.clp_administradores_ilimitados;
                 TxtValorPlan.Value = item.clp_valor_plan;
 
-                CargarGridPlan();
+          
                 pnlPlan.Style.Add("display", "block");
-                pnlBolsas.Style.Add("display", "none");
-                pnlProductos.Style.Add("display", "none");
             }
 
-            if (tipo_dato == "BOLSA")
-            {
-                lblTitulo.Text = "Bolsas";
-
-                ClientePlanBolsa bolsa = new ClientePlanBolsa();
-                bolsa.cpb_id = Id;
-                bolsa = controller.GetClientePlanBolsa(bolsa);
-
-                cboBolsas.SelectedValue = bolsa.cpb_id_bolsa.ToString();
-                txtDesdeBolsa.Value = bolsa.cpb_fecha_desde;
-                txtHastaBolsa.Value = bolsa.cpb_fecha_hasta;
-                txtCantidadBolsas.Value = bolsa.cpb_cantidad;
-                txtAdministradoresBolsas.Value = bolsa.cpb_administradores;
-                txtValorBolsa.Value = bolsa.cpb_valor_bolsa;
-
-                CargarGridBolsa();
-                pnlPlan.Style.Add("display", "none");
-                pnlBolsas.Style.Add("display", "block");
-                pnlProductos.Style.Add("display", "none");
-            }
-
-            if (tipo_dato == "ADICIONAL")
-            {
-                lblTitulo.Text = "Productos Adicionales";
-
-                ClienteProductoAdicional producto = new ClienteProductoAdicional();
-                producto.cpa_id = Id;
-                producto = controller.GetClienteProductoAdicional(producto);
-
-                cboProducto.SelectedValue = producto.cpa_producto_adicional.ToString();
-                txtDesdeProducto.Value = producto.cpa_fecha_desde;
-                txtHastaProducto.Value = producto.cpa_fecha_hasta;
-                txtValorProducto.Value = producto.cpa_valor_producto_adicional;
-
-                pnlPlan.Style.Add("display", "none");
-                pnlBolsas.Style.Add("display", "none");
-                pnlProductos.Style.Add("display", "block");
-            }
         }
-    }
-
-    protected void CargarGridBolsa()
-    {
-        BolsaProducto bolsaProducto = new BolsaProducto();
-        bolsaProducto.blp_bolsa = int.Parse(cboBolsas.SelectedValue);
-
-        GridBolsa.DataSource = controller.GetBolsaProductos(bolsaProducto);
-        GridBolsa.DataBind();
-    }
-
-    protected void CargarGridPlan()
-    {
-        PlanProducto planProducto = new PlanProducto();
-        planProducto.plp_tipo_plan = int.Parse(cboTipoPlan.SelectedValue);
-
-        Grid.DataSource = controller.GetPlanProductos(planProducto);
-        Grid.DataBind();
-        
     }
 
     //Guardar Plan
@@ -280,69 +195,8 @@ public partial class View_Root_Mantenedores_Cliente_ClientePlan : System.Web.UI.
         }
     }
 
-    //Guardar Bolsa
-    protected void btnGuardarBolsa_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Respuesta respuesta = new Respuesta();
+    
 
-            ClientePlanBolsa item = new ClientePlanBolsa();
-            item.cpb_id = Id;
-            item.cpb_cliente = Cliente;
-            item.cpb_fecha_desde = txtDesdeBolsa.Value.Value;
-            item.cpb_fecha_hasta = txtHastaBolsa.Value.Value;
-            item.cpb_id_bolsa = int.Parse(cboBolsas.SelectedValue);
-            item.cpb_cantidad = Convert.ToInt32(txtCantidadBolsas.Value);
-            item.cpb_administradores = Convert.ToInt32(txtAdministradoresBolsas.Value);
-            item.cpb_valor_bolsa = Convert.ToInt32(txtValorBolsa.Value);
-
-            if (Id > 0)
-                respuesta = controller.UpdateClientePlanBolsa(item);
-            else
-                respuesta = controller.InsertClientePlanBolsa(item);
-
-            if (!respuesta.error)
-                Tools.tools.ClientAlert(respuesta.detalle, "ok", true);
-            else
-                Tools.tools.ClientAlert(respuesta.detalle, "alerta");
-        }
-        catch (Exception ex)
-        {
-            Tools.tools.ClientAlert(ex.Message, "error");
-        }
-    }
-
-    protected void btnGuardarProducto_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Respuesta respuesta = new Respuesta();
-
-            ClienteProductoAdicional item = new ClienteProductoAdicional();
-            item.cpa_id = Id;
-            item.cpa_cliente = Cliente;
-            item.cpa_fecha_desde = txtDesdeProducto.Value.Value;
-            item.cpa_fecha_hasta = txtHastaProducto.Value.Value;
-            item.cpa_producto_adicional = int.Parse(cboProducto.SelectedValue);
-
-            item.cpa_valor_producto_adicional = Convert.ToInt32(txtValorProducto.Value);
-
-            if (Id > 0)
-                respuesta = controller.UpdateClienteProductoAdicional(item);
-            else
-                respuesta = controller.InsertClienteProductoAdicional(item);
-
-            if (!respuesta.error)
-                Tools.tools.ClientAlert(respuesta.detalle, "ok", true);
-            else
-                Tools.tools.ClientAlert(respuesta.detalle, "alerta");
-        }
-        catch (Exception ex)
-        {
-            Tools.tools.ClientAlert(ex.Message, "error");
-        }
-    }
 
     protected void cboTipoPlan_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
     {
@@ -356,36 +210,8 @@ public partial class View_Root_Mantenedores_Cliente_ClientePlan : System.Web.UI.
             txtCantidad.Value = plan.tpl_cantidad_informes;
             TxtCantAdministradores.Value = plan.tpl_cantidad_administradores;
             ChkAdmIlimitados.Checked = plan.tpl_administradores_ilimitados;
-            CargarGridPlan();
         }
     }
 
-    protected void cboBolsas_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-    {
-        List<Bolsa> listaBolsa = new List<Bolsa>();
-        listaBolsa = controller.GetBolsas();
 
-        if (!string.IsNullOrEmpty(cboBolsas.SelectedValue))
-        {
-            Bolsa bolsa = listaBolsa.Where(x => x.bls_id == int.Parse(cboBolsas.SelectedValue)).FirstOrDefault();
-
-            txtCantidadBolsas.Value = bolsa.bls_cantidad;
-            txtAdministradoresBolsas.Value = bolsa.bls_cantidad_administradores;
-            txtValorBolsa.Value = bolsa.bls_valor_plan;
-            CargarGridBolsa();
-        }
-    }
-
-    protected void cboProducto_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
-    {
-        List<ProductoAdicional> listaproducto = new List<ProductoAdicional>();
-        listaproducto = controller.GetProductosAdicionales();
-
-        if (!string.IsNullOrEmpty(cboProducto.SelectedValue))
-        {
-            ProductoAdicional productoAdicional = listaproducto.Where(x => x.pra_id == int.Parse(cboProducto.SelectedValue)).FirstOrDefault();
-
-            txtValorProducto.Value = productoAdicional.pra_valor_producto;
-        }
-    }
 }

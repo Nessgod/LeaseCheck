@@ -22,15 +22,13 @@
             var hdfTotal = $('#<%= hdfTotal.ClientID %>');
             var lblTotal = $('#<%= lblTotal.ClientID %>');
             var TxtValorPlan = $('#<%= TxtValorPlan.ClientID %>');
-            var hdfTotalBalsa = $('#<%= hdfTotalBalsa.ClientID %>');
-
+      
             if (TxtValorPlan.val() == '') TxtValorPlan.val(0);
 
             var plan = parseFloat(TxtValorPlan.val().split('.').join(''));
-            var bolsas = parseFloat(hdfTotalBalsa.val().split('.').join(''));
 
-            hdfTotal.val(plan + bolsas);
-            lblTotal.text('$' + formatMillones(plan + bolsas))
+            hdfTotal.val(plan);
+            lblTotal.text('$' + formatMillones(plan))
         }
 
     </script>
@@ -94,20 +92,6 @@
             <div class="row col-lg-12 col-md-12 col-xs-12 ">
             </div>
 
-            <asp:Panel ID="pnlBolsa" runat="server" Visible="false">
-                </br>
-                <div class="SubTitulos">Bolsas</div>
-                <rad:RadGrid2 ID="Grid" runat="server" OnItemDataBound="Grid_ItemDataBound" AllowPaging="false">
-                    <MasterTableView CommandItemDisplay="None" DataKeyNames="cpb_id">
-                        <CommandItemTemplate>
-                        </CommandItemTemplate>
-                    </MasterTableView>
-                </rad:RadGrid2>
-                <div style="text-align: right;" class="SubTitulos">
-                    <label>Total Bolsas:</label>
-                    <asp:Label ID="lblTotalBolsa" runat="server" />
-                </div>
-            </asp:Panel>
             <div class="col-lg-12 col-md-12 col-xs-12 form-col-center">
                 </br>
                 <WebControls:PushButton ID="btnCerrar" runat="server" Text="Cerrar" OnClientClick="closeWindow();" CssClass="ButtonCerrar" />

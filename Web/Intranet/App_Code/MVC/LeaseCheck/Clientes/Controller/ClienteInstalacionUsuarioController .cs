@@ -36,12 +36,11 @@ namespace LeaseCheck.Controller
                             clienteInstalacionUsuario.ciu_usuario = int.Parse(dr["CIU_USUARIO"].ToString());
                             clienteInstalacionUsuario.NOMBRE_COMPLETO = dr["NOMBRE_COMPLETO"].ToString();
                             clienteInstalacionUsuario.usu_correo = dr["USU_CORREO"].ToString();
-                            clienteInstalacionUsuario.ciu_responsable = bool.Parse(dr["CIU_RESPONSABLE"].ToString());
-                            clienteInstalacionUsuario.ciu_habilitado = bool.Parse(dr["CIU_HABILITADO"].ToString());
                             clienteInstalacionUsuario.ciu_usuario_creacion = int.Parse(dr["CIU_USUARIO_CREACION"].ToString());
                             clienteInstalacionUsuario.ciu_fecha_creacion = DateTime.Parse(dr["CIU_FECHA_CREACION"].ToString());
                             clienteInstalacionUsuario.ciu_usuario_act = int.Parse(dr["CIU_USUARIO_ACT"].ToString());
                             clienteInstalacionUsuario.ciu_fecha_act = DateTime.Parse(dr["CIU_FECHA_ACT"].ToString());
+                            clienteInstalacionUsuario.PERFILES = dr["PERFILES"].ToString();
 
                             clienteInstalacionUsuarios.Add(clienteInstalacionUsuario);
                         }
@@ -84,8 +83,6 @@ namespace LeaseCheck.Controller
                             clienteInstalacionUsuario.ciu_usuario = int.Parse(dr["CIU_USUARIO"].ToString());
                             clienteInstalacionUsuario.NOMBRE_COMPLETO = dr["NOMBRE_COMPLETO"].ToString();
                             clienteInstalacionUsuario.usu_correo = dr["USU_CORREO"].ToString();
-                            clienteInstalacionUsuario.ciu_responsable = bool.Parse(dr["CIU_RESPONSABLE"].ToString());
-                            clienteInstalacionUsuario.ciu_habilitado = bool.Parse(dr["CIU_HABILITADO"].ToString());
                             clienteInstalacionUsuario.ciu_usuario_creacion = int.Parse(dr["CIU_USUARIO_CREACION"].ToString());
                             clienteInstalacionUsuario.ciu_fecha_creacion = DateTime.Parse(dr["CIU_FECHA_CREACION"].ToString());
                             clienteInstalacionUsuario.ciu_usuario_act = int.Parse(dr["CIU_USUARIO_ACT"].ToString());
@@ -118,22 +115,18 @@ namespace LeaseCheck.Controller
 
                 try
                 {
-                    int id = 0;
 
                     cmdExecute = Conexion.GetCommand("INS_CLIENTE_INSTALACION_USUARIO");
-                    cmdExecute.Parameters.AddWithValue("@ID", id).Direction = System.Data.ParameterDirection.Output;
                     cmdExecute.Parameters.AddWithValue("@INSTALACION", clienteInstalacionUsuario.ciu_instalacion);
-                    cmdExecute.Parameters.AddWithValue("@USUARIO_ASOCIADO", clienteInstalacionUsuario.ciu_usuario_act);
-                    cmdExecute.Parameters.AddWithValue("@RESPONSABLE", clienteInstalacionUsuario.ciu_responsable);
-                    cmdExecute.Parameters.AddWithValue("@HABILITADO", clienteInstalacionUsuario.ciu_habilitado);
+                    cmdExecute.Parameters.AddWithValue("@USUARIO_ASOCIADO", clienteInstalacionUsuario.ciu_usuario);
                     cmdExecute.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
 
                     cmdExecute.ExecuteNonQuery();
                     cmdExecute.Connection.Close();
 
-                    id = (int)cmdExecute.Parameters["@ID"].Value;
+         
 
-                    respuesta.codigo = id;
+                    respuesta.codigo = 0;
                     respuesta.detalle = "Usuario asociado con éxito.";
                     respuesta.error = false;
                 }
@@ -160,9 +153,7 @@ namespace LeaseCheck.Controller
                     SqlCommand cmdExecute = Conexion.GetCommand("UPD_CLIENTE_INSTALACION_USUARIO");
                     cmdExecute.Parameters.AddWithValue("@ID", clienteInstalacionUsuario.ciu_id);
                     cmdExecute.Parameters.AddWithValue("@INSTALACION", clienteInstalacionUsuario.ciu_instalacion);
-                    cmdExecute.Parameters.AddWithValue("@USUARIO_ASOCIADO", clienteInstalacionUsuario.ciu_usuario_act);
-                    cmdExecute.Parameters.AddWithValue("@RESPONSABLE", clienteInstalacionUsuario.ciu_responsable);
-                    cmdExecute.Parameters.AddWithValue("@HABILITADO", clienteInstalacionUsuario.ciu_habilitado);
+                    cmdExecute.Parameters.AddWithValue("@USUARIO_ASOCIADO", clienteInstalacionUsuario.ciu_usuario);
                     cmdExecute.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
 
                     cmdExecute.ExecuteNonQuery();
@@ -243,7 +234,7 @@ namespace LeaseCheck.Controller
                             clienteInstalacionUsuario.usu_id = int.Parse(dr["USU_ID"].ToString());
                             clienteInstalacionUsuario.NOMBRE_COMPLETO = dr["NOMBRE_COMPLETO"].ToString();
                             clienteInstalacionUsuario.usu_correo = dr["USU_CORREO"].ToString();
-
+                            clienteInstalacionUsuario.PERFILES = dr["PERFILES"].ToString();
 
                             clienteInstalacionUsuarios.Add(clienteInstalacionUsuario);
                         }

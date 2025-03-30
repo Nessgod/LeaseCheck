@@ -26,9 +26,9 @@ namespace LeaseCheck.Controller
                 {
                     cmd.CommandText = "SEL_CLIENTE_INSTALACION";
 
-                    if (!string.IsNullOrEmpty(clienteInstalacion.filtro)) cmd.Parameters.AddWithValue("@FILTRO", clienteInstalacion.filtro);
-                   
-
+                    if ((clienteInstalacion.cin_cliente > 0)) cmd.Parameters.AddWithValue("@CLIENTE", clienteInstalacion.cin_cliente);
+                    if (Session.UsuarioId() != null) cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
+                    
 
                     using (SqlDataReader dr = Conexion.GetDataReader(cmd))
                     {

@@ -26,6 +26,8 @@ namespace LeaseCheck.Model
 
         public int cli_id { get; set; }
 
+        public string PERFILES { get; set; }
+
 
 
     }
