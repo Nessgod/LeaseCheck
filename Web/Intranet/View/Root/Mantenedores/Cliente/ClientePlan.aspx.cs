@@ -1,8 +1,10 @@
-﻿using LeaseCheck.Root.Controller;
+﻿using LeaseCheck.Clientes.Model;
+using LeaseCheck.Root.Controller;
 using LeaseCheck.Root.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -63,7 +65,7 @@ public partial class View_Root_Mantenedores_Cliente_ClientePlan : System.Web.UI.
                 }
             }
             
-            Grid.AddColumn("producto_nombre", "PRODUCTO", Align: HorizontalAlign.Left);
+          
 
             
             
@@ -78,35 +80,13 @@ public partial class View_Root_Mantenedores_Cliente_ClientePlan : System.Web.UI.
         if (Id == 0)
         {
             lblTitulo.Text = "Nuevo";
-
-            if (!string.IsNullOrEmpty(HDFopcion.Value))
-            {
-                if(HDFopcion.Value == "1")
-                {
-                    pnlPlan.Style.Add("display", "block");
-                 
-                }
-
-                if (HDFopcion.Value == "2")
-                {
-                    pnlPlan.Style.Add("display", "none");
-                
-                }
-
-                if (HDFopcion.Value == "3")
-                {
-                    pnlPlan.Style.Add("display", "none");
-  
-                }
-            }
-            else
-            {
-                pnlPlan.Style.Add("display", "block");
-
-            }
+            txtCantidadDocumento.ReadOnly = true;
+            TxtCantInstalacion.ReadOnly = true;
+            TxtCantLead.ReadOnly = true;
+            TxtValorPlan.ReadOnly = true;
         }
     }
-
+ 
     public void LoadControls(object sender, System.EventArgs e)
     {
         if (!IsPostBack)
@@ -132,11 +112,52 @@ public partial class View_Root_Mantenedores_Cliente_ClientePlan : System.Web.UI.
         }
     }
 
+    private void GenerarTablaPlanProducto(int tipoPlanId)
+    {
+        // Crear instancia de PlanProducto y asignar el tipo de plan
+        PlanProducto item = new PlanProducto();
+        item.plp_tipo_plan = tipoPlanId;
+
+        // Obtener los datos de PlanProducto
+        PlanProductoController controller = new PlanProductoController();
+        List<PlanProducto> listado = controller.GetListadoProductos(item);
+
+        // Hacer visible el panel
+        pnlPlanProducto.Visible = true;
+
+        if (pnlPlanProducto.Visible)
+        {
+            // Construir la tabla HTML
+            StringBuilder htmlTable = new StringBuilder();
+
+            htmlTable.Append("<table class='minimalist-table'>");
+            htmlTable.Append("<thead>");
+            htmlTable.Append("<tr>");
+            htmlTable.Append("<th>Producto</th>");
+            htmlTable.Append("</tr>");
+            htmlTable.Append("</thead>");
+            htmlTable.Append("<tbody>");
+
+            foreach (var producto in listado)
+            {
+                htmlTable.Append("<tr>");
+                htmlTable.AppendFormat("<td>{0}</td>", producto.producto_nombre);
+                htmlTable.Append("</tr>");
+            }
+
+            htmlTable.Append("</tbody>");
+            htmlTable.Append("</table>");
+
+            // Asignar el HTML generado al control Literal
+            txtPlan.Text = htmlTable.ToString(); // txtPlan debe ser un control que soporte HTML
+        }
+    }
+
+
     protected void CargaDatos()
     {
         if (Id > 0)
         {
-            rdoPlan.Visible = false;
             if (tipo_dato == "PLAN")
             {
                 lblTitulo.Text = "Planes";
@@ -146,15 +167,20 @@ public partial class View_Root_Mantenedores_Cliente_ClientePlan : System.Web.UI.
                 item = controller.GetClientePlan(item);
 
                 cboTipoPlan.SelectedValue = item.clp_tipo_plan.ToString();
+
+                GenerarTablaPlanProducto(item.clp_tipo_plan);
+
                 txtDesde.Value = item.clp_fecha_desde;
                 txtHasta.Value = item.clp_fecha_hasta;
-                txtCantidad.Value = item.plan_informes;
-                TxtCantAdministradores.Value = item.clp_administradores;
-                ChkAdmIlimitados.Checked = item.clp_administradores_ilimitados;
-                TxtValorPlan.Value = item.clp_valor_plan;
+                txtCantidadDocumento.Value = item.plan_documento;
+                TxtCantInstalacion.Value = item.plan_propiedad;
+                TxtCantLead.Value = item.plan_lead;
+                TxtValorPlan.Value = item.valor_plan;
 
-          
-                pnlPlan.Style.Add("display", "block");
+                txtCantidadDocumento.ReadOnly = true;
+                TxtCantInstalacion.ReadOnly = true;
+                TxtCantLead.ReadOnly = true;
+                TxtValorPlan.ReadOnly = true;
             }
 
         }
@@ -172,12 +198,7 @@ public partial class View_Root_Mantenedores_Cliente_ClientePlan : System.Web.UI.
             item.clp_cliente = Cliente;
             item.clp_fecha_desde = txtDesde.Value.Value;
             item.clp_fecha_hasta = txtHasta.Value.Value;
-            item.clp_cantidad = Convert.ToInt32(txtCantidad.Value);
-            item.clp_administradores = Convert.ToInt32(TxtCantAdministradores.Value);
-            item.clp_administradores_ilimitados = ChkAdmIlimitados.Checked;
             item.clp_tipo_plan = int.Parse(cboTipoPlan.SelectedValue);
-
-            item.clp_valor_plan = Convert.ToInt32(TxtValorPlan.Value);
 
             if (Id > 0)
                 respuesta = controller.UpdateClientePlan(item);
@@ -207,10 +228,13 @@ public partial class View_Root_Mantenedores_Cliente_ClientePlan : System.Web.UI.
         {
             TipoPlan plan = listaPlan.Where(x => x.tpl_id == int.Parse(cboTipoPlan.SelectedValue)).FirstOrDefault();
             TxtValorPlan.Value = plan.tpl_valor_plan;
-            txtCantidad.Value = plan.tpl_cantidad_informes;
-            TxtCantAdministradores.Value = plan.tpl_cantidad_administradores;
-            ChkAdmIlimitados.Checked = plan.tpl_administradores_ilimitados;
+            txtCantidadDocumento.Value = plan.tpl_cantidad_documento;
+            TxtCantInstalacion.Value = plan.tpl_cantidad_propiedad;
+            TxtCantLead.Value = plan.tpl_cantidad_lead;
+
+            GenerarTablaPlanProducto(plan.tpl_id);
         }
+
     }
 
 

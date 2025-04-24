@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Contrato de Arriendo - Casa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .clausula {
+            margin-top: 20px;
+        }
+
+        .firma {
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Contrato de Arriendo - Casa</h1>
+
+    <p>En Santiago de Chile, %fecha_contrato%, comparecen: %genero_arrendador% %nombre_arrendador%, C.I. N° %rut_arrendador%, %nacionalidad_arrendador%, %estado_civil_arrendador%, %profesion_arrendador%, domiciliado en %direccion_arrendador%, en adelante “la parte arrendadora”; y, por otra parte, %genero_arrendatario% %nombre_arrendatario%, C.I. N° %rut_arrendatario%, %nacionalidad_arrendatario%, %estado_civil_arrendatario%, %profesion_arrendatario%, domiciliado en %direccion_arrendatario%, correo: %email_arrendatario%, en adelante “la parte arrendataria”.</p>
+
+    <p>Ambas partes acuerdan celebrar este contrato de arriendo, regido por las siguientes cláusulas:</p>
+
+    <div class="clausula">
+        <strong>PRIMERO: PROPIEDAD</strong><br>
+        La parte arrendadora da en arriendo la propiedad ubicada en %direccion_propiedad%, comuna de %comuna%, ciudad de %ciudad%, casa N° %numero_casa%, a la parte arrendataria, quien declara recibirla conforme y en buen estado.
+    </div>
+
+    <div class="clausula">
+        <strong>SEGUNDO: DESTINO</strong><br>
+        La propiedad será destinada exclusivamente a uso habitacional.
+    </div>
+
+    <div class="clausula">
+        <strong>TERCERO: RENTA</strong><br>
+        El arriendo mensual es de $%cca_monto_arriendo%, pagadero el día 1 de cada mes en la cuenta del banco %cca_banco_pago%, a nombre de %cca_titular_cuenta%, RUT: %cca_rut_titular%. Existe una tolerancia hasta el día 5. El arriendo se reajustará anualmente según el IPC.
+    </div>
+
+    <div class="clausula">
+        <strong>CUARTO: SERVICIOS</strong><br>
+        El arrendatario pagará los servicios de agua, luz, gas, aseo y gastos comunes. %IF cca_pago_servicio_basico == true%Asimismo, se compromete al pago de los servicios básicos.%ENDIF% Cualquier mora en los pagos autoriza a la parte arrendadora a terminar el contrato.
+    </div>
+
+    <div class="clausula">
+        <strong>QUINTO: MULTA POR ATRASO</strong><br>
+        Cada día de atraso en el pago generará una multa del 1% diario sobre el valor de la renta.
+    </div>
+
+    <div class="clausula">
+        <strong>SEXTO: PLAZO</strong><br>
+        El contrato tiene una duración de %cca_duracion_contrato% meses, comenzando el %cca_fecha_inicio_contrato%, finalizando el %cca_fecha_termino_contrato%. Se renueva automáticamente salvo aviso con %cca_plazo_cumplimiento% días de anticipación.
+    </div>
+
+    <div class="clausula">
+        <strong>SÉPTIMO: GARANTÍA</strong><br>
+        El arrendatario entrega una garantía equivalente a $%cca_monto_garantia%, que será devuelta en un máximo de 60 días tras desocupación y revisión del inmueble.
+    </div>
+
+    <div class="clausula">
+        <strong>OCTAVO: SUBARRENDAMIENTO</strong><br>
+        Se prohíbe el subarriendo o cesión del uso sin autorización por escrito.
+    </div>
+
+    <div class="clausula">
+        <strong>NOVENO: MANTENCIÓN</strong><br>
+        El arrendatario debe mantener el inmueble en buen estado, realizando reparaciones menores a su cargo. Se entregan %cca_copia_llave% copias de llaves, que deberán ser devueltas.
+    </div>
+
+    <div class="clausula">
+        <strong>DÉCIMO: INVENTARIO</strong><br>
+        %IF ccr_inventario == true%Se acompaña inventario detallado del inmueble, el cual es firmado por ambas partes.%ELSE%No se acompaña inventario adicional.%ENDIF%
+    </div>
+
+    <div class="clausula">
+        <strong>UNDÉCIMO: GASTOS NOTARIALES</strong><br>
+        Serán de cargo exclusivo del arrendatario. Firma a realizar en notaría: %cca_notaria_firma%.
+    </div>
+
+    <div class="clausula">
+        <strong>DUODÉCIMO: DOMICILIO Y JURISDICCIÓN</strong><br>
+        Ambas partes fijan domicilio en Santiago y se someten a sus tribunales.
+    </div>
+
+    <p>En prueba de conformidad, firman:</p>
+
+    <div class="firma">
+        ____________________________<br>
+        Arrendador/a<br>
+        C.I. N° %rut_arrendador%
+        <br><br>
+        ____________________________<br>
+        Arrendatario/a<br>
+        C.I. N° %rut_arrendatario%
+    </div>
+
+</body>
+</html>

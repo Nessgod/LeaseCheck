@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Web.UI;
 
 namespace LeaseCheck.Root.Controller
 {
@@ -477,17 +478,15 @@ namespace LeaseCheck.Root.Controller
                             item.clp_tipo_plan = int.Parse(dr["CLP_TIPO_PLAN"].ToString());
                             item.clp_fecha_desde = DateTime.Parse(dr["CLP_FECHA_DESDE"].ToString());
                             item.clp_fecha_hasta = DateTime.Parse(dr["CLP_FECHA_HASTA"].ToString());
-                            item.clp_cantidad = int.Parse(dr["CLP_CANTIDAD"].ToString());
-                            item.clp_administradores = int.Parse(dr["CLP_ADMINISTRADORES"].ToString());
-                            item.clp_administradores_ilimitados = bool.Parse(dr["CLP_ADMINISTRADORES_ILIMITADOS"].ToString());
-                            item.clp_valor_plan = int.Parse(dr["CLP_VALOR_PLAN"].ToString());
+
 
                             item.plan_nombre = dr["PLAN_NOMBRE"].ToString();
-                            item.plan_informes = int.Parse(dr["PLAN_INFORMES"].ToString());
-                            item.plan_administradores = int.Parse(dr["PLAN_ADMINISTRADORES"].ToString());
-                            item.plan_ilimitados = bool.Parse(dr["PLAN_ILIMITADOS"].ToString());
+                            item.plan_documento = int.Parse(dr["PLAN_DOCUMENTO"].ToString());
+                            item.plan_propiedad = int.Parse(dr["PLAN_PROPIEDAD"].ToString());
+                            item.plan_lead = int.Parse(dr["PLAN_LEAD"].ToString());
                             item.tipo_dato = dr["TIPO"].ToString();
                             item.estado = dr["ESTADO"].ToString();
+                            item.valor_plan = int.Parse(dr["VALOR_PLAN"].ToString());
 
                             listado.Add(item);
                         }
@@ -531,14 +530,13 @@ namespace LeaseCheck.Root.Controller
                             item.clp_cliente = int.Parse(dr["CLP_CLIENTE"].ToString());
                             item.clp_tipo_plan = int.Parse(dr["CLP_TIPO_PLAN"].ToString());
                             item.clp_fecha_desde = DateTime.Parse(dr["CLP_FECHA_DESDE"].ToString());
-                            item.clp_fecha_hasta = DateTime.Parse(dr["CLP_FECHA_HASTA"].ToString()); 
-
-                            item.clp_valor_plan = int.Parse(dr["CLP_VALOR_PLAN"].ToString());
+                            item.clp_fecha_hasta = DateTime.Parse(dr["CLP_FECHA_HASTA"].ToString());
 
                             item.plan_nombre = dr["PLAN_NOMBRE"].ToString();
-                            item.plan_informes = int.Parse(dr["PLAN_INFORMES"].ToString());
-                            item.plan_administradores = int.Parse(dr["PLAN_ADMINISTRADORES"].ToString());
-                            item.plan_ilimitados = bool.Parse(dr["PLAN_ILIMITADOS"].ToString());
+                            item.plan_documento = int.Parse(dr["PLAN_DOCUMENTO"].ToString());
+                            item.plan_propiedad = int.Parse(dr["PLAN_PROPIEDAD"].ToString());
+                            item.plan_lead = int.Parse(dr["PLAN_LEAD"].ToString());
+                            item.valor_plan = int.Parse(dr["VALOR_PLAN"].ToString());
 
                             listado.Add(item);
                         }
@@ -581,13 +579,10 @@ namespace LeaseCheck.Root.Controller
                             item.clp_tipo_plan = int.Parse(dr["CLP_TIPO_PLAN"].ToString());
                             item.clp_fecha_desde = DateTime.Parse(dr["CLP_FECHA_DESDE"].ToString());
                             item.clp_fecha_hasta = DateTime.Parse(dr["CLP_FECHA_HASTA"].ToString());
-                            item.clp_cantidad = int.Parse(dr["CLP_CANTIDAD"].ToString());
-                            item.clp_administradores = int.Parse(dr["CLP_ADMINISTRADORES"].ToString());
-                            item.clp_administradores_ilimitados = bool.Parse(dr["CLP_ADMINISTRADORES_ILIMITADOS"].ToString());
-                            item.clp_valor_plan = int.Parse(dr["CLP_VALOR_PLAN"].ToString());
-                            item.plan_informes = int.Parse(dr["PLAN_INFORMES"].ToString());
-                            item.plan_administradores = int.Parse(dr["PLAN_ADMINISTRADORES"].ToString());
-                            item.plan_ilimitados = bool.Parse(dr["PLAN_ILIMITADOS"].ToString());
+                            item.plan_documento = int.Parse(dr["PLAN_DOCUMENTO"].ToString());
+                            item.plan_propiedad = int.Parse(dr["PLAN_PROPIEDAD"].ToString());
+                            item.plan_lead = int.Parse(dr["PLAN_LEAD"].ToString());
+                            item.valor_plan = int.Parse(dr["VALOR_PLAN"].ToString());
 
                         }
                     }
@@ -624,11 +619,6 @@ namespace LeaseCheck.Root.Controller
                     cmd.Parameters.AddWithValue("@TIPO_PLAN", item.clp_tipo_plan);
                     cmd.Parameters.AddWithValue("@FECHA_DESDE", item.clp_fecha_desde);
                     cmd.Parameters.AddWithValue("@FECHA_HASTA", item.clp_fecha_hasta);
-                    cmd.Parameters.AddWithValue("@CANTIDAD", item.clp_cantidad);
-                    cmd.Parameters.AddWithValue("@ADIMINISTRADORES", item.clp_administradores);
-                    cmd.Parameters.AddWithValue("@ILIMITADOS", item.clp_administradores_ilimitados);
-                    cmd.Parameters.AddWithValue("@VALOR_PLAN", item.clp_valor_plan);
-
                     cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
                     cmd.Parameters.AddWithValue("@PAIS", Session.Pais());
 
@@ -669,11 +659,6 @@ namespace LeaseCheck.Root.Controller
                     cmd.Parameters.AddWithValue("@TIPO_PLAN", item.clp_tipo_plan);
                     cmd.Parameters.AddWithValue("@FECHA_DESDE", item.clp_fecha_desde);
                     cmd.Parameters.AddWithValue("@FECHA_HASTA", item.clp_fecha_hasta);
-                    cmd.Parameters.AddWithValue("@CANTIDAD", item.clp_cantidad);
-                    cmd.Parameters.AddWithValue("@ADMINISTRADORES", item.clp_administradores);
-                    cmd.Parameters.AddWithValue("@ILIMITADOS", item.clp_administradores_ilimitados);
-                    cmd.Parameters.AddWithValue("@VALOR_PLAN", item.clp_valor_plan);
-
                     cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
                     cmd.Parameters.AddWithValue("@PAIS", Session.Pais());
 
@@ -851,7 +836,9 @@ namespace LeaseCheck.Root.Controller
                 try
                 {
                     cmd.CommandText = "SEL_COMUNA";
-                    cmd.Parameters.AddWithValue("@PAIS", filtro.cmn_pais);
+                    if (filtro.cmn_pais > 0) cmd.Parameters.AddWithValue("@PAIS", filtro.cmn_pais);
+                    if (filtro.cmn_region > 0) cmd.Parameters.AddWithValue("@REGION", filtro.cmn_region);
+                    if (filtro.cmn_provincia > 0) cmd.Parameters.AddWithValue("@PROVINCIA", filtro.cmn_provincia);
 
                     using (SqlDataReader dr = Conexion.GetDataReader(cmd))
                     {
@@ -880,6 +867,324 @@ namespace LeaseCheck.Root.Controller
             return listado;
         }
 
+        public List<Region> GetRegiones(Region filtro)
+        {
+            List<Region> listado = new List<Region>();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_REGION";
+                    cmd.Parameters.AddWithValue("@PAIS", Session.Pais());
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            Region item = new Region();
+
+                            item.rgn_id = int.Parse(dr["RGN_ID"].ToString());
+                            item.rgn_pais = int.Parse(dr["RGN_PAIS"].ToString());
+                            item.rgn_nombre = dr["RGN_NOMBRE"].ToString();
+
+                            listado.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    listado = null;
+                }
+            }
+            return listado;
+        }
+
+        public List<Provincia> GetProvincias(Provincia filtro)
+        {
+            List<Provincia> listado = new List<Provincia>();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_PROVINCIA";
+                    if (filtro.pro_region > 0) cmd.Parameters.AddWithValue("@REGION", filtro.pro_region);
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            Provincia item = new Provincia();
+
+                            item.pro_id = int.Parse(dr["PRO_ID"].ToString());
+                            item.pro_region = int.Parse(dr["PRO_REGION"].ToString());
+                            item.pro_nombre = dr["PRO_NOMBRE"].ToString();
+
+                            listado.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    listado = null;
+                }
+            }
+            return listado;
+        }
+
+        public List<Profesion> GetProfesion()
+        {
+            List<Profesion> listado = new List<Profesion>();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_PROFESION";
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            Profesion item = new Profesion();
+
+                            item.prf_id = int.Parse(dr["PRF_ID"].ToString());
+                            item.prf_nombre = dr["PRF_NOMBRE"].ToString();
+
+                            listado.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    listado = null;
+                }
+            }
+            return listado;
+        }
+
+        public List<Genero> GetGenero()
+        {
+            List<Genero> listado = new List<Genero>();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_GENERO";
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            Genero item = new Genero();
+
+                            item.gro_id = int.Parse(dr["GRO_ID"].ToString());
+                            item.gro_nombre = dr["GRO_NOMBRE"].ToString();
+
+                            listado.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    listado = null;
+                }
+            }
+            return listado;
+        }
+
+        public List<Banco> GetBanco()
+        {
+            List<Banco> listado = new List<Banco>();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_BANCO";
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            Banco item = new Banco();
+
+                            item.bnc_id = int.Parse(dr["BNC_ID"].ToString());
+                            item.bnc_nombre = dr["BNC_NOMBRE"].ToString();
+                            item.bnc_tipo = dr["bnc_tipo"].ToString();
+
+                            listado.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    listado = null;
+                }
+            }
+            return listado;
+        }
+
+        public List<TipoCuentaBanco> GetCuentaBanco(TipoCuentaBanco filtro)
+        {
+            List<TipoCuentaBanco> listado = new List<TipoCuentaBanco>();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_TIPO_CUENTA_BANCO";
+                    if (filtro.tpc_banco > 0) cmd.Parameters.AddWithValue("@BANCO", filtro.tpc_banco);
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            TipoCuentaBanco item = new TipoCuentaBanco();
+
+                            item.tpc_id = int.Parse(dr["TPC_ID"].ToString());
+                            item.tpc_nombre = dr["TPC_NOMBRE"].ToString();
+                            item.tpc_banco = int.Parse(dr["TPC_BANCO"].ToString());
+
+                            listado.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    listado = null;
+                }
+            }
+            return listado;
+        }
+
+        public List<Nacionalidad> GetNacionalidad()
+        {
+            List<Nacionalidad> listado = new List<Nacionalidad>();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_NACIONALIDAD";
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            Nacionalidad item = new Nacionalidad();
+
+                            item.nac_id = int.Parse(dr["NAC_ID"].ToString());
+                            item.nac_nombre = dr["NAC_NOMBRE"].ToString();
+
+                            listado.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    listado = null;
+                }
+            }
+            return listado;
+        }
+
+        public List<EstadoCivil> GetEstadoCivil()
+        {
+            List<EstadoCivil> listado = new List<EstadoCivil>();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_ESTADO_CIVIL";
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            EstadoCivil item = new EstadoCivil();
+
+                            item.ecl_id = int.Parse(dr["ECL_ID"].ToString());
+                            item.ecl_nombre = dr["ECL_NOMBRE"].ToString();
+
+                            listado.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    listado = null;
+                }
+            }
+            return listado;
+        }
         public List<TipoPlan> GetTiposPlanes()
         {
             List<TipoPlan> listado = new List<TipoPlan>();
@@ -902,9 +1207,9 @@ namespace LeaseCheck.Root.Controller
                             item.tpl_id = int.Parse(dr["TPL_ID"].ToString());
                             item.tpl_nombre = dr["TPL_NOMBRE"].ToString();
                             item.tpl_valor_plan = int.Parse(dr["TPL_VALOR_PLAN"].ToString());
-                            item.tpl_cantidad_informes = int.Parse(dr["TPL_CANTIDAD_INFORMES"].ToString());
-                            item.tpl_cantidad_administradores = int.Parse(dr["TPL_CANTIDAD_ADMINISTRADORES"].ToString());
-                            item.tpl_administradores_ilimitados = bool.Parse(dr["TPL_ADMINISTRADORES_ILIMITADOS"].ToString());
+                            item.tpl_cantidad_documento = int.Parse(dr["TPL_CANTIDAD_DOCUMENTO"].ToString());
+                            item.tpl_cantidad_propiedad = int.Parse(dr["TPL_CANTIDAD_PROPIEDAD"].ToString());
+                            item.tpl_cantidad_lead = int.Parse(dr["TPL_CANTIDAD_LEAD"].ToString());
 
                             listado.Add(item);
                         }
@@ -924,9 +1229,240 @@ namespace LeaseCheck.Root.Controller
 
             return listado;
         }
+        public List<ClientePropiedadTipoServicio> GetTipoServicio()
+        {
+            List<ClientePropiedadTipoServicio> servicios = new List<ClientePropiedadTipoServicio>();
 
-      
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_CLIENTE_TIPO_SERVICIO";
+                    cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            ClientePropiedadTipoServicio item = new ClientePropiedadTipoServicio();
+
+                            item.tsc_id = int.Parse(dr["TSC_ID"].ToString());
+                            item.tsc_nombre = dr["TSC_NOMBRE"].ToString();
+
+                            servicios.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    servicios = null;
+                }
+            }
+            return servicios;
+        }
+
+        public List<ClientePropiedadTipo> GetTipoPropiedad()
+        {
+            List<ClientePropiedadTipo> tipoPropiedad = new List<ClientePropiedadTipo>();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_CLIENTE_TIPO_PROPIEDAD";
+
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            ClientePropiedadTipo item = new ClientePropiedadTipo();
+
+                            item.tpr_id = int.Parse(dr["TPR_ID"].ToString());
+                            item.tpr_nombre = dr["TPR_NOMBRE"].ToString();
+
+                            tipoPropiedad.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    tipoPropiedad = null;
+                }
+            }
+            return tipoPropiedad;
+        }
+        public List<ClientePropiedadTipoEntrega> GetTipoEntrega()
+        {
+            List<ClientePropiedadTipoEntrega> entrega = new List<ClientePropiedadTipoEntrega>();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_CLIENTE_TIPO_ENTREGA";
+
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            ClientePropiedadTipoEntrega item = new ClientePropiedadTipoEntrega();
+
+                            item.cpt_id = int.Parse(dr["CPT_ID"].ToString());
+                            item.cpt_nombre = dr["CPT_NOMBRE"].ToString();
+
+                            entrega.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    entrega = null;
+                }
+            }
+            return entrega;
+        }
+        public ClientePropiedad GetEstadoPropiedad(ClientePropiedad filtro)
+        {
+            ClientePropiedad estado = new ClientePropiedad();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_CLIENTE_PROPIEDAD_ESTADO";
+                    cmd.Parameters.AddWithValue("@ID_PROPIEDAD", filtro.cpd_id);
+                    cmd.Parameters.AddWithValue("@TIPO", 1);
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            estado.ESTADO = dr["ESTADO"].ToString();
+
+                        }
+                    }
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    estado = null;
+                }
+            }
+            return estado;
+        }
+
+        public List<ClientePropiedadEstado> GetEstadosPropiedad()
+        {
+            List<ClientePropiedadEstado> entrega = new List<ClientePropiedadEstado>();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_CLIENTE_PROPIEDAD_ESTADO";
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            ClientePropiedadEstado item = new ClientePropiedadEstado();
+
+                            item.cpe_id = int.Parse(dr["CPE_ID"].ToString());
+                            item.cpe_nombre = dr["CPE_NOMBRE"].ToString();
+
+                            entrega.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    entrega = null;
+                }
+            }
+            return entrega;
+        }
         // usuarios
+
+        public List<Usuarios> GetClienteUsuarioPropietarios()
+        {
+            List<Usuarios> servicios = new List<Usuarios>();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_CLIENTE_USUARIO_PROPIETARIO";
+                    cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            Usuarios item = new Usuarios();
+
+                            item.usu_id = int.Parse(dr["usu_id"].ToString());
+                            item.NOMBRE_COMPLETO = dr["NOMBRE_COMPLETO"].ToString();
+
+                            servicios.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    servicios = null;
+                }
+            }
+            return servicios;
+        }
+
         public List<Usuarios> GetClienteUsuarios(Cliente filtro)
         {
             List<Usuarios> usuarios = new List<Usuarios>();
@@ -1018,6 +1554,28 @@ namespace LeaseCheck.Root.Controller
                             usuario.es_cliente = bool.Parse(dr["USU_ES_CLIENTE"].ToString());
                             usuario.usu_perfil = int.Parse(dr["USU_PERFIL"].ToString());
                             usuario.usu_pais = int.Parse(dr["USU_PAIS"].ToString());
+                            usuario.usu_rut = dr["USU_RUT"].ToString();
+                            usuario.usu_nacionalidad = dr["USU_NACIONALIDAD"] != null && dr["USU_NACIONALIDAD"].ToString() != "" ? Convert.ToInt32(dr["USU_NACIONALIDAD"]) : 0;
+
+                            usuario.usu_estado_civil = dr["USU_ESTADO_CIVIL"] != null && dr["USU_ESTADO_CIVIL"].ToString() != ""
+                                ? Convert.ToInt32(dr["USU_ESTADO_CIVIL"]) : 0;
+
+                            usuario.usu_profesion = dr["USU_PROFESION"] != null && dr["USU_PROFESION"].ToString() != ""
+                                ? Convert.ToInt32(dr["USU_PROFESION"]) : 0;
+
+                            usuario.usu_genero = dr["USU_GENERO"] != null && dr["USU_GENERO"].ToString() != ""
+                                ? Convert.ToInt32(dr["USU_GENERO"]) : 0;
+
+                            usuario.usu_comuna = dr["USU_COMUNA"] != null && dr["USU_COMUNA"].ToString() != ""
+                                ? Convert.ToInt32(dr["USU_COMUNA"]) : 0;
+
+                            usuario.usu_ciudad = dr["USU_CIUDAD"] != null ? dr["USU_CIUDAD"].ToString() : string.Empty;
+
+                            usuario.usu_calle = dr["USU_CALLE"] != null ? dr["USU_CALLE"].ToString() : string.Empty;
+
+                            usuario.usu_numero_propiedad = dr["USU_NUMERO_PROPIEDAD"] != null ? dr["USU_NUMERO_PROPIEDAD"].ToString() : string.Empty;
+
+
 
                             if (dr["USU_ULTIMO_LOGIN"].ToString() != "") usuario.usu_ultimo_login = DateTime.Parse(dr["USU_ULTIMO_LOGIN"].ToString());
 
@@ -1166,6 +1724,18 @@ namespace LeaseCheck.Root.Controller
                     cmdExecute.Parameters.AddWithValue("@ES_CLIENTE", true);
                     cmdExecute.Parameters.AddWithValue("@CLIENTE", usuario.cliente);
 
+                    cmdExecute.Parameters.AddWithValue("@COMUNA", usuario.usu_comuna);
+                    cmdExecute.Parameters.AddWithValue("@CIUDAD", usuario.usu_ciudad);
+                    cmdExecute.Parameters.AddWithValue("@CALLE", usuario.usu_calle);
+                    cmdExecute.Parameters.AddWithValue("@NUMERO_PROPIEDAD", usuario.usu_numero_propiedad);
+                    cmdExecute.Parameters.AddWithValue("@GENERO", usuario.usu_genero);
+                    cmdExecute.Parameters.AddWithValue("@PROFESION", usuario.usu_profesion);
+                    cmdExecute.Parameters.AddWithValue("@ESTADO_CIVIL", usuario.usu_estado_civil);
+                    cmdExecute.Parameters.AddWithValue("@RUT", usuario.usu_rut);
+                    cmdExecute.Parameters.AddWithValue("@NACIONALIDAD", usuario.usu_nacionalidad);
+
+
+
                     cmdExecute.ExecuteNonQuery();
                     cmdExecute.Connection.Close();
 
@@ -1217,6 +1787,16 @@ namespace LeaseCheck.Root.Controller
                     cmdExecute.Parameters.AddWithValue("@PAIS", Session.Pais());
                     cmdExecute.Parameters.AddWithValue("@PERFIL", usuario.usu_perfil);
                     cmdExecute.Parameters.AddWithValue("@PAIS_COMBOBOX", usuario.usu_pais);
+
+                    cmdExecute.Parameters.AddWithValue("@COMUNA", usuario.usu_comuna);
+                    cmdExecute.Parameters.AddWithValue("@CIUDAD", usuario.usu_ciudad);
+                    cmdExecute.Parameters.AddWithValue("@CALLE", usuario.usu_calle);
+                    cmdExecute.Parameters.AddWithValue("@NUMERO_PROPIEDAD", usuario.usu_numero_propiedad);
+                    cmdExecute.Parameters.AddWithValue("@GENERO", usuario.usu_genero);
+                    cmdExecute.Parameters.AddWithValue("@PROFESION", usuario.usu_profesion);
+                    cmdExecute.Parameters.AddWithValue("@ESTADO_CIVIL", usuario.usu_estado_civil);
+                    cmdExecute.Parameters.AddWithValue("@RUT", usuario.usu_rut);
+                    cmdExecute.Parameters.AddWithValue("@NACIONALIDAD", usuario.usu_nacionalidad);
 
                     cmdExecute.ExecuteNonQuery();
                     cmdExecute.Connection.Close();
@@ -1347,34 +1927,38 @@ namespace LeaseCheck.Root.Controller
             }
         }
 
-        // reasignacion clientes
 
-        public List<Usuarios> GetUsuarioReasignacion()
+        public UsuarioDatoPago GetUsuarioDatoPago(UsuarioDatoPago usuarioDatoPago)
         {
-            List<Usuarios> usuarios = new List<Usuarios>();
+            UsuarioDatoPago item = new UsuarioDatoPago();
 
             if (Token.TokenSeguridad())
             {
                 SqlCommand cmd = new SqlCommand();
+
                 try
                 {
-                    cmd.CommandText = "SEL_USUARIOS_REASIGNACION_CLIENTE";
+                    cmd.CommandText = "SEL_USUARIO_DATO_PAGO";
+                    if (usuarioDatoPago.upd_id > 0) cmd.Parameters.AddWithValue("@@ID", usuarioDatoPago.upd_id);
+                    if (usuarioDatoPago.upd_id_usuario > 0) cmd.Parameters.AddWithValue("@USUARIO", usuarioDatoPago.upd_id_usuario);
 
                     using (SqlDataReader dr = Conexion.GetDataReader(cmd))
                     {
-                        while (dr.Read())
+                        if (dr.Read())
                         {
-                            Usuarios usuario = new Usuarios();
 
-                            usuario.usu_id = int.Parse(dr["USU_ID"].ToString());
-                            usuario.usu_nombres = dr["USU_NOMBRE"].ToString();
-                            usuario.usu_apellido_paterno = dr["USU_APELLIDO_PATERNO"].ToString();
-                            usuario.usu_apellido_materno = dr["USU_APELLIDO_MATERNO"].ToString();
-                            usuario.nombreCompleto = usuario.usu_nombres + " " + usuario.usu_apellido_paterno + " " + usuario.usu_apellido_materno;
+                            item.upd_id = int.Parse(dr["UPD_ID"].ToString());
+                            item.upd_id_usuario = int.Parse(dr["UPD_ID_USUARIO"].ToString());
+                            item.upd_banco = int.Parse(dr["UPD_BANCO"].ToString());
+                            item.upd_banco_otro = dr["UPD_BANCO_OTRO"].ToString();
+                            item.upd_rut_cuenta = dr["UPD_RUT_CUENTA"].ToString();
+                            item.upd_titular_cuenta = dr["UPD_TITULAR_CUENTA"].ToString();
+                            item.upd_tipo_cuenta = int.Parse(dr["UPD_TIPO_CUENTA"].ToString());
+                            item.upd_numero_cuenta = dr["UPD_NUMERO_CUENTA"].ToString();
 
-                            usuarios.Add(usuario);
                         }
                     }
+
 
                     cmd.Connection.Close();
                     cmd.Dispose();
@@ -1383,123 +1967,53 @@ namespace LeaseCheck.Root.Controller
                 {
                     cmd.Connection.Close();
                     cmd.Dispose();
-
-                    usuarios = null;
+                    item = null;
                 }
             }
 
-            return usuarios;
+            return item;
         }
-
-        public List<Cliente> GetClienteReasignacion(Cliente filtro)
-        {
-            List<Cliente> listado = new List<Cliente>();
-
-            if (Token.TokenSeguridad())
-            {
-                SqlCommand cmd = new SqlCommand();
-
-                try
-                {
-                    cmd.CommandText = "SEL_CLIENTE_REASIGNACION";
-                    cmd.Parameters.AddWithValue("@USUARIO", filtro.cli_usuario);
-
-                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
-                    {
-                        while (dr.Read())
-                        {
-                            Cliente item = new Cliente();
-
-                            item.cli_id = int.Parse(dr["CLI_ID"].ToString());
-                            item.cli_rut_completo = dr["CLI_RUT_COMPLETO"].ToString();
-                            item.cli_nombre = dr["CLI_NOMBRE"].ToString();
-
-                            listado.Add(item);
-                        }
-                    }
-
-                    cmd.Connection.Close();
-                    cmd.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    cmd.Connection.Close();
-                    cmd.Dispose();
-
-                    listado = null;
-                }
-            }
-
-            return listado;
-        }
-
-        public List<Cliente> GetClienteReasignacionAsociar(Cliente filtro)
-        {
-            List<Cliente> listado = new List<Cliente>();
-
-            if (Token.TokenSeguridad())
-            {
-                SqlCommand cmd = new SqlCommand();
-
-                try
-                {
-                    cmd.CommandText = "SEL_CLIENTE_REASIGNACION_ASOCIAR";
-                    cmd.Parameters.AddWithValue("@USUARIO", filtro.cli_usuario);
-
-                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
-                    {
-                        while (dr.Read())
-                        {
-                            Cliente item = new Cliente();
-
-                            item.cli_id = int.Parse(dr["CLI_ID"].ToString());
-                            item.cli_rut_completo = dr["CLI_RUT_COMPLETO"].ToString();
-                            item.cli_nombre = dr["CLI_NOMBRE"].ToString();
-
-                            listado.Add(item);
-                        }
-                    }
-
-                    cmd.Connection.Close();
-                    cmd.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    cmd.Connection.Close();
-                    cmd.Dispose();
-
-                    listado = null;
-                }
-            }
-
-            return listado;
-        }
-
-        public Respuesta UpdateClienteReasignacion(Cliente item)
+        public Respuesta InsertUsuarioDatoPago(UsuarioDatoPago usuario)
         {
             Respuesta respuesta = new Respuesta();
 
             if (Token.TokenSeguridad())
             {
-                SqlCommand cmd = null;
+                SqlCommand cmdExecute = null;
 
                 try
                 {
-                    cmd = Conexion.GetCommand("UPD_CLIENTE_REASIGNACION");
-                    cmd.Parameters.AddWithValue("@USUARIO", item.cli_usuario);
-                    cmd.Parameters.AddWithValue("@CLIENTE", item.cli_id);
+                    int id = 0;
 
-                    cmd.ExecuteNonQuery();
-                    cmd.Connection.Close();
-                    cmd.Dispose();
+                    cmdExecute = Conexion.GetCommand("INS_CLIENTE_USUARIO_DATO_PAGO");
+                    cmdExecute.Parameters.AddWithValue("@ID", id).Direction = System.Data.ParameterDirection.Output;
+                    cmdExecute.Parameters.AddWithValue("@USUARIO_CREADO", usuario.upd_id_usuario);
+                    cmdExecute.Parameters.AddWithValue("@BANCO", usuario.upd_banco);
+                    cmdExecute.Parameters.AddWithValue("@OTRO_BANCO", usuario.upd_banco_otro);
+                    cmdExecute.Parameters.AddWithValue("@TIPO_CUENTA", usuario.upd_tipo_cuenta);
+                    cmdExecute.Parameters.AddWithValue("@RUT_TITULAR", usuario.upd_rut_cuenta);
+                    cmdExecute.Parameters.AddWithValue("@NOMBRE_TITULAR", usuario.upd_titular_cuenta);
+                    cmdExecute.Parameters.AddWithValue("@NUMERO_CUENTA", usuario.upd_numero_cuenta);
+                    cmdExecute.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
+                    cmdExecute.Parameters.AddWithValue("@PAIS", Session.Pais());
 
-                    respuesta.detalle = "Registro asociado con éxito.";
+                    cmdExecute.ExecuteNonQuery();
+                    cmdExecute.Connection.Close();
+
+
+                    id = (int)cmdExecute.Parameters["@ID"].Value;
+
+                    respuesta.codigo = id;
+                    respuesta.detalle = "Los datos de pago de usuario fue creado con éxito.";
+                    respuesta.error = false;
+
+
                 }
                 catch (Exception ex)
                 {
-                    cmd.Connection.Close();
-                    cmd.Dispose();
-
+                    cmdExecute.Connection.Close();
+                    cmdExecute.Dispose();
+                    respuesta.codigo = -1;
                     respuesta.detalle = ex.Message;
                     respuesta.error = true;
                 }
@@ -1507,6 +2021,52 @@ namespace LeaseCheck.Root.Controller
 
             return respuesta;
         }
+
+        public Respuesta UpdateUsuarioDatoPago(UsuarioDatoPago usuario)
+        {
+            SqlCommand cmdExecute = new SqlCommand();
+
+            Respuesta respuesta = new Respuesta();
+
+            if (Token.TokenSeguridad())
+            {
+                try
+                {
+                    cmdExecute = Conexion.GetCommand("UPD_USUARIO_DATO_PAGO");
+                    cmdExecute.Parameters.AddWithValue("@ID", usuario.upd_id);
+                    cmdExecute.Parameters.AddWithValue("@USUARIO_CREADO", usuario.upd_id_usuario);
+                    cmdExecute.Parameters.AddWithValue("@BANCO", usuario.upd_banco);
+                    cmdExecute.Parameters.AddWithValue("@OTRO_BANCO", usuario.upd_banco_otro);
+                    cmdExecute.Parameters.AddWithValue("@TIPO_CUENTA", usuario.upd_tipo_cuenta);
+                    cmdExecute.Parameters.AddWithValue("@RUT_TITULAR", usuario.upd_rut_cuenta);
+                    cmdExecute.Parameters.AddWithValue("@NOMBRE_TITULAR", usuario.upd_titular_cuenta);
+                    cmdExecute.Parameters.AddWithValue("@NUMERO_CUENTA", usuario.upd_numero_cuenta);
+                    cmdExecute.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
+                    cmdExecute.Parameters.AddWithValue("@PAIS", Session.Pais());
+
+                    cmdExecute.ExecuteNonQuery();
+                    cmdExecute.Connection.Close();
+
+                    respuesta.codigo = 0;
+                    respuesta.detalle = "Datos del usuario actualizado con éxito.";
+                    respuesta.error = false;
+
+                }
+                catch (Exception ex)
+                {
+                    cmdExecute.Connection.Close();
+                    cmdExecute.Dispose();
+
+                    respuesta.codigo = -1;
+                    respuesta.detalle = ex.Message;
+                    respuesta.error = true;
+                }
+            }
+
+            return respuesta;
+        }
+  
+    
     }
 
 }

@@ -17,80 +17,155 @@
             window.close();
         }
 
-        function Sumar() {
-
-            var hdfTotal = $('#<%= hdfTotal.ClientID %>');
-            var lblTotal = $('#<%= lblTotal.ClientID %>');
-            var TxtValorPlan = $('#<%= TxtValorPlan.ClientID %>');
-      
-            if (TxtValorPlan.val() == '') TxtValorPlan.val(0);
-
-            var plan = parseFloat(TxtValorPlan.val().split('.').join(''));
-
-            hdfTotal.val(plan);
-            lblTotal.text('$' + formatMillones(plan))
-        }
 
     </script>
+
+    <style>
+        .minimalist-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: #333;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+
+            .minimalist-table th, .minimalist-table td {
+                padding: 6px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .minimalist-table th {
+                background-color: #f4f4f4;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            .minimalist-table tr:hover {
+                background-color: #f1f1f1;
+            }
+
+            .minimalist-table tr:last-child td {
+                border-bottom: none;
+            }
+    </style>
 </asp:Content>
 
 <asp:Content ID="ContentBody" ContentPlaceHolderID="cphBody" runat="Server">
     <rad:RadWindow2 ID="rwiDetalle" runat="server" />
     <asp:UpdatePanel runat="server" ID="udPanel" UpdateMode="Conditional">
         <ContentTemplate>
-            <asp:HiddenField ID="hdfTotal" runat="server" />
-            <asp:HiddenField ID="hdfTotalBalsa" runat="server" />
-            <div class="SubTitulos">Plan</div>
-            <div style="text-align: right;" class="SubTitulos">
-                <label>Total Plan:</label>
-                <asp:Label ID="lblTotal" runat="server" />
-            </div>
-            <div class="row col-lg-12 col-md-12 col-xs-12">
-                <div class="col-lg-6 col-md-6 col-xs-12">
-                    <label style="width: 100%;">Fecha Desde</label>
-                    <WebControls:Calendar ID="txtDesde" runat="server" Calendar-To-Control="txtHasta" />
-                    <asp:CustomValidator ID="CustomValidator12" runat="server"
-                        ControlToValidate="txtDesde"
-                        ErrorMessage="Debe elegir una fecha"
-                        ValidateEmptyText="true"
-                        ClientValidationFunction="validaControl"
-                        ValidationGroup="Identidad" />
+            <div class="container mt-1">
+                <!-- Título y Botón para Descargar PDF -->
+                <div class="SubTitulos">
+                    <h2>Plan</h2>
+                    <asp:Button ID="btnDescargarPDF" runat="server" Text="Descargar PDF" OnClick="btnDescargarPDF_Click" CssClass="btn btn-primary" />
                 </div>
-                <div class="col-lg-6 col-md-6 col-xs-12">
-                    <label style="width: 100%;">Fecha Hasta</label>
-                    <WebControls:Calendar ID="txtHasta" runat="server" Calendar-From-Control="txtDesde" />
-                    <asp:CustomValidator ID="CustomValidator4" runat="server"
-                        ControlToValidate="txtHasta"
-                        ErrorMessage="Debe elegir una fecha"
-                        ValidateEmptyText="true"
-                        ClientValidationFunction="validaControl"
-                        ValidationGroup="Identidad" />
-                </div>
-            </div>
-            <p />
-            <div class="row col-lg-12 col-md-12 col-xs-12">
-                <div class="col-lg-6 col-md-6 col-xs-12">
-                    <label>Tipo Plan</label>
-                    <rad:RadComboBox2 ID="cboTipoPlan" runat="server" OnLoad="LoadControls" Width="100%" />
-                    <asp:CustomValidator ID="CustomValidator3" runat="server"
-                        ControlToValidate="cboTipoPlan"
-                        ValidateEmptyText="true"
-                        ClientValidationFunction="validaControl"
-                        ValidationGroup="Identidad" />
-                </div>
-                <div class="col-lg-6 col-md-6 col-xs-12">
-                    <label>Valor &nbsp;</label>
-                    <rad:RadNumericBox2 ID="TxtValorPlan" runat="server" OnBlur="Sumar();" />
-                    <asp:CustomValidator ID="CustomValidator1" runat="server"
-                        ControlToValidate="TxtValorPlan"
-                        ValidateEmptyText="true"
-                        ClientValidationFunction="validaControl"
-                        ValidationGroup="Identidad" />
 
+                <!-- Fecha Desde y Hasta -->
+                <div class="row">
+                    <!-- Fecha Desde -->
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <label class="control-label" for="txtDesde">Fecha Desde:</label>
+                        <WebControls:Calendar ID="txtDesde" runat="server" Calendar-To-Control="txtHasta" />
+                        <asp:CustomValidator ID="CustomValidator12" runat="server"
+                            ControlToValidate="txtDesde"
+                            ErrorMessage="Debe elegir una fecha"
+                            ValidateEmptyText="true"
+                            ClientValidationFunction="validaControl"
+                            ValidationGroup="Identidad" />
+                    </div>
+
+                    <!-- Fecha Hasta -->
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <label class="control-label" for="txtHasta">Fecha Hasta:</label>
+                        <WebControls:Calendar ID="txtHasta" runat="server" Calendar-From-Control="txtDesde" />
+                        <asp:CustomValidator ID="CustomValidator4" runat="server"
+                            ControlToValidate="txtHasta"
+                            ErrorMessage="Debe elegir una fecha"
+                            ValidateEmptyText="true"
+                            ClientValidationFunction="validaControl"
+                            ValidationGroup="Identidad" />
+                    </div>
+                </div>
+
+                <!-- Tipo de Plan -->
+                <div class="row">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <label class="control-label" for="cboTipoPlan">Tipo Plan:</label>
+                        <rad:RadComboBox2 ID="cboTipoPlan" runat="server" OnLoad="LoadControls" Width="100%" />
+                        <asp:CustomValidator ID="CustomValidator3" runat="server"
+                            ControlToValidate="cboTipoPlan"
+                            ValidateEmptyText="true"
+                            ClientValidationFunction="validaControl"
+                            ValidationGroup="Identidad" />
+                    </div>
+                </div>
+
+                <!-- Contenido del Plan -->
+                <div class="row">
+                    <div class="form-group col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <label class="control-label" for="txtPlan">Contenido del Plan:</label>
+                        <asp:Literal ID="txtPlan" runat="server" />
+                    </div>
+                </div>
+
+                <!-- Valor del Plan -->
+                <div class="row">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <label class="control-label" for="TxtValorPlan">Valor:</label>
+                        <rad:RadNumericBox2 ID="TxtValorPlan" runat="server" OnBlur="Sumar();" />
+                        <asp:CustomValidator ID="CustomValidator1" runat="server"
+                            ControlToValidate="TxtValorPlan"
+                            ValidateEmptyText="true"
+                            ClientValidationFunction="validaControl"
+                            ValidationGroup="Identidad" />
+                    </div>
+                </div>
+
+                <!-- Cantidad de Documentos -->
+                <div class="row">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <label class="control-label" for="txtDocumentos">Cantidad Documentos:</label>
+                        <rad:RadNumericBox2 ID="txtDocumentos" runat="server" OnBlur="Sumar();" />
+                        <asp:CustomValidator ID="CustomValidator2" runat="server"
+                            ControlToValidate="txtDocumentos"
+                            ValidateEmptyText="true"
+                            ClientValidationFunction="validaControl"
+                            ValidationGroup="Identidad" />
+                    </div>
+                </div>
+
+                <!-- Cantidad de Instalación -->
+                <div class="row">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <label class="control-label" for="txtInstalacion">Cantidad Propiedad:</label>
+                        <rad:RadNumericBox2 ID="txtInstalacion" runat="server" OnBlur="Sumar();" />
+                        <asp:CustomValidator ID="CustomValidator5" runat="server"
+                            ControlToValidate="txtInstalacion"
+                            ValidateEmptyText="true"
+                            ClientValidationFunction="validaControl"
+                            ValidationGroup="Identidad" />
+                    </div>
+                </div>
+
+                <!-- Cantidad de Leads -->
+                <div class="row">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <label class="control-label" for="txtLead">Cantidad Lead:</label>
+                        <rad:RadNumericBox2 ID="txtLead" runat="server" OnBlur="Sumar();" />
+                        <asp:CustomValidator ID="CustomValidator6" runat="server"
+                            ControlToValidate="txtLead"
+                            ValidateEmptyText="true"
+                            ClientValidationFunction="validaControl"
+                            ValidationGroup="Identidad" />
+                    </div>
                 </div>
             </div>
-            <div class="row col-lg-12 col-md-12 col-xs-12 ">
-            </div>
+
+
 
             <div class="col-lg-12 col-md-12 col-xs-12 form-col-center">
                 </br>

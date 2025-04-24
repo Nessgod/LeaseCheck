@@ -28,77 +28,92 @@
             __doPostBack("<%=Grid.ClientID %>", '')
         }
 
+   
+
 
     </script>
 </asp:Content>
 
-<asp:Content ID="ContentBody" ContentPlaceHolderID="cphBody" Runat="Server">
+<asp:Content ID="ContentBody" ContentPlaceHolderID="cphBody" runat="Server">
     <rad:RadWindow2 ID="rwiDetalle" runat="server" />
-    <asp:UpdatePanel runat="server" ID="udPanel"  UpdateMode="Conditional" >
+    <asp:UpdatePanel runat="server" ID="udPanel" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:HiddenField ID="hdfTotal" runat="server" />
             <div class="SubTitulos">Definición Tipo de Plan</div>
             <div class="row col-lg-12 col-md-12 col-xs-12 ">
-	            <div class="form-group col-lg-2 col-md-2 col-xs-12"> 
-		            <label>Nombre Plan(*)</label>
-	            </div>
-	            <div class="form-group col-lg-10 col-md-10 col-xs-12"> 
+                <div class="form-group col-lg-2 col-md-2 col-xs-12">
+                    <label>Nombre Plan(*)</label>
+                </div>
+                <div class="form-group col-lg-10 col-md-10 col-xs-12">
                     <WebControls:TextBox2 ID="txtNombre" runat="server" />
-                    <asp:CustomValidator ID="CustomValidator1" runat="server" 
-                        ControlToValidate="txtNombre" 
+                    <asp:CustomValidator ID="CustomValidator1" runat="server"
+                        ControlToValidate="txtNombre"
                         ValidateEmptyText="true"
-                        ClientValidationFunction="validaControl" 
+                        ClientValidationFunction="validaControl"
                         ValidationGroup="Identidad" />
-	            </div>
+                </div>
             </div>
             <div class="row col-lg-12 col-md-12 col-xs-12 ">
-	            <div class="form-group col-lg-2 col-md-2 col-xs-2"> 
-		            <label>Administradores(*)</label>
-	            </div>
-	            <div class="form-group col-lg-3 col-md-3 col-xs-3"> 
-                    <rad:RadNumericbox2 ID="TxtCantAdministradores" runat="server" />
-                    <asp:CustomValidator ID="CustomValidator3" runat="server" 
-                        ControlToValidate="TxtCantAdministradores" 
+                <div class="form-group col-lg-2 col-md-2 col-xs-2">
+                    <label>Cantidad Documentos(*)</label>
+                </div>
+                <div class="form-group col-lg-3 col-md-3 col-xs-3">
+                    <rad:RadNumericBox2 ID="txtCantDocumento" runat="server" />
+                    <asp:CustomValidator ID="CustomValidator3" runat="server"
+                        ControlToValidate="txtCantDocumento"
                         ValidateEmptyText="true"
-                        ClientValidationFunction="validaControl" 
+                        ClientValidationFunction="validaControl"
                         ValidationGroup="Identidad" />
-	            </div>
-	            <div class="form-group col-lg-2 col-md-2 col-xs-2"> 
-                    <asp:CheckBox ID="ChkAdmIlimitados" Text=" Ilimitados" runat="server" />
-	            </div>
+                </div>
             </div>
             <div class="row col-lg-12 col-md-12 col-xs-12 ">
-	            <div class="form-group col-lg-2 col-md-2 col-xs-12"> 
-		            <label>Cant. Informes(*)</label>
-	            </div>
-	            <div class="form-group col-lg-10 col-md-10 col-xs-12"> 
-		            <rad:RadNumericbox2 ID="txtCantInformes" runat="server"/>
-                    <asp:CustomValidator ID="CustomValidator2" runat="server" 
-                        ControlToValidate="txtCantInformes" 
+                <div class="form-group col-lg-2 col-md-2 col-xs-2">
+                    <label>Cantidad Propiedad(*)</label>
+                </div>
+                <div class="form-group col-lg-3 col-md-3 col-xs-3">
+                    <rad:RadNumericBox2 ID="TxtCantPropiedad" runat="server" />
+                    <asp:CustomValidator ID="CustomValidator5" runat="server"
+                        ControlToValidate="TxtCantPropiedad"
                         ValidateEmptyText="true"
-                        ClientValidationFunction="validaControl" 
+                        ClientValidationFunction="validaControl"
                         ValidationGroup="Identidad" />
-	            </div>
+                </div>
             </div>
             <div class="row col-lg-12 col-md-12 col-xs-12 ">
-	            <div class="form-group col-lg-2 col-md-2 col-xs-12"> 
-		            <label>Habilitado</label>
-	            </div>
-	            <div class="form-group col-lg-3 col-md-3 col-xs-3"> 
-		            <asp:RadioButton ID="rdbSi" runat="server" Text="SI" GroupName="Habilitado" />
+                <div class="form-group col-lg-2 col-md-2 col-xs-12">
+                    <label>Cantidad Leads(*)</label>
+                </div>
+                <div class="form-group col-lg-10 col-md-10 col-xs-12">
+                    <rad:RadNumericBox2 ID="TxtCantLead" runat="server" />
+                    <asp:CustomValidator ID="CustomValidator2" runat="server"
+                        ControlToValidate="TxtCantLead"
+                        ValidateEmptyText="true"
+                        ClientValidationFunction="validaControl"
+                        ValidationGroup="Identidad" />
+                </div>
+            </div>
+
+            <div class="row col-lg-12 col-md-12 col-xs-12 ">
+                <div class="form-group col-lg-2 col-md-2 col-xs-12">
+                    <label>Valor</label>
+                </div>
+                <div class="form-group col-lg-10 col-md-10 col-xs-12">
+                    <rad:RadNumericBox2 ID="TxtValorPlan" runat="server" />
+                    <asp:CustomValidator ID="CustomValidator4" runat="server"
+                        ControlToValidate="TxtValorPlan"
+                        ValidateEmptyText="true"
+                        ClientValidationFunction="validaControl"
+                        ValidationGroup="Identidad" />
+                </div>
+            </div>
+            <div class="row col-lg-12 col-md-12 col-xs-12 ">
+                <div class="form-group col-lg-2 col-md-2 col-xs-12">
+                    <label>Habilitado</label>
+                </div>
+                <div class="form-group col-lg-3 col-md-3 col-xs-3">
+                    <asp:RadioButton ID="rdbSi" runat="server" Text="SI" GroupName="Habilitado" />
                     <asp:RadioButton ID="rdbNo" runat="server" Text="NO" GroupName="Habilitado" />
-	            </div>
-                 <div class="form-group col-lg-3 col-md-3 col-xs-3" style="text-align:right"> 
-		            <label>Valor</label>
-	            </div>
-                <div class="form-group col-lg-3 col-md-3 col-xs-3"> 
-                    <rad:RadNumericbox2 ID="TxtValorPlan" runat="server"  />
-		            <asp:CustomValidator ID="CustomValidator4" runat="server" 
-                        ControlToValidate="TxtValorPlan" 
-                        ValidateEmptyText="true"
-                        ClientValidationFunction="validaControl" 
-                        ValidationGroup="Identidad" />
-	            </div>
+                </div>
             </div>
             <asp:Panel ID="pnlProducto" runat="server" Visible="true">
                 <br />
@@ -123,7 +138,7 @@
                 </br>
                 <WebControls:PushButton ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" ValidationGroup="Identidad" />
                 <WebControls:PushButton ID="btnCerrar" runat="server" Text="Cerrar" OnClientClick="closeWindow();" CssClass="ButtonCerrar" />
-           </div>
+            </div>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

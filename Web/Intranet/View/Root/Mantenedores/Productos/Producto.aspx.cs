@@ -15,6 +15,7 @@ public partial class View_Root_Mantenedores_Productos_Producto : System.Web.UI.P
     }
 
     private ProductoController controller = new ProductoController();
+    private PlanProductoController controllerDocumento = new PlanProductoController();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -38,6 +39,12 @@ public partial class View_Root_Mantenedores_Productos_Producto : System.Web.UI.P
                         break;
                 }
             }
+
+            Grid.AddSelectColumn();
+            Grid.AddColumn("tdc_nombre", "TIPO DOCUMENTO", Align: HorizontalAlign.Left);
+
+            GridServicio.AddSelectColumn();
+            GridServicio.AddColumn("tsc_nombre", "SERVICIO", Align: HorizontalAlign.Left);
         }
     }
 
@@ -45,7 +52,10 @@ public partial class View_Root_Mantenedores_Productos_Producto : System.Web.UI.P
     {
         if (!IsPostBack)
             CargarProducto();
+        else
+            CargarProducto();
     }
+
 
     protected void CargarProducto()
     {
@@ -61,6 +71,16 @@ public partial class View_Root_Mantenedores_Productos_Producto : System.Web.UI.P
                 rdbSi.Checked = true;
             else
                 rdbNo.Checked = true;
+
+            CargarGridDocumento();
+            CargarGridServicio();
+            pnlDocumento.Visible = true;
+            pnlServicios.Visible = true;
+        }
+        else
+        {
+            pnlDocumento.Visible = false;
+            pnlServicios.Visible = false;
         }
     }
 
@@ -81,9 +101,119 @@ public partial class View_Root_Mantenedores_Productos_Producto : System.Web.UI.P
                 respuesta = controller.InsertProducto(producto);
 
             if (!respuesta.error)
+            {
                 Tools.tools.ClientAlert(respuesta.detalle, "ok", true);
+                Id = respuesta.codigo;
+            }
             else
                 Tools.tools.ClientAlert(respuesta.detalle, "alerta");
+        }
+        catch (Exception ex)
+        {
+            Tools.tools.ClientAlert(ex.Message, "error");
+        }
+
+
+
+    }
+
+    protected void CargarGridDocumento()
+    {
+        PlanProductoDocumento planProductoDocumento = new PlanProductoDocumento();
+
+        planProductoDocumento.prd_producto = Id;
+
+        Grid.DataSource = controllerDocumento.GetListadoProductosDocumento(planProductoDocumento);
+        Grid.DataBind();
+    }
+
+    protected void CargarGridServicio()
+    {
+        ClientePropiedadTipoServicio servicio = new ClientePropiedadTipoServicio();
+
+        servicio.psc_producto = Id;
+
+        GridServicio.DataSource = controllerDocumento.GetListadoProductosServicio(servicio);
+        GridServicio.DataBind();
+    }
+
+    protected void lnlNuevo_Click(object sender, EventArgs e)
+    {
+        string query = Server.UrlEncode(Tools.Crypto.Encrypt("IdProducto=" + Id));
+
+        Tools.tools.ClientExecute("abrirDocumento('" + query + "')");
+    }
+
+    protected void lnkEliminar_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (Grid.SelectedIndexes.Count == 0)
+            {
+                Tools.tools.ClientAlert("Debe seleccionar al menos un registro.", "alerta");
+            }
+            else
+            {
+                Respuesta respuesta = new Respuesta();
+
+                foreach (string item in Grid.SelectedIndexes)
+                {
+                    Telerik.Web.UI.DataKey value = Grid.MasterTableView.DataKeyValues[Int32.Parse(item)];
+                    int id = Int32.Parse(value["prd_id"].ToString());
+
+                    PlanProductoDocumento planProductoDocumento = new PlanProductoDocumento();
+                    planProductoDocumento.prd_id = id;
+
+                    respuesta = controllerDocumento.DeleteProductoDocumento(planProductoDocumento);
+                }
+
+                if (!respuesta.error)
+                    Tools.tools.ClientAlert(respuesta.detalle, "ok");
+                else
+                    Tools.tools.ClientAlert(respuesta.detalle, "alerta");
+            }
+        }
+        catch (Exception ex)
+        {
+            Tools.tools.ClientAlert(ex.Message, "error");
+        }
+    }
+
+    protected void lnlNuevoServicio_Click(object sender, EventArgs e)
+    {
+        string query = Server.UrlEncode(Tools.Crypto.Encrypt("IdProducto=" + Id));
+
+        Tools.tools.ClientExecute("abrirServicio('" + query + "')");
+    }
+
+    protected void lnlEliminarServicio_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (GridServicio.SelectedIndexes.Count == 0)
+            {
+                Tools.tools.ClientAlert("Debe seleccionar al menos un registro.", "alerta");
+            }
+            else
+            {
+                Respuesta respuesta = new Respuesta();
+
+                foreach (string item in GridServicio.SelectedIndexes)
+                {
+                    Telerik.Web.UI.DataKey value = GridServicio.MasterTableView.DataKeyValues[Int32.Parse(item)];
+                    int id = Int32.Parse(value["psc_id"].ToString());
+
+                    ClientePropiedadTipoServicio servicio = new ClientePropiedadTipoServicio();
+                    servicio.psc_id = id;
+
+                    respuesta = controllerDocumento.DeleteProductoServicio(servicio);
+                }
+
+                if (!respuesta.error)
+                    Tools.tools.ClientAlert(respuesta.detalle, "ok");
+                else
+                    Tools.tools.ClientAlert(respuesta.detalle, "alerta");
+            }
         }
         catch (Exception ex)
         {

@@ -197,28 +197,32 @@ namespace LeaseCheck.Controller
 
             if (Token.TokenSeguridad())
             {
+                SqlCommand cmdExecute = null;
+
                 try
                 {
-                    SqlCommand cmdExecute = Conexion.GetCommand("DEL_CLIENTE_INSTALACION");
+                    cmdExecute = Conexion.GetCommand("DEL_CLIENTE_INSTALACION");
                     cmdExecute.Parameters.AddWithValue("@ID", clienteInstalacion.cin_id);
 
                     cmdExecute.ExecuteNonQuery();
-                    cmdExecute.Connection.Close();
 
                     respuesta.codigo = 0;
                     respuesta.detalle = "Instalación eliminada con éxito.";
                     respuesta.error = false;
-
                 }
                 catch (Exception ex)
                 {
-                    cmdExecute.Connection.Close();
-                    cmdExecute.Dispose();
-                    respuesta.codigo = -1;
+                    if (cmdExecute != null)
+                    {
+                        cmdExecute.Connection.Close();
+                        cmdExecute.Dispose();
+                    }
+
                     respuesta.detalle = ex.Message;
                     respuesta.error = true;
                 }
             }
+
             return respuesta;
         }
     }

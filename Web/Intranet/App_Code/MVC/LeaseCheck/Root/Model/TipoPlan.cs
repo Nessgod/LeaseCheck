@@ -7,9 +7,9 @@ namespace LeaseCheck.Root.Model
     {
         public int tpl_id { get; set; }
         public string tpl_nombre { get; set; }
-        public int tpl_cantidad_informes { get; set; }
-        public int tpl_cantidad_administradores { get; set; } 
-        public bool tpl_administradores_ilimitados { get; set; }
+        public int tpl_cantidad_documento { get; set; }
+        public int tpl_cantidad_propiedad { get; set; } 
+        public int tpl_cantidad_lead { get; set; }
         public int tpl_valor_plan { get; set; }
         
         public bool tpl_habilitado { get; set; }

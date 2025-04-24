@@ -19,10 +19,37 @@
             if (window.BrowserWindow.refresh) window.BrowserWindow.refresh();
             window.close();
         }
+
+        function abrirDocumento(query) {
+            var oWin = $find("<%=rwiDetalle.ClientID %>");
+            oWin.setUrl('<%=ResolveUrl("~/View/Root/Mantenedores/Productos/ProductoPlanDocumento.aspx") %>?query=' + query);
+            oWin.show();
+            bloqueaScroll(false);
+        }
+
+        function abrirServicio(query) {
+            var oWin = $find("<%=rwiDetalle.ClientID %>");
+            oWin.setUrl('<%=ResolveUrl("~/View/Root/Mantenedores/Productos/ProductoPlanServicio.aspx") %>?query=' + query);
+            oWin.show();
+            bloqueaScroll(false);
+        }
+
+
+
+        function refresh() {
+            __doPostBack("<%=Grid.ClientID %>", '')
+        }
+
+
+        function refresh() {
+            __doPostBack("<%=GridServicio.ClientID %>", '')
+        }
+
     </script>
 </asp:Content>
 
 <asp:Content ID="ContentBody" ContentPlaceHolderID="cphBody" Runat="Server">
+    <rad:RadWindow2 ID="rwiDetalle" runat="server" />
     <asp:UpdatePanel runat="server" ID="udPanel"  UpdateMode="Conditional" >
         <ContentTemplate>
             <div class="SubTitulos">Productos</div>
@@ -49,6 +76,44 @@
                     <asp:RadioButton ID="rdbNo" runat="server" Text="NO" GroupName="Habilitado" />
 	            </div>
             </div>
+
+            <asp:Panel ID="pnlDocumento" runat="server" Visible="true">
+                <div class="SubTitulos">Documentos Asociados</div>
+                <rad:RadGrid2 ID="Grid" runat="server">
+                    <MasterTableView CommandItemDisplay="Top" DataKeyNames="prd_id">
+                        <CommandItemTemplate>
+                            <div>
+                                <asp:LinkButton ID="lnlNuevo" runat="server" Text="Nuevo" CssClass="icono_guardar" OnClick="lnlNuevo_Click" />
+                                <asp:LinkButton ID="lnkEliminar" runat="server" Text="Eliminar" CssClass="icono_eliminar" OnClick="lnkEliminar_Click"
+                                    OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea eliminar los registros seleccionados?');" />
+                            </div>
+                        </CommandItemTemplate>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Scrolling AllowScroll="True"  />
+                    </ClientSettings>
+                </rad:RadGrid2>
+                <br />
+            </asp:Panel>
+
+              <asp:Panel ID="pnlServicios" runat="server" Visible="true">
+                  <div class="SubTitulos">Servicios Asociados</div>
+                  <rad:RadGrid2 ID="GridServicio" runat="server">
+                      <MasterTableView CommandItemDisplay="Top" DataKeyNames="psc_id">
+                          <CommandItemTemplate>
+                              <div>
+                                  <asp:LinkButton ID="lnlNuevoServicio" runat="server" Text="Nuevo" CssClass="icono_guardar" OnClick="lnlNuevoServicio_Click" />
+                                  <asp:LinkButton ID="lnlEliminarServicio" runat="server" Text="Eliminar" CssClass="icono_eliminar" OnClick="lnlEliminarServicio_Click"
+                                      OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea eliminar los registros seleccionados?');" />
+                              </div>
+                          </CommandItemTemplate>
+                      </MasterTableView>
+                      <ClientSettings>
+                          <Scrolling AllowScroll="True" ScrollHeight="320" />
+                      </ClientSettings>
+                  </rad:RadGrid2>
+                  <br />
+              </asp:Panel>
             <div class="col-lg-12 col-md-12 col-xs-12 form-col-center">
                 </br>
                 <WebControls:PushButton ID="btnGuardar" runat="server" Text="Guardar" ValidationGroup="Identidad" OnClick="btnGuardar_Click"/>

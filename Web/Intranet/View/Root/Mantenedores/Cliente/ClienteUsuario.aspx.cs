@@ -87,6 +87,78 @@ public partial class View_Root_Mantenedores_Cliente_ClienteUsuario : System.Web.
 
                         ctrl.DataBind();
                         break;
+                    case "cboComuna":
+                        Comuna filtro1 = new Comuna();
+                        var comunas = controller.GetComunas(filtro1);
+
+                        if (comunas.Count > 0)
+                        {
+                            ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
+                            ctrl.AppendDataBoundItems = true;
+                        }
+                        ctrl.DataSource = comunas;
+                        ctrl.DataValueField = "cmn_id";
+                        ctrl.DataTextField = "cmn_nombre";
+                        ctrl.DataBind();
+                        break;
+
+                    case "cboEstadoCivil":
+                        EstadoCivil ecivil = new EstadoCivil();
+                        var estadoCivils = controller.GetEstadoCivil();
+
+                        if (estadoCivils.Count > 0)
+                        {
+                            ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
+                            ctrl.AppendDataBoundItems = true;
+                        }
+                        ctrl.DataSource = estadoCivils;
+                        ctrl.DataValueField = "ecl_id";
+                        ctrl.DataTextField = "ecl_nombre";
+                        ctrl.DataBind();
+                        break;
+
+                    case "cboProfesion":
+                        var profesion = controller.GetProfesion();
+
+                        if (profesion.Count > 0)
+                        {
+                            ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
+                            ctrl.AppendDataBoundItems = true;
+                        }
+                        ctrl.DataSource = profesion;
+                        ctrl.DataValueField = "prf_id";
+                        ctrl.DataTextField = "prf_nombre";
+                        ctrl.DataBind();
+                        break;
+
+                    case "cboGenero":
+                        var genero = controller.GetGenero();
+
+                        if (genero.Count > 0)
+                        {
+                            ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
+                            ctrl.AppendDataBoundItems = true;
+                        }
+                        ctrl.DataSource = genero;
+                        ctrl.DataValueField = "gro_id";
+                        ctrl.DataTextField = "gro_nombre";
+                        ctrl.DataBind();
+                        break;
+
+
+                    case "cboNacionalidad":
+                        var nacionalidad = controller.GetNacionalidad();
+
+                        if (nacionalidad.Count > 0)
+                        {
+                            ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
+                            ctrl.AppendDataBoundItems = true;
+                        }
+                        ctrl.DataSource = nacionalidad;
+                        ctrl.DataValueField = "nac_id";
+                        ctrl.DataTextField = "nac_nombre";
+                        ctrl.DataBind();
+                        break;
                 }
             }
         }
@@ -132,6 +204,15 @@ public partial class View_Root_Mantenedores_Cliente_ClienteUsuario : System.Web.
 
             lblID.Text = Id.ToString();
             txtLogin.Text = usuario.usu_login;
+            txtRUT.Text = usuario.usu_rut;
+            txtCiudad.Text = usuario.usu_ciudad;
+            txtCalle.Text = usuario.usu_calle;
+            txtNumeroPropiedad.Text = usuario.usu_numero_propiedad;
+            cboComuna.SelectedValue = usuario.usu_comuna.ToString();
+            cboGenero.SelectedValue = usuario.usu_genero.ToString();
+            cboEstadoCivil.SelectedValue = usuario.usu_estado_civil.ToString();
+            cboNacionalidad.SelectedValue = usuario.usu_nacionalidad.ToString();
+            cboProfesion.SelectedValue = usuario.usu_profesion.ToString();
             txtPassword.Text = usuario.usu_password;
             TextNombre.Text = usuario.usu_nombres;
             txtPaterno.Text = usuario.usu_apellido_paterno;
@@ -203,6 +284,17 @@ public partial class View_Root_Mantenedores_Cliente_ClienteUsuario : System.Web.
             usuario.usu_correo = txtCorreo.Text;
             usuario.usu_perfil = int.Parse(cboPerfil.SelectedValue);
             usuario.usu_pais = cliente.cli_pais;
+            usuario.usu_pais = int.Parse(cboPais.SelectedValue);
+            usuario.usu_comuna = int.Parse(cboComuna.SelectedValue);
+            usuario.usu_genero = int.Parse(cboGenero.SelectedValue);
+            usuario.usu_estado_civil = int.Parse(cboEstadoCivil.SelectedValue);
+            usuario.usu_nacionalidad = int.Parse(cboNacionalidad.SelectedValue);
+            usuario.usu_profesion = int.Parse(cboProfesion.SelectedValue);
+            usuario.usu_rut = txtRUT.Text;
+            usuario.usu_calle = txtCalle.Text;
+            usuario.usu_numero_propiedad = txtNumeroPropiedad.Text;
+            usuario.usu_ciudad = txtCiudad.Text;
+
             usuario.cliente = Cliente;
 
             if (rdbSi.Checked)

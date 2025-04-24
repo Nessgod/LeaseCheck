@@ -237,6 +237,29 @@ namespace LeaseCheck.Root.Controller
                             usuario.es_cliente = bool.Parse(dr["USU_ES_CLIENTE"].ToString());
                             usuario.usu_perfil = int.Parse(dr["USU_PERFIL"].ToString());
                             usuario.usu_pais = int.Parse(dr["USU_PAIS"].ToString());
+                            usuario.usu_rut = dr["USU_RUT"].ToString();
+                            usuario.usu_nacionalidad = dr["USU_NACIONALIDAD"] != null && dr["USU_NACIONALIDAD"].ToString() != ""? Convert.ToInt32(dr["USU_NACIONALIDAD"]) : 0;
+
+                            usuario.usu_estado_civil = dr["USU_ESTADO_CIVIL"] != null && dr["USU_ESTADO_CIVIL"].ToString() != ""
+                                ? Convert.ToInt32(dr["USU_ESTADO_CIVIL"]) : 0;
+
+                            usuario.usu_profesion = dr["USU_PROFESION"] != null && dr["USU_PROFESION"].ToString() != ""
+                                ? Convert.ToInt32(dr["USU_PROFESION"]) : 0;
+
+                            usuario.usu_genero = dr["USU_GENERO"] != null && dr["USU_GENERO"].ToString() != ""
+                                ? Convert.ToInt32(dr["USU_GENERO"]) : 0;
+
+                            usuario.usu_comuna = dr["USU_COMUNA"] != null && dr["USU_COMUNA"].ToString() != ""
+                                ? Convert.ToInt32(dr["USU_COMUNA"]) : 0;
+
+                            usuario.usu_ciudad = dr["USU_CIUDAD"] != null ? dr["USU_CIUDAD"].ToString() : string.Empty;
+
+                            usuario.usu_calle = dr["USU_CALLE"] != null ? dr["USU_CALLE"].ToString() : string.Empty;
+
+                            usuario.usu_numero_propiedad = dr["USU_NUMERO_PROPIEDAD"] != null ? dr["USU_NUMERO_PROPIEDAD"].ToString() : string.Empty;
+
+
+
 
                             if (dr["USU_ULTIMO_LOGIN"].ToString() != "") usuario.usu_ultimo_login = DateTime.Parse(dr["USU_ULTIMO_LOGIN"].ToString());
 
@@ -291,6 +314,16 @@ namespace LeaseCheck.Root.Controller
                     cmdExecute.Parameters.AddWithValue("@PERFIL", usuario.usu_perfil);
                     cmdExecute.Parameters.AddWithValue("@PAIS_COMBOBOX", usuario.usu_pais);
 
+                    cmdExecute.Parameters.AddWithValue("@COMUNA", usuario.usu_comuna);
+                    cmdExecute.Parameters.AddWithValue("@CIUDAD", usuario.usu_ciudad);
+                    cmdExecute.Parameters.AddWithValue("@CALLE", usuario.usu_calle);
+                    cmdExecute.Parameters.AddWithValue("@NUMERO_PROPIEDAD", usuario.usu_numero_propiedad);
+                    cmdExecute.Parameters.AddWithValue("@GENERO", usuario.usu_genero);
+                    cmdExecute.Parameters.AddWithValue("@PROFESION", usuario.usu_profesion);
+                    cmdExecute.Parameters.AddWithValue("@ESTADO_CIVIL", usuario.usu_estado_civil);
+                    cmdExecute.Parameters.AddWithValue("@RUT", usuario.usu_rut);
+                    cmdExecute.Parameters.AddWithValue("@NACIONALIDAD", usuario.usu_nacionalidad);
+
                     cmdExecute.ExecuteNonQuery();
                     cmdExecute.Connection.Close();
 
@@ -342,6 +375,15 @@ namespace LeaseCheck.Root.Controller
                     cmdExecute.Parameters.AddWithValue("@PAIS", Session.Pais());
                     cmdExecute.Parameters.AddWithValue("@PERFIL", usuario.usu_perfil);
                     cmdExecute.Parameters.AddWithValue("@PAIS_COMBOBOX", usuario.usu_pais);
+                    cmdExecute.Parameters.AddWithValue("@COMUNA", usuario.usu_comuna);
+                    cmdExecute.Parameters.AddWithValue("@CIUDAD", usuario.usu_ciudad);
+                    cmdExecute.Parameters.AddWithValue("@CALLE", usuario.usu_calle);
+                    cmdExecute.Parameters.AddWithValue("@NUMERO_PROPIEDAD", usuario.usu_numero_propiedad);
+                    cmdExecute.Parameters.AddWithValue("@GENERO", usuario.usu_genero);
+                    cmdExecute.Parameters.AddWithValue("@PROFESION", usuario.usu_profesion);
+                    cmdExecute.Parameters.AddWithValue("@ESTADO_CIVIL", usuario.usu_estado_civil);
+                    cmdExecute.Parameters.AddWithValue("@RUT", usuario.usu_rut);
+                    cmdExecute.Parameters.AddWithValue("@NACIONALIDAD", usuario.usu_nacionalidad);
 
                     cmdExecute.ExecuteNonQuery();
                     cmdExecute.Connection.Close();
@@ -608,6 +650,15 @@ namespace LeaseCheck.Root.Controller
                     cmdExecute.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
                     cmdExecute.Parameters.AddWithValue("@HOST", Session.RemoteHost());
                     cmdExecute.Parameters.AddWithValue("@PAIS", Session.Pais());
+                    cmdExecute.Parameters.AddWithValue("@COMUNA", usuario.usu_comuna);
+                    cmdExecute.Parameters.AddWithValue("@CIUDAD", usuario.usu_ciudad);
+                    cmdExecute.Parameters.AddWithValue("@CALLE", usuario.usu_calle);
+                    cmdExecute.Parameters.AddWithValue("@NUMERO_PROPIEDAD", usuario.usu_numero_propiedad);
+                    cmdExecute.Parameters.AddWithValue("@GENERO", usuario.usu_genero);
+                    cmdExecute.Parameters.AddWithValue("@PROFESION", usuario.usu_profesion);
+                    cmdExecute.Parameters.AddWithValue("@ESTADO_CIVIL", usuario.usu_estado_civil);
+                    cmdExecute.Parameters.AddWithValue("@RUT", usuario.usu_rut);
+                    cmdExecute.Parameters.AddWithValue("@NACIONALIDAD", usuario.usu_nacionalidad);
 
                     cmdExecute.ExecuteNonQuery();
                     cmdExecute.Connection.Close();

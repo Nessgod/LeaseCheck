@@ -27,7 +27,7 @@ public partial class View_Comun_Controls_Cliente_Instalaciones : System.Web.UI.U
     public bool TieneRut { get; set; }
 
     ClienteController controller = new ClienteController();
-    private ClienteDocumentoController controllerClienteDocumento = new ClienteDocumentoController();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -121,7 +121,38 @@ public partial class View_Comun_Controls_Cliente_Instalaciones : System.Web.UI.U
 
     protected void lnkEliminarInstalacion_Click(object sender, EventArgs e)
     {
+        try
+        {
+            if (GridInstalaciones.SelectedIndexes.Count == 0)
+            {
+                Tools.tools.ClientAlert("Debe seleccionar al menos un registro.", "alerta");
+            }
+            else
+            {
+                Respuesta respuesta = new Respuesta();
 
+                foreach (string item in GridInstalaciones.SelectedIndexes)
+                {
+                    Telerik.Web.UI.DataKey value = GridInstalaciones.MasterTableView.DataKeyValues[Int32.Parse(item)];
+                    int id = Int32.Parse(value["cin_id"].ToString());
+
+                    ClienteInstalacion item1 = new ClienteInstalacion();
+                    ClienteInstalacionController controller = new ClienteInstalacionController();
+                    item1.cin_id = id;
+
+                    respuesta = controller.DeleteClienteInstalacion(item1);
+                }
+
+                if (!respuesta.error)
+                    Tools.tools.ClientAlert(respuesta.detalle, "ok");
+                else
+                    Tools.tools.ClientAlert(respuesta.detalle, "alerta");
+            }
+        }
+        catch (Exception ex)
+        {
+            Tools.tools.ClientAlert(ex.Message, "error");
+        }
     }
 
 }

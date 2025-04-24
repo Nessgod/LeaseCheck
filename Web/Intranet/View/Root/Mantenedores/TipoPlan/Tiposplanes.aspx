@@ -28,8 +28,6 @@
                 checkbox = item.findElement("ClientSelectColumnSelectCheckBox");
                
                 if (checkbox.checked) {
-                    /*var DownloadButton = document.getElementById('DownloadButton');
-                    DownloadButton.enabled = false;*/
                     var Id = masterTable.get_dataItems()[i].findElement("Tpl_Id");
                 }
             }

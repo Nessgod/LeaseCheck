@@ -17,25 +17,34 @@ namespace LeaseCheck
         {
             byte[] pdfBytes = null;
 
-            PdfConverter htmlToPdfConverter = new PdfConverter();
+            try
+            {
+                PdfConverter htmlToPdfConverter = new PdfConverter();
 
-            htmlToPdfConverter.LicenseKey = ConfigurationManager.AppSettings.Get("PdfConverterLicenseKey");
+                htmlToPdfConverter.LicenseKey = ConfigurationManager.AppSettings.Get("PdfConverterLicenseKey");
 
-            htmlToPdfConverter.PdfDocumentInfo.AuthorName = "LeaseCheck";
-            htmlToPdfConverter.PdfDocumentInfo.Title = "LeaseCheck";
-            htmlToPdfConverter.PdfDocumentInfo.Subject = "";
-            htmlToPdfConverter.PdfDocumentInfo.CreatedDate = DateTime.Now;
-            htmlToPdfConverter.PdfDocumentOptions.LeftMargin = 30;
-            htmlToPdfConverter.PdfDocumentOptions.RightMargin = 30;
-            htmlToPdfConverter.PdfDocumentOptions.TopMargin = 30;
-            htmlToPdfConverter.PdfDocumentOptions.BottomMargin = 30;
-            htmlToPdfConverter.PdfDocumentOptions.PdfPageSize = PdfPageSize.A4;
+                htmlToPdfConverter.PdfDocumentInfo.AuthorName = "LeaseCheck";
+                htmlToPdfConverter.PdfDocumentInfo.Title = "LeaseCheck";
+                htmlToPdfConverter.PdfDocumentInfo.Subject = "";
+                htmlToPdfConverter.PdfDocumentInfo.CreatedDate = DateTime.Now;
+                htmlToPdfConverter.PdfDocumentOptions.LeftMargin = 30;
+                htmlToPdfConverter.PdfDocumentOptions.RightMargin = 30;
+                htmlToPdfConverter.PdfDocumentOptions.TopMargin = 30;
+                htmlToPdfConverter.PdfDocumentOptions.BottomMargin = 30;
+                htmlToPdfConverter.PdfDocumentOptions.PdfPageSize = PdfPageSize.A4;
 
-            pdfBytes = htmlToPdfConverter.GetPdfBytesFromHtmlString(html);
+                // Convertir HTML a bytes de PDF
+                pdfBytes = htmlToPdfConverter.GetPdfBytesFromHtmlString(html);
+            }
+            catch (Exception ex)
+            {
+                // Puedes registrar el error o devolver el mensaje de error
+                throw new Exception("Error al generar el PDF: " + ex.Message);
+            }
 
             return pdfBytes;
-
         }
+
 
         public static byte[] PdfConverterBinarioRuta(string urlPath)
         {

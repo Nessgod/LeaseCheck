@@ -28,8 +28,9 @@ namespace LeaseCheck.Root.Controller
 
                             item.tpl_id = int.Parse(dr["TPL_ID"].ToString());
                             item.tpl_nombre = dr["TPL_NOMBRE"].ToString();
-                            item.tpl_cantidad_informes = int.Parse(dr["TPL_CANTIDAD_INFORMES"].ToString());
-                            item.tpl_cantidad_administradores = int.Parse(dr["TPL_CANTIDAD_ADMINISTRADORES"].ToString());
+                            item.tpl_cantidad_documento = int.Parse(dr["TPL_CANTIDAD_DOCUMENTO"].ToString());
+                            item.tpl_cantidad_propiedad = int.Parse(dr["TPL_CANTIDAD_PROPIEDAD"].ToString());
+                            item.tpl_cantidad_lead = int.Parse(dr["TPL_CANTIDAD_LEAD"].ToString());
                             item.tpl_valor_plan = int.Parse(dr["TPL_VALOR_PLAN"].ToString());
                             item.tpl_habilitado = bool.Parse(dr["TPL_HABILITADO"].ToString());
                             item.tpl_fecha_creacion = DateTime.Parse(dr["TPL_FECHA_CREACION"].ToString());
@@ -72,11 +73,12 @@ namespace LeaseCheck.Root.Controller
                         {
                             item.tpl_id = int.Parse(dr["TPL_ID"].ToString());
                             item.tpl_nombre = dr["TPL_NOMBRE"].ToString();
-                            item.tpl_cantidad_informes = int.Parse(dr["TPL_CANTIDAD_INFORMES"].ToString());
-                            item.tpl_cantidad_administradores = int.Parse(dr["TPL_CANTIDAD_ADMINISTRADORES"].ToString());
-                            item.tpl_administradores_ilimitados = bool.Parse(dr["TPL_ADMINISTRADORES_ILIMITADOS"].ToString());
+                            item.tpl_cantidad_documento = int.Parse(dr["TPL_CANTIDAD_DOCUMENTO"].ToString());
+                            item.tpl_cantidad_propiedad = int.Parse(dr["TPL_CANTIDAD_PROPIEDAD"].ToString());
+                            item.tpl_cantidad_lead = int.Parse(dr["TPL_CANTIDAD_LEAD"].ToString());
                             item.tpl_valor_plan = int.Parse(dr["TPL_VALOR_PLAN"].ToString());
                             item.tpl_habilitado = bool.Parse(dr["TPL_HABILITADO"].ToString());
+                            item.tpl_fecha_creacion = DateTime.Parse(dr["TPL_FECHA_CREACION"].ToString());
                         }
                     }
 
@@ -109,9 +111,9 @@ namespace LeaseCheck.Root.Controller
                     cmdExecute = Conexion.GetCommand("INS_TIPO_PLAN");
                     cmdExecute.Parameters.AddWithValue("@ID", id).Direction = System.Data.ParameterDirection.Output;
                     cmdExecute.Parameters.AddWithValue("@NOMBRE", item.tpl_nombre);
-                    cmdExecute.Parameters.AddWithValue("@CANTIDAD_INFORMES", item.tpl_cantidad_informes);
-                    cmdExecute.Parameters.AddWithValue("@CANTIDAD_ADMINISTRADORES", item.tpl_cantidad_administradores);
-                    cmdExecute.Parameters.AddWithValue("@ADMINISTRADORES_ILIMITADOS", item.tpl_administradores_ilimitados);
+                    cmdExecute.Parameters.AddWithValue("@CANTIDAD_DOCUMENTOS", item.tpl_cantidad_documento);
+                    cmdExecute.Parameters.AddWithValue("@CANTIDAD_PROPIEDADES", item.tpl_cantidad_propiedad);
+                    cmdExecute.Parameters.AddWithValue("@CANTIDAD_LEAD", item.tpl_cantidad_lead);
                     cmdExecute.Parameters.AddWithValue("@VALOR_PLAN", item.tpl_valor_plan);
                     cmdExecute.Parameters.AddWithValue("@HABILITADO", item.tpl_habilitado);
                     cmdExecute.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
@@ -153,14 +155,14 @@ namespace LeaseCheck.Root.Controller
 
                     cmdExecute.Parameters.AddWithValue("@ID", item.tpl_id);
                     cmdExecute.Parameters.AddWithValue("@NOMBRE", item.tpl_nombre);
-                    cmdExecute.Parameters.AddWithValue("@CANTIDAD_INFORMES", item.tpl_cantidad_informes);
-                    cmdExecute.Parameters.AddWithValue("@CANTIDAD_ADMINISTRADORES", item.tpl_cantidad_administradores);
-                    cmdExecute.Parameters.AddWithValue("@ADMINISTRADORES_ILIMITADOS", item.tpl_administradores_ilimitados);
+                    cmdExecute.Parameters.AddWithValue("@CANTIDAD_DOCUMENTOS", item.tpl_cantidad_documento);
+                    cmdExecute.Parameters.AddWithValue("@CANTIDAD_PROPIEDADES", item.tpl_cantidad_propiedad);
+                    cmdExecute.Parameters.AddWithValue("@CANTIDAD_LEAD", item.tpl_cantidad_lead);
                     cmdExecute.Parameters.AddWithValue("@VALOR_PLAN", item.tpl_valor_plan);
                     cmdExecute.Parameters.AddWithValue("@HABILITADO", item.tpl_habilitado);
                     cmdExecute.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
                     cmdExecute.Parameters.AddWithValue("@PAIS", Session.Pais());
-                    
+
 
                     cmdExecute.ExecuteNonQuery();
                     cmdExecute.Connection.Close();

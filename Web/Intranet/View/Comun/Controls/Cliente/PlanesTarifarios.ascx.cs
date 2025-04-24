@@ -53,10 +53,9 @@ public partial class View_Comun_Controls_Cliente_PlanesTarifarios : System.Web.U
             Grid.AddColumn("plan_nombre", "NOMBRE", "", HorizontalAlign.Left);
             Grid.AddColumn("clp_fecha_desde", "DESDE", "", HorizontalAlign.Left, DataFormat: "{0:dd-MM-yyyy}");
             Grid.AddColumn("clp_fecha_hasta", "HASTA", "", HorizontalAlign.Left, DataFormat: "{0:dd-MM-yyyy}");
+            Grid.AddColumn("valor_plan", "VALOR", "", HorizontalAlign.Left, DataFormat: "{0:C0}");
             Grid.AddColumn("estado", "ESTADO", "", HorizontalAlign.Left);
-            Grid.AddColumn("clp_administradores", "ADMINISTRADORES", "", HorizontalAlign.Left);
-            Grid.AddColumn("clp_cantidad", "CANTIDAD", "", HorizontalAlign.Left);
-            Grid.AddColumn("clp_valor_plan", "VALOR", "", HorizontalAlign.Left, DataFormat: "{0:N0}");
+
 
             Tools.tools.RegisterPostBackScript(Grid);
         }
@@ -76,11 +75,9 @@ public partial class View_Comun_Controls_Cliente_PlanesTarifarios : System.Web.U
         if (!IsPostBack)
         {
             CargaDatos();
-            CalcularTotalValor();
             udPanel.Update();
         }
         CargaDatos();
-        CalcularTotalValor();
         udPanel.Update();
 
     }
@@ -98,32 +95,8 @@ public partial class View_Comun_Controls_Cliente_PlanesTarifarios : System.Web.U
 
         Grid.DataSource = listado;
         Grid.DataBind();
-        CalcularTotalValor();
 
     }
-    private void CalcularTotalValor()
-    {
-        decimal total = 0;
-
-        foreach (GridDataItem item in Grid.MasterTableView.Items)
-        {
-            var estado = item["estado"].Text;
-            var valorPlan = item["clp_valor_plan"].Text;
-            if (estado == "Activo")
-            {
-                decimal valor = 0;
-                if (!string.IsNullOrEmpty(valorPlan))
-                {
-                    decimal.TryParse(valorPlan, out valor);
-                }
-
-                total += valor;
-            }
-        }
-
-        lblValorTotal.Text = total.ToString("N0");
-    }
-
 
 
     protected void Grid_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)

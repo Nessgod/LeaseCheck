@@ -34,7 +34,7 @@ namespace LeaseCheck.Root.Controller
                         menu.mnu_orden = int.Parse(dr["MNU_ORDEN"].ToString());
                         menu.mnu_link = dr["MNU_LINK"].ToString();
                         menu.mnu_visible = bool.Parse(dr["MNU_VISIBLE"].ToString());
-                        if(dr["MNU_ICON"].ToString() != null) menu.mnu_icon = dr["MNU_ICON"].ToString();
+                        if (dr["MNU_ICON"].ToString() != null) menu.mnu_icon = dr["MNU_ICON"].ToString();
                         menus.Add(menu);
                     }
                 }
@@ -50,34 +50,6 @@ namespace LeaseCheck.Root.Controller
                 cmd.Dispose();
                 return menus;
             }
-        }
-
-        public Usuarios GetMenuAutotest(Usuarios filtro)
-        {
-            SqlCommand cmd = new SqlCommand();
-            Usuarios item = new Usuarios();
-
-            try
-            {
-                
-                cmd.CommandText = "SEL_VALIDA_AUTOTEST";
-                cmd.Parameters.AddWithValue("@USUARIO", filtro.usu_id);
-
-                using (SqlDataReader dr = Conexion.GetDataReader(cmd))
-                {
-                    while (dr.Read())
-                    {
-                        item.acceso_autotest = int.Parse(dr["CLP_AUTOTEST"].ToString());
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                cmd.Connection.Close();
-                cmd.Dispose();
-            }
-
-            return item;
         }
     }
 }

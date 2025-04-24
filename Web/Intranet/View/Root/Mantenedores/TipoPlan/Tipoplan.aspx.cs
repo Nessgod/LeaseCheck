@@ -66,9 +66,9 @@ public partial class View_Mantenedores_TipoPlan_Tipoplan : System.Web.UI.Page
             {
                 item.tpl_id = Id;
                 txtNombre.Text = item.tpl_nombre;
-                txtCantInformes.Value = item.tpl_cantidad_informes;
-                TxtCantAdministradores.Value = item.tpl_cantidad_administradores;
-                ChkAdmIlimitados.Checked = item.tpl_administradores_ilimitados;
+                txtCantDocumento.Value = item.tpl_cantidad_documento;
+                TxtCantPropiedad.Value = item.tpl_cantidad_propiedad;
+                TxtCantLead.Value = item.tpl_cantidad_lead;
                 TxtValorPlan.Value = item.tpl_valor_plan;
 
                 if (item.tpl_habilitado)
@@ -104,9 +104,9 @@ public partial class View_Mantenedores_TipoPlan_Tipoplan : System.Web.UI.Page
             TipoPlan item = new TipoPlan();
             item.tpl_id = Id;
             item.tpl_nombre = txtNombre.Text;
-            item.tpl_cantidad_informes = int.Parse(txtCantInformes.Text);
-            item.tpl_cantidad_administradores = int.Parse(TxtCantAdministradores.Text);
-            item.tpl_administradores_ilimitados = ChkAdmIlimitados.Checked;
+            item.tpl_cantidad_documento = int.Parse(txtCantDocumento.Text);
+            item.tpl_cantidad_propiedad = int.Parse(TxtCantPropiedad.Text);
+            item.tpl_cantidad_lead = int.Parse(TxtCantLead.Text);
             item.tpl_valor_plan = int.Parse(TxtValorPlan.Text);
             item.tpl_habilitado = rdbSi.Checked;
 

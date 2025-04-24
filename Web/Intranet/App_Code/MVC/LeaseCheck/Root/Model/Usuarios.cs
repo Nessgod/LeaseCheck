@@ -41,6 +41,18 @@ namespace LeaseCheck.Root.Model
         public string perfil_nombre { get; set; }
 
         public string cliente_nombre { get; set; }
-        public int acceso_autotest { get; set; }
+
+        public string NOMBRE_COMPLETO { get; set; }
+
+        public int usu_comuna { get; set; }
+        public string usu_ciudad { get; set; }
+        public string usu_calle { get; set; }
+        public string usu_numero_propiedad { get; set; }
+        public int usu_genero { get; set; }
+        public int usu_profesion { get; set; }
+        public int usu_estado_civil { get; set; }
+        public string usu_rut { get; set; }
+        public int usu_nacionalidad { get; set; }
+
     }
 }

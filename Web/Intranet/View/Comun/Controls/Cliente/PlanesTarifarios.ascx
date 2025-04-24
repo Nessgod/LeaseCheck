@@ -14,45 +14,6 @@
         __doPostBack("<%=Grid.ClientID %>", '')
     }
 
-    // Función para sumar el valor total
-    $(document).ready(function () {
-        CalculoValorTotal();
-    });
-
-    $(document).ready(function () {
-        CalculoValorTotal();
-    });
-
-    function CalculoValorTotal() {
-
-    <%-- var lblValorTotal = $("#<%= lblValorTotal.ClientID %>");
-
-     var valorTotal = 0;
-
-     var masterTable = $find("<%= Grid.ClientID %>").get_masterTableView();
-     var row = masterTable.get_dataItems(); 
-     for (var i = 0; i < row.length; i++) {
-         var valorPlanParcial = row[i].findElement("clp_valor_plan");
-
-         console.log("Valor Plan Parcial:", valorPlanParcial);
-         /*console.log(row[3])*/
-         console.log(lblValorTotal)
-
-         var valorPlan = 0;
-
-         if (valorPlanParcial && valorPlanParcial.innerHTML.trim() !== "") {
-             valorPlan = parseFloat(valorPlanParcial.innerHTML.replace(/[^0-9.-]+/g, ""));
-         }
-         console.log("Valor Plan:", valorPlan);
-
-         valorTotal += valorPlan;
-     }
-
-
-     console.log("Valor Total:", valorTotal);
-
-     lblValorTotal.text(valorTotal);--%>
-    }
 </script>
 
 
@@ -78,14 +39,4 @@
     </ContentTemplate>
 </asp:UpdatePanel>
 
-<div class="row col-lg-12 col-md-12 col-xs-12">
-    <div class="col-lg-11 col-md-11 col-xs-12 text-right">
-        <label class="font-weight-bold">Total: $</label>
-    </div>
-    <div class="col-lg-1 col-md-1 col-xs-12 text-right">
-        <label class="font-weight-bold">
-            <asp:Label ID="lblValorTotal" runat="server" />
 
-        </label>
-    </div>
-</div>

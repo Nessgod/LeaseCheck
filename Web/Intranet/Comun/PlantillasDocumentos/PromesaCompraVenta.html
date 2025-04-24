@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Promesa de Compraventa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        h1, h2 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .firma {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .clausula {
+            margin-top: 20px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Promesa de Compraventa</h1>
+
+    <p><strong>Lugar y Fecha:</strong> %ciudad%, %fecha_contrato%</p>
+
+    <p>Comparecen: por una parte, %genero_vendedor% <strong>%nombre_vendedor%</strong>, %nacionalidad_vendedor%, %profesion_vendedor%, %estado_civil_vendedor%, domiciliado en <strong>%domicilio_vendedor%</strong>, cédula nacional de identidad número <strong>%rut_vendedor%</strong>, en adelante el <strong>“Promitente Vendedor”</strong>; y, por la otra parte, %genero_comprador% <strong>%nombre_comprador%</strong>, %nacionalidad_comprador%, %profesion_comprador%, %estado_civil_comprador%, domiciliado en <strong>%domicilio_comprador%</strong>, cédula nacional de identidad número <strong>%rut_comprador%</strong>, en adelante el <strong>“Promitente Comprador”</strong>.</p>
+
+    <p>Los comparecientes, mayores de edad, acuerdan celebrar este contrato de promesa de compraventa bajo las siguientes cláusulas:</p>
+
+    <div class="clausula">
+        <p class="section-title">Primero: Inmueble</p>
+        <p>%nombre_vendedor% declara ser único y exclusivo dueño del inmueble ubicado en la comuna de %comuna_inmueble%, calle %calle_inmueble% N° %numero_inmueble%, inscrito a fojas %fojas% vuelta número %numero_inscripcion% del Registro de Propiedad del año %anio_inscripcion% del Conservador de Bienes Raíces de %ciudad_cbrr%, correspondiente al sitio número %sitio%, Manzana %manzana%, del Conjunto Habitacional %conjunto_habitacional%.</p>
+    </div>
+
+    <div class="clausula">
+        <p class="section-title">Segundo: Promesa de compraventa</p>
+        <p>%nombre_vendedor% promete vender, ceder y transferir el inmueble a %nombre_comprador%, quien promete comprar y adquirir el 100% del mismo.</p>
+    </div>
+
+    <div class="clausula">
+        <p class="section-title">Tercero: Forma de la compraventa prometida</p>
+        <p>El inmueble se vende en el estado actual, conocido por el comprador, libre de gravámenes. El vendedor se obliga al saneamiento legal correspondiente.</p>
+    </div>
+
+    <div class="clausula">
+        <p class="section-title">Cuarto: Entrega del inmueble</p>
+        <p>La entrega se realizará una vez inscrito a nombre del comprador. La mora del vendedor faculta exigir el cumplimiento forzado automáticamente.</p>
+    </div>
+
+    <div class="clausula">
+        <p class="section-title">Quinto: Precio y forma de pago</p>
+        <p>El precio total del inmueble es de $%precio_total%. Se acuerda un pago inicial del %cdp_porcentaje_pago_inicial%% equivalente a $%cdp_monto_pago_inicial%, y un pago restante del %cdp_porcentaje_pago_restante%% equivalente a $%cdp_monto_restante%, el cual se pagará mediante %cdp_forma_pago_final% al momento de la firma de la compraventa.</p>
+    </div>
+
+    <div class="clausula">
+        <p class="section-title">Sexto: Plazo y condiciones</p>
+        <p><strong>1) Condiciones:</strong> Que los antecedentes del inmueble permitan su venta legal.</p>
+        <p><strong>2) Plazo para cumplir condiciones:</strong> %cdp_plazo_cumplir_condiciones% días hábiles desde la firma del contrato.</p>
+        <p><strong>3) Plazo para celebrar compraventa:</strong> Máximo %cdp_plazo_celebrar_compraventa% días corridos. La escritura definitiva se celebrará en la notaría de %cdp_notaria_firma%.</p>
+    </div>
+
+    <div class="clausula">
+        <p class="section-title">Séptimo: Multa</p>
+        <p>La parte que incumpla injustificadamente este contrato deberá pagar a la otra una multa ascendente a $%cdp_monto_multa%. Esta multa será exigible de pleno derecho.</p>
+    </div>
+
+    <div class="clausula">
+        <p class="section-title">Octavo: Garantía de fiel cumplimiento</p>
+        <p>Cada parte entregará un cheque por $%cdp_monto_garantia% al notario %cdp_notario_custodia% en custodia. Dicha garantía será devuelta una vez cumplido el contrato y acreditado con los documentos correspondientes.</p>
+    </div>
+
+    <div class="clausula">
+        <p class="section-title">Noveno: Gastos</p>
+        <p>Los gastos de inscripción en el Conservador de Bienes Raíces, estimados en $%cdp_gastos_inscripcion%, serán de cargo exclusivo del comprador. Otros gastos notariales se distribuirán en partes iguales entre las partes.</p>
+    </div>
+
+    <div class="clausula">
+        <p class="section-title">Décimo: Corretaje</p>
+        <p>Ambas partes pagarán a %nombre_corredora% una comisión de $%cdp_monto_comision%. Las fechas de oferta fueron: vendedor el día %cdp_fecha_oferta% y comprador el día %cdp_fecha_aceptacion_oferta%.</p>
+    </div>
+
+    <div class="clausula">
+        <p class="section-title">Décimo Primero: Domicilio</p>
+        <p>Ambas partes fijan domicilio en la comuna de %domicilio_comun%, y se someten a la jurisdicción de sus tribunales ordinarios.</p>
+    </div>
+
+    <p>El presente contrato se firma en dos ejemplares de idéntico tenor.</p>
+
+    <div class="firma">
+        <p>
+            ______________________________<br>
+            Promitente Vendedor<br>
+            RUT: %rut_vendedor%
+        </p>
+        <br>
+        <p>
+            ______________________________<br>
+            Promitente Comprador<br>
+            RUT: %rut_comprador%
+        </p>
+    </div>
+
+</body>
+</html>

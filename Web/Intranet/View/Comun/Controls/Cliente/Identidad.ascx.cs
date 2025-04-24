@@ -89,7 +89,6 @@ public partial class View_Comun_Controls_Cliente_Identidad : System.Web.UI.UserC
         cboComuna.DataSource = controller.GetComunas(filtro);
         cboComuna.DataValueField = "cmn_id";
         cboComuna.DataTextField = "cmn_nombre";
-        if (filtro.cmn_pais == 1) cboComuna.SelectedValue = "1";
         cboComuna.DataBind();
     }
 
@@ -111,6 +110,7 @@ public partial class View_Comun_Controls_Cliente_Identidad : System.Web.UI.UserC
                 txtIdentificador.Text = cliente.cli_identificador;
                 txtAlias.Text = cliente.cli_alias;
                 cboPais.SelectedValue = cliente.cli_pais.ToString();
+                cboComuna.SelectedValue = cliente.cli_comuna.ToString();
                 txtDireccion.Text = cliente.cli_direccion;
                 txtEmail.Text = cliente.cli_email;
                 txtTelefono.Text = cliente.cli_telefono;
@@ -118,16 +118,6 @@ public partial class View_Comun_Controls_Cliente_Identidad : System.Web.UI.UserC
                 txtContactoNombre.Text = cliente.cli_contacto_nombre;
                 txtContactoEmail.Text = cliente.cli_contacto_email;
                 txtContactoTelefono.Text = cliente.cli_contacto_telefono;
-
-                Comuna filtro = new Comuna();
-                filtro.cmn_pais = cliente.cli_pais;
-
-                cboComuna.Items.Clear();
-                cboComuna.DataSource = controller.GetComunas(filtro);
-                cboComuna.DataValueField = "cmn_id";
-                cboComuna.DataTextField = "cmn_nombre";
-                cboComuna.SelectedValue = cliente.cli_comuna.ToString();
-                cboComuna.DataBind();
 
                 if (cliente.cli_tiene_rut)
                 {
@@ -215,7 +205,7 @@ public partial class View_Comun_Controls_Cliente_Identidad : System.Web.UI.UserC
             }
 
             if (!respuesta.error)
-                Tools.tools.ClientAlert(respuesta.detalle, "ok");
+                Tools.tools.ClientAlert(respuesta.detalle, "ok", true);
             else
                 Tools.tools.ClientAlert(respuesta.detalle, "alerta");
         }

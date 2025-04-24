@@ -75,7 +75,7 @@ public partial class View_Root_Mantenedores_Cliente_Controls_Cliente : System.We
             ragTab.Tabs[2].Visible = false;
             ragTab.Tabs[3].Visible = false;
             ragTab.Tabs[4].Visible = false;
-            ragTab.Tabs[5].Visible = false;
+            //ragTab.Tabs[5].Visible = false;
 
             IdCliente = wucIdentidad.IdCliente;
         }
