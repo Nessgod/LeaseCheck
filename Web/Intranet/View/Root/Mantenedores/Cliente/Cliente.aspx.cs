@@ -27,7 +27,7 @@ public partial class View_Root_Mantenedores_Cliente_Cliente : System.Web.UI.Page
 
 
 
-
+    // Cambios Benja
     protected void Page_Load(object sender, EventArgs e)
     {
         #region SeguridadPagina
