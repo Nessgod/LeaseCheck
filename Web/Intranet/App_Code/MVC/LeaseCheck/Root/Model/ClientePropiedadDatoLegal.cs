@@ -1,5 +1,4 @@
-﻿using Org.BouncyCastle.Asn1.Ocsp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +10,8 @@ public class ClientePropiedadDatoLegal
     public int cdl_id { get; set; }
     public int cdl_id_propiedad { get; set; }
     public int cdl_id_propietario { get; set; }
+
+    public string cdl_rol { get; set; }
     public string cdl_fajas { get; set; }
     public string cdl_numero_inscripcion { get; set; }
     public int cdl_anio_inscripcion { get; set; }

@@ -73,6 +73,15 @@
             </div>
             <div class="row col-lg-12 col-md-12 col-xs-12 ">
                 <div class="form-group col-lg-2 col-md-2 col-xs-12">
+                    <label>Logo Empresa</label>
+                </div>
+                <div class="form-group col-lg-10 col-md-10 col-xs-12">
+                    <asp:FileUpload ID="fudFoto" runat="server" />
+                </div>
+            </div>
+
+            <div class="row col-lg-12 col-md-12 col-xs-12 ">
+                <div class="form-group col-lg-2 col-md-2 col-xs-12">
                     <label>Nombre</label>
                 </div>
                 <div class="form-group col-lg-10 col-md-10 col-xs-12">
@@ -189,59 +198,64 @@
                         ClientValidationFunction="validaControl"
                         ValidationGroup="Identidad" />
                 </div>
-            </div>
-      <%--      <div class="row col-lg-12 col-md-12 col-xs-12 ">
-                <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                    <label>Logo Empresa</label>
-                </div>
-                <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                    <asp:FileUpload ID="fudFoto" runat="server" />
-                </div>
-            </div>--%>
 
-            <div class="row col-lg-12 col-md-12 col-xs-12 ">
-                <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                    <label>Nombre Contacto</label>
+                <div class="row col-lg-12 col-md-12 col-xs-12 ">
+                    <div class="form-group col-lg-2 col-md-2 col-xs-12">
+                        <label>Nombre Contacto</label>
+                    </div>
+                    <div class="form-group col-lg-10 col-md-10 col-xs-12">
+                        <WebControls:TextBox2 ID="txtContactoNombre" runat="server" />
+                        <asp:CustomValidator ID="CustomValidator10" runat="server"
+                            ControlToValidate="txtTelefono"
+                            ValidateEmptyText="true"
+                            ClientValidationFunction="validaControl"
+                            ValidationGroup="Identidad" />
+                    </div>
                 </div>
-                <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                    <WebControls:TextBox2 ID="txtContactoNombre" runat="server" />
-                    <asp:CustomValidator ID="CustomValidator10" runat="server"
-                        ControlToValidate="txtTelefono"
-                        ValidateEmptyText="true"
-                        ClientValidationFunction="validaControl"
-                        ValidationGroup="Identidad" />
+                <div class="row col-lg-12 col-md-12 col-xs-12 ">
+                    <div class="form-group col-lg-2 col-md-2 col-xs-12">
+                        <label>Email Contacto</label>
+                    </div>
+                    <div class="form-group col-lg-10 col-md-10 col-xs-12">
+                        <WebControls:TextBox2 ID="txtContactoEmail" runat="server" />
+                    </div>
                 </div>
-            </div>
-            <div class="row col-lg-12 col-md-12 col-xs-12 ">
-                <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                    <label>Email Contacto</label>
+                <div class="row col-lg-12 col-md-12 col-xs-12 ">
+                    <div class="form-group col-lg-2 col-md-2 col-xs-12">
+                        <label>Teléfono Contacto</label>
+                    </div>
+                    <div class="form-group col-lg-10 col-md-10 col-xs-12">
+                        <WebControls:TextBox2 ID="txtContactoTelefono" runat="server" />
+                    </div>
                 </div>
-                <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                    <WebControls:TextBox2 ID="txtContactoEmail" runat="server" />
-                </div>
-            </div>
-            <div class="row col-lg-12 col-md-12 col-xs-12 ">
-                <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                    <label>Teléfono Contacto</label>
-                </div>
-                <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                    <WebControls:TextBox2 ID="txtContactoTelefono" runat="server" />
-                </div>
-            </div>
-            <div class="row col-lg-12 col-md-12 col-xs-12">
-                <div class="col-lg-2 col-md-2 col-xs-12">
-                    <label>Cliente Demo?</label>
-                </div>
-                <div class="col-lg-10 col-md-10 col-xs-12">
-                    <asp:Label ID="chkDemo" runat="server" />
-                </div>
-            </div>
 
-       <%--     <div class="col-lg-12 col-md-12 col-xs-12 form-col-center">
-                </br>
-                <WebControls:PushButton ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" ValidationGroup="Identidad" />
-                <WebControls:PushButton ID="btnCerrar" runat="server" Text="Cerrar" OnClientClick="closeWindow();" CssClass="ButtonCerrar" />
-            </div>--%>
+
+                <div class="row col-lg-12 col-md-12 col-xs-12 ">
+                    <div class="form-group col-lg-2 col-md-2 col-xs-12">
+                        <b>
+                            <asp:Label ID="lblComision" runat="server">Comisión por Gestión</asp:Label></b>
+                    </div>
+                    <div class="form-group col-lg-10 col-md-10 col-xs-12">
+                        <WebControls:TextBox2 ID="txtComisionVenta" runat="server" />
+                        <asp:CustomValidator ID="CustomValidator2" runat="server"
+                            ControlToValidate="txtComisionVenta"
+                            ValidateEmptyText="true"
+                            ClientValidationFunction="validaControl"
+                            ValidationGroup="Identidad" />
+                    </div>
+                </div>
+                <div class="row col-lg-12 col-md-12 col-xs-12">
+                    <div class="col-lg-2 col-md-2 col-xs-12">
+                        <label>Cliente Demo?</label>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-xs-12">
+                        <asp:Label ID="chkDemo" runat="server" />
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-xs-12 form-col-center">
+                    </br>
+                <WebControls:PushButton ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" ValidationGroup="Identidad" Visible="false" />
+                </div>
         </ContentTemplate>
 
     </asp:UpdatePanel>

@@ -14,11 +14,11 @@ public partial class View_Clientes_Identidad_ClientePropiedades : System.Web.UI.
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        #region SeguridadPagina
-        MenuPerfil ver = new MenuPerfil();
-        ver.mpe_menu = (int)LeaseCheck.Paginas.menu_cliente_usuarios.Ver;
-        LeaseCheck.Token.SecurityManagerVer(ver);
-        #endregion
+        //#region SeguridadPagina
+        //MenuPerfil ver = new MenuPerfil();
+        //ver.mpe_menu = (int)LeaseCheck.Paginas.menu_cliente_usuarios.Ver;
+        //LeaseCheck.Token.SecurityManagerVer(ver);
+        //#endregion
 
         if (!IsPostBack)
         {
@@ -37,7 +37,8 @@ public partial class View_Clientes_Identidad_ClientePropiedades : System.Web.UI.
         Grid.AddColumn("TIPO_SERVICIO", "TIPO SERVICIO", "", HorizontalAlign.Left);
         Grid.AddColumn("TIPO_ENTREGA", "TIPO ENTREGA", "", HorizontalAlign.Left);
         Grid.AddColumn("cpd_valor_uf", "VALOR UF", "15%", HorizontalAlign.Left, DataFormat: "{0:N0}");
-        Grid.AddColumn("cpd_valor_clp", "VALOR CLP ($)", "15%", HorizontalAlign.Left, DataFormat: "{0:N0}");
+        Grid.AddColumn("cpd_valor_venta", "VALOR VENTA ($)", "15%", HorizontalAlign.Left, DataFormat: "{0:N0}");
+        Grid.AddColumn("GANANCIA", "GANANCIA", "", HorizontalAlign.Left, DataFormat: "{0:N0}");
         Grid.AddColumn("ESTADO", "ESTADO", "", HorizontalAlign.Left);
 
     }

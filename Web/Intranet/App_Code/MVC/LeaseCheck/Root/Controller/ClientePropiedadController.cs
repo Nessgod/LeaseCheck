@@ -1,12 +1,10 @@
 ﻿using LeaseCheck;
-using LeaseCheck.Clientes;
-using LeaseCheck.Clientes.Model;
 using LeaseCheck.Root.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
+
 
 
 public class ClientePropiedadController
@@ -21,7 +19,16 @@ public class ClientePropiedadController
         try
         {
             cmd.CommandText = "SEL_CLIENTE_PROPIEDAD";
-            cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
+
+            // Obtener los perfiles del usuario desde la sesión
+            string[] perfiles = Session.UsuarioPerfil().Split(',');
+
+            // Verificar si el usuario tiene el perfil de AdministradorCorredora
+            if (!perfiles.Contains(Convert.ToInt32(LeaseCheck.LeaseCheck.Perfiles.AdministradorCorredora).ToString()))
+            {
+                // Si no es AdministradorCorredora, filtrar por el usuario que creó la propiedad
+                cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
+            }
 
             using (SqlDataReader dr = Conexion.GetDataReader(cmd))
             {
@@ -44,7 +51,10 @@ public class ClientePropiedadController
                     item.cpd_numero_propiedad = dr["cpd_numero_propiedad"].ToString();
                     item.cpd_titulo = dr["cpd_titulo"].ToString();
                     item.cpd_valor_uf = int.Parse(dr["cpd_valor_uf"].ToString());
-                    item.cpd_valor_clp = int.Parse(dr["cpd_valor_clp"].ToString());
+                    item.cpd_valor_venta = int.Parse(dr["cpd_valor_venta"].ToString());
+                    item.cpd_valor_evaluo_fiscal = int.Parse(dr["cpd_valor_evaluo_fiscal"].ToString());
+                    item.cpd_contribucciones = Boolean.Parse(dr["cpd_contribucciones"].ToString());
+                    item.cpd_derecho_municipal = Boolean.Parse(dr["cpd_derecho_municipal"].ToString());
                     item.cpd_bodega = Boolean.Parse(dr["cpd_bodega"].ToString());
                     item.cpd_estacionamiento = Boolean.Parse(dr["cpd_estacionamiento"].ToString());
                     item.cpd_valor_estacionamiento = int.Parse(dr["cpd_valor_estacionamiento"].ToString());
@@ -64,6 +74,15 @@ public class ClientePropiedadController
                     item.PROVINCIA = dr["PROVINCIA"].ToString();
                     item.TIPO_ENTREGA = dr["TIPO_ENTREGA"].ToString();
                     item.TIPO_SERVICIO = dr["TIPO_SERVICIO"].ToString();
+                    if (dr["GANANCIA"] != DBNull.Value)
+                    {
+                        item.GANANCIA = double.Parse(dr["GANANCIA"].ToString());
+                    }
+                    else
+                    {
+                        item.GANANCIA = 0.0;  
+                    }
+
 
                     listado.Add(item);
                 }
@@ -81,6 +100,7 @@ public class ClientePropiedadController
             return listado;
         }
     }
+
     public ClientePropiedad GetClientePropiedad(ClientePropiedad clientePropiedad)
     {
         ClientePropiedad item = new ClientePropiedad();
@@ -112,7 +132,10 @@ public class ClientePropiedadController
                     item.cpd_numero_propiedad = dr["cpd_numero_propiedad"].ToString();
                     item.cpd_titulo = dr["cpd_titulo"].ToString();
                     item.cpd_valor_uf = int.Parse(dr["cpd_valor_uf"].ToString());
-                    item.cpd_valor_clp = int.Parse(dr["cpd_valor_clp"].ToString());
+                    item.cpd_valor_venta = int.Parse(dr["cpd_valor_venta"].ToString());
+                    item.cpd_valor_evaluo_fiscal = int.Parse(dr["cpd_valor_evaluo_fiscal"].ToString());
+                    item.cpd_contribucciones = Boolean.Parse(dr["cpd_contribucciones"].ToString());
+                    item.cpd_derecho_municipal = Boolean.Parse(dr["cpd_derecho_municipal"].ToString());
                     item.cpd_bodega = Boolean.Parse(dr["cpd_bodega"].ToString());
                     item.cpd_estacionamiento = Boolean.Parse(dr["cpd_estacionamiento"].ToString());
                     item.cpd_valor_estacionamiento = int.Parse(dr["cpd_valor_estacionamiento"].ToString());
@@ -176,7 +199,10 @@ public class ClientePropiedadController
                 cmd.Parameters.AddWithValue("@NUMERO_PROPIEDAD", item.cpd_numero_propiedad);
                 cmd.Parameters.AddWithValue("@TITULO", item.cpd_titulo);
                 cmd.Parameters.AddWithValue("@VALOR_UF", item.cpd_valor_uf);
-                cmd.Parameters.AddWithValue("@VALOR_CLP", item.cpd_valor_clp);
+                cmd.Parameters.AddWithValue("@VALOR_VENTA", item.cpd_valor_venta);
+                cmd.Parameters.AddWithValue("@VALOR_EVALUO_FISCAL", item.cpd_valor_evaluo_fiscal);
+                cmd.Parameters.AddWithValue("@CONTRIBUCCIONES", item.cpd_contribucciones);
+                cmd.Parameters.AddWithValue("@DERECHO_MUNICIPAL", item.cpd_derecho_municipal);
                 cmd.Parameters.AddWithValue("@ESTACIONAMIENTO", item.cpd_estacionamiento);
                 cmd.Parameters.AddWithValue("@BODEGA", item.cpd_bodega);
                 cmd.Parameters.AddWithValue("@VALOR_ESTACIONAMIENTO", item.cpd_valor_estacionamiento);
@@ -189,7 +215,7 @@ public class ClientePropiedadController
                 cmd.Connection.Close();
                 cmd.Dispose();
 
-                respuesta.detalle = "Producto agregado con éxito.";
+                respuesta.detalle = "Propiedad agregado con éxito.";
             }
             catch (Exception ex)
             {
@@ -229,7 +255,10 @@ public class ClientePropiedadController
                 cmdExecute.Parameters.AddWithValue("@NUMERO_PROPIEDAD", item.cpd_numero_propiedad);
                 cmdExecute.Parameters.AddWithValue("@TITULO", item.cpd_titulo);
                 cmdExecute.Parameters.AddWithValue("@VALOR_UF", item.cpd_valor_uf);
-                cmdExecute.Parameters.AddWithValue("@VALOR_CLP", item.cpd_valor_clp);
+                cmdExecute.Parameters.AddWithValue("@VALOR_VENTA", item.cpd_valor_venta);
+                cmdExecute.Parameters.AddWithValue("@VALOR_EVALUO_FISCAL", item.cpd_valor_evaluo_fiscal);
+                cmdExecute.Parameters.AddWithValue("@CONTRIBUCCIONES", item.cpd_contribucciones);
+                cmdExecute.Parameters.AddWithValue("@DERECHO_MUNICIPAL", item.cpd_derecho_municipal);
                 cmdExecute.Parameters.AddWithValue("@ESTACIONAMIENTO", item.cpd_estacionamiento);
                 cmdExecute.Parameters.AddWithValue("@BODEGA", item.cpd_bodega);
                 cmdExecute.Parameters.AddWithValue("@VALOR_ESTACIONAMIENTO", item.cpd_valor_estacionamiento);
@@ -243,7 +272,7 @@ public class ClientePropiedadController
                 cmdExecute.Connection.Close();
 
                 respuesta.codigo = 0;
-                respuesta.detalle = "País actualizado con éxito.";
+                respuesta.detalle = "Propiedad actualizado con éxito.";
                 respuesta.error = false;
             }
             catch (Exception ex)
@@ -271,7 +300,7 @@ public class ClientePropiedadController
                 cmdExecute = Conexion.GetCommand("UPD_CLIENTE_PROPIEDAD_ESTADO");
                 cmdExecute.Parameters.AddWithValue("@ID", item.cpd_id);
                 cmdExecute.Parameters.AddWithValue("@ESTADO", item.cpd_estado);
-                cmdExecute.Parameters.AddWithValue("@USUARIO", Session.Pais());
+                cmdExecute.Parameters.AddWithValue("@PAIS", Session.Pais());
                 cmdExecute.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
 
 
@@ -346,6 +375,7 @@ public class ClientePropiedadController
                     item.cdl_id = int.Parse(dr["CDL_ID"].ToString());
                     item.cdl_id_propiedad = int.Parse(dr["CDL_ID_PROPIEDAD"].ToString());
                     item.cdl_id_propietario = int.Parse(dr["CDL_ID_PROPIETARIO"].ToString());
+                    item.cdl_rol = dr["CDL_ROL"].ToString();
                     item.cdl_anio_inscripcion = int.Parse(dr["CDL_ANIO_INSCRIPCION"].ToString());
                     item.cdl_copia_llaves = int.Parse(dr["CDL_COPIA_LLAVES"].ToString());
                     item.cdl_numero_inscripcion = dr["CDL_NUMERO_INSCRIPCION"].ToString();
@@ -385,6 +415,7 @@ public class ClientePropiedadController
                 cmd.Parameters.AddWithValue("@ID", item.cdl_id);
                 cmd.Parameters.AddWithValue("@PROPIEDAD", item.cdl_id_propiedad);
                 cmd.Parameters.AddWithValue("@PROPIETARIO", item.cdl_id_propietario);
+                cmd.Parameters.AddWithValue("@ROL", item.cdl_rol);
                 cmd.Parameters.AddWithValue("@NUMERO_INSCRIPCION", item.cdl_numero_inscripcion);
                 cmd.Parameters.AddWithValue("@ANIO", item.cdl_anio_inscripcion);
                 cmd.Parameters.AddWithValue("@NUMERO_MANZANA", item.cdl_numero_manzana);
@@ -428,6 +459,7 @@ public class ClientePropiedadController
                 cmdExecute.Parameters.AddWithValue("@ID", item.cdl_id);
                 cmdExecute.Parameters.AddWithValue("@PROPIEDAD", item.cdl_id_propiedad);
                 cmdExecute.Parameters.AddWithValue("@PROPIETARIO", item.cdl_id_propietario);
+                cmdExecute.Parameters.AddWithValue("@ROL", item.cdl_rol);
                 cmdExecute.Parameters.AddWithValue("@NUMERO_INSCRIPCION", item.cdl_numero_inscripcion);
                 cmdExecute.Parameters.AddWithValue("@ANIO", item.cdl_anio_inscripcion);
                 cmdExecute.Parameters.AddWithValue("@NUMERO_MANZANA", item.cdl_numero_manzana);

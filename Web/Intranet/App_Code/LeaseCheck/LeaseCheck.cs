@@ -20,9 +20,10 @@ namespace LeaseCheck
             Soporte = 2,
             AdminComercial = 3,
             Comercial = 4,
-            Administrador = 5,
-            Administrativo = 6,
-            Psicologo = 7,
+            AdministradorCorredora = 5,
+            ClienteExterno = 6,
+            Propietario = 7,
+            Ejecutivo = 8
         }
 
     

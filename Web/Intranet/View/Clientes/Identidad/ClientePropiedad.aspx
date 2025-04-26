@@ -409,7 +409,7 @@
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12 ">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtValorCLP">Valor CLP (*):</label>
+                            <label class="control-label" for="txtValorCLP">Valor Venta (*):</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
                             <rad:RadNumericBox2 ID="txtValorCLP" runat="server" />
@@ -418,6 +418,37 @@
                                 ValidateEmptyText="true"
                                 ClientValidationFunction="validaControl"
                                 ValidationGroup="Identidad" />
+                        </div>
+                    </div>
+                    <div class="row col-lg-12 col-md-12 col-xs-12 ">
+                        <div class="form-group col-lg-2 col-md-2 col-xs-12">
+                            <label class="control-label" for="txtValorCLP">Valor Evaluo fiscal (*):</label>
+                        </div>
+                        <div class="form-group col-lg-10 col-md-10 col-xs-12">
+                            <rad:RadNumericBox2 ID="txtEvaluoFiscal" runat="server" />
+                            <asp:CustomValidator ID="CustomValidator15" runat="server"
+                                ControlToValidate="txtEvaluoFiscal"
+                                ValidateEmptyText="true"
+                                ClientValidationFunction="validaControl"
+                                ValidationGroup="Identidad" />
+                        </div>
+                    </div>
+                    <div class="row col-lg-12 col-md-12 col-xs-12">
+                        <div class="col-lg-2 col-md-2 col-xs-12">
+                            <label>¿Tiene Contribucciones?</label>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-xs-12">
+                            <asp:RadioButton ID="rdcSi" runat="server" Text="SI" GroupName="Contribucciones" />
+                            <asp:RadioButton ID="rdcNo" runat="server" Text="NO" GroupName="Contribucciones" />
+                        </div>
+                    </div>
+                    <div class="row col-lg-12 col-md-12 col-xs-12">
+                        <div class="col-lg-2 col-md-2 col-xs-12">
+                            <label>Derecho Municipal</label>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-xs-12">
+                            <asp:RadioButton ID="rddSi" runat="server" Text="SI" GroupName="Derecho_Municipal" />
+                            <asp:RadioButton ID="rddNo" runat="server" Text="NO" GroupName="Derecho_Municipal" />
                         </div>
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12">
@@ -429,6 +460,7 @@
                             <asp:RadioButton ID="rdeNo" runat="server" Text="NO" GroupName="Estacionamiento" />
                         </div>
                     </div>
+
                     <div class="row col-lg-12 col-md-12 col-xs-12" runat="server" id="divEstacionamiento" style="display: none">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
                             <label class="control-label" for="txtValorEstacionamiento">Valor Estacionamiento:</label>
@@ -500,6 +532,20 @@
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
                             <rad:RadComboBox2 ID="cboPropietario" runat="server" OnLoad="LoadControls" Width="100%" Filter="Contains" />
+                        </div>
+                    </div>
+                    <div class="row col-lg-12 col-md-12 col-xs-12">
+                        <div class="form-group col-lg-2 col-md-2 col-xs-12">
+                            <label class="control-label" for="txtCalle">Rol(*):</label>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-4 col-xs-12">
+                            <WebControls:TextBox2 ID="txtRol" runat="server" />
+                            <asp:CustomValidator ID="CustomValidator22" runat="server"
+                                ControlToValidate="txtRol"
+                                ValidateEmptyText="true"
+                                ClientValidationFunction="validaControl"
+                                ValidationGroup="DatoLegal" />
+
                         </div>
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12">
@@ -985,7 +1031,7 @@
                             <label><strong>🛠 Cambiar estado</strong></label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                            <rad:RadComboBox2 ID="cboEstadoPropiedad" runat="server" OnLoad="LoadControls" Width="50%" Filter="Contains" />
+                            <rad:RadComboBox2 ID="cboEstadoPropiedad" runat="server" OnLoad="LoadControls" Width="50%" Filter="Contains" OnSelectedIndexChanged="cboEstadoPropiedad_SelectedIndexChanged" />
                         </div>
                     </div>
 

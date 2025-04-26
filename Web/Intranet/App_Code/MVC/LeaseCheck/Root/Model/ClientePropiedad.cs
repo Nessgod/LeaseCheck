@@ -23,7 +23,11 @@ public class ClientePropiedad
     public string cpd_numero_propiedad { get; set; }
     public string cpd_titulo { get; set; }
     public int cpd_valor_uf { get; set; }
-    public int cpd_valor_clp { get; set; }
+    public int cpd_valor_venta { get; set; }
+    public int cpd_valor_evaluo_fiscal { get; set; }
+
+    public bool cpd_contribucciones { get; set; }
+    public bool cpd_derecho_municipal { get; set; }
     public bool cpd_estacionamiento { get; set; }
     public bool cpd_bodega { get; set; }
     public int cpd_valor_estacionamiento { get; set; }
@@ -43,5 +47,7 @@ public class ClientePropiedad
     public string REGION { get; set; }
     public string COMUNA { get; set; }
     public string PROVINCIA { get; set; }
+
+    public double GANANCIA { get; set; }
 
 }

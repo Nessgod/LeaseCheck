@@ -53,14 +53,7 @@ public partial class Master_Default : System.Web.UI.MasterPage
             paises.pai_id = int.Parse(LeaseCheck.Session.Pais());
             paises = paisesController.GetPaisLogin(paises);
 
-            //if (paises.pai_imagen != null)
-            //{
-            //    imgPaisSeleccionado.ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(paises.pai_imagen, 0, paises.pai_imagen.Length);
-            //}
-            //else
-            //{
-            //    imgPaisSeleccionado.ImageUrl = ResolveUrl("~/Imagen/no-camaras.png");
-            //}
+
         }
         catch (Exception ex)
         {

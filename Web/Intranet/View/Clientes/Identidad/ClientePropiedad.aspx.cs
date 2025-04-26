@@ -344,9 +344,9 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             txtCantidadEstacionamiento.Text = propiedad.cpd_cantidad_estacionamiento.ToString();
             txtValorEstacionamiento.Text = propiedad.cpd_valor_estacionamiento.ToString();
             txtValorBodega.Text = propiedad.cpd_valor_bodega.ToString();
-            txtValorCLP.Text = propiedad.cpd_valor_clp.ToString();
+            txtValorCLP.Text = propiedad.cpd_valor_venta.ToString();
             txtValorUf.Text = propiedad.cpd_valor_uf.ToString();
-
+            txtEvaluoFiscal.Text = propiedad.cpd_valor_evaluo_fiscal.ToString();
 
             // Crear un filtro para obtener los tipos de cuenta asociados al banco
             Provincia filtro = new Provincia();
@@ -404,6 +404,28 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
                 rdbNo.Checked = true;
             }
 
+            if (bool.Parse(propiedad.cpd_contribucciones.ToString()))
+            {
+                rdcSi.Checked = true;
+                rdcNo.Checked = false;
+            }
+            else
+            {
+                rdcSi.Checked = false;
+                rdcNo.Checked = true;
+            }
+
+            if (bool.Parse(propiedad.cpd_derecho_municipal.ToString()))
+            {
+                rddSi.Checked = true;
+                rddNo.Checked = false;
+            }
+            else
+            {
+                rddSi.Checked = false;
+                rddNo.Checked = true;
+            }
+
         }
     }
 
@@ -456,7 +478,8 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             propiedad.cpd_numero_propiedad = txtNumeroPropiedad.Text.ToString();
             propiedad.cpd_titulo = txtTitulo.Text;
             propiedad.cpd_valor_uf = int.Parse(txtValorUf.Text.ToString());
-            propiedad.cpd_valor_clp = int.Parse(txtValorCLP.Text.ToString());
+            propiedad.cpd_valor_venta = int.Parse(txtValorCLP.Text.ToString());
+            propiedad.cpd_valor_evaluo_fiscal= int.Parse(txtEvaluoFiscal.Text.ToString());
             propiedad.cpd_cantidad_bodega = cantBodega;
             propiedad.cpd_valor_bodega = valorBodega;
             propiedad.cpd_cantidad_estacionamiento = cantEst;
@@ -464,6 +487,8 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
 
             propiedad.cpd_bodega = rdbSi.Checked;
             propiedad.cpd_estacionamiento = rdeSi.Checked;
+            propiedad.cpd_contribucciones = rdcSi.Checked;
+            propiedad.cpd_derecho_municipal = rddSi.Checked;
 
             if (Id > 0)
                 respuesta = clientePropiedadController.UpdateClientePropiedad(propiedad);
@@ -500,6 +525,7 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
         if (Id > 0 && datolegal != null && datolegal.cdl_id > 0)
         {
             // Asignar valores a los controles
+            txtRol.Text = datolegal.cdl_rol;
             txtFojas.Text = datolegal.cdl_fajas;
             txtNumeroManzana.Text = datolegal.cdl_numero_manzana;
             txtNumeroInscripcion.Text = datolegal.cdl_numero_inscripcion;
@@ -560,6 +586,7 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             int propiedad = 0;
             int.TryParse(cboPropietario.SelectedValue, out propiedad);
             datoLegal.cdl_id_propietario = propiedad;
+            datoLegal.cdl_rol = txtRol.Text.ToString();
             datoLegal.cdl_fajas = txtFojas.Text.ToString();
             datoLegal.cdl_numero_inscripcion = txtNumeroInscripcion.Text.ToString();
             datoLegal.cdl_anio_inscripcion = int.Parse(txtAnioInscripcion.Text.ToString());
@@ -567,6 +594,7 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             datoLegal.cdl_numero_sitio = txtNumeroSitio.Text.ToString();
             datoLegal.cdl_copia_llaves = int.Parse(txtCopiaLlaves.Text.ToString());
             datoLegal.cdl_conjunto_habitacional = txtConHabitacional.Text.ToString();
+  
 
             if (rdiSi.Checked)
                 datoLegal.cdl_inventario = true;
@@ -1130,9 +1158,21 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
         ClientePropiedadController controller = new ClientePropiedadController();
 
         propiedad.cpd_estado = 10; // Publicado
+        propiedad.cpd_id = Id;
         controller.UpdateClientePropiedadEstado(propiedad);
 
     }
 
 
+
+    protected void cboEstadoPropiedad_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+    {
+        ClientePropiedad propiedad = new ClientePropiedad();
+        ClientePropiedadController controller = new ClientePropiedadController();
+
+
+        int estadoPropiedad = 0;
+        int.TryParse(cboPropietario.SelectedValue, out estadoPropiedad);
+
+    }
 }

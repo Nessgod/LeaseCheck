@@ -29,8 +29,6 @@
         }
 
    
-
-
     </script>
 </asp:Content>
 
@@ -81,7 +79,7 @@
             </div>
             <div class="row col-lg-12 col-md-12 col-xs-12 ">
                 <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                    <label>Cantidad Leads(*)</label>
+                    <label>Cantidad Clientes Potenciales(*)</label>
                 </div>
                 <div class="form-group col-lg-10 col-md-10 col-xs-12">
                     <rad:RadNumericBox2 ID="TxtCantLead" runat="server" />

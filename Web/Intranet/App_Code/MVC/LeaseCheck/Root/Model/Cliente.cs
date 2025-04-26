@@ -32,5 +32,7 @@ namespace LeaseCheck.Root.Model
         public string cli_rut_completo { get; set; }
         public bool cli_tiene_rut { get; set; }
         public string cli_identificador { get; set; }
+
+        public double cli_comision_venta { get; set; }
     }
 }

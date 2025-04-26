@@ -16,8 +16,7 @@ public partial class _Default : System.Web.UI.Page
     {
         DashboardController controller = new DashboardController();
 
-        if (Convert.ToInt32(LeaseCheck.Session.UsuarioPerfil()) == (int)LeaseCheck.LeaseCheck.Perfiles.Administrador ||
-            Convert.ToInt32(LeaseCheck.Session.UsuarioPerfil()) == (int)LeaseCheck.LeaseCheck.Perfiles.Administrativo)
+        if (Convert.ToInt32(LeaseCheck.Session.UsuarioPerfil()) == (int)LeaseCheck.LeaseCheck.Perfiles.AdministradorCorredora)
         {
             hdfVistaCliente.Value = "true";
             wucDashboardClientes.Visible = true;
@@ -26,8 +25,8 @@ public partial class _Default : System.Web.UI.Page
             var a = controller.GetEstadisticaCliente();
       
             //hdfConsumoAnterior.Value = b.plan_informes_antiguos.ToString();
-            hdfConsumoActual.Value = a.plan_informes_mes_actual.ToString();
-            hdfConsumoDisponible.Value = a.plan_informes_disponibles < 0 ? "0" : a.plan_informes_disponibles.ToString();
+           // hdfConsumoActual.Value = a.plan_informes_mes_actual.ToString();
+            //hdfConsumoDisponible.Value = a.plan_informes_disponibles < 0 ? "0" : a.plan_informes_disponibles.ToString();
 
         }
       

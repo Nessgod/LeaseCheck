@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web.UI;
 
 namespace LeaseCheck.Root.Controller
@@ -238,7 +239,7 @@ namespace LeaseCheck.Root.Controller
                 {
                     cmd.CommandText = "SEL_CLIENTE";
                     cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
-
+                   
                     using (SqlDataReader dr = Conexion.GetDataReader(cmd))
                     {
                         if (dr.Read())
@@ -259,6 +260,16 @@ namespace LeaseCheck.Root.Controller
                             item.cli_contacto_nombre = dr["CLI_CONTACTO_NOMBRE"].ToString();
                             item.cli_contacto_email = dr["CLI_CONTACTO_EMAIL"].ToString();
                             item.cli_contacto_telefono = dr["CLI_CONTACTO_TELEFONO"].ToString();
+                            float comision;
+                            if (float.TryParse(dr["CLI_COMISION_VENTA"].ToString(), out comision))
+                            {
+                                item.cli_comision_venta = comision;
+                            }
+                            else
+                            {
+                                item.cli_comision_venta = 0f; // o el valor por defecto que necesites
+                            }
+
 
                             if (dr["CLI_LOGO"] != System.DBNull.Value)
                             {
@@ -281,6 +292,7 @@ namespace LeaseCheck.Root.Controller
 
             return item;
         }
+
 
         public Respuesta InsertCliente(Cliente item)
         {
@@ -323,6 +335,15 @@ namespace LeaseCheck.Root.Controller
                         cmd.Parameters.AddWithValue("@DV", "");
                         cmd.Parameters.AddWithValue("@IDENTIFICADOR", item.cli_identificador);
                     }
+
+                    // Verificar si el usuario tiene el perfil AdministradorCorredora
+                    string[] perfiles = Session.UsuarioPerfil().Split(',');
+                    if (perfiles.Contains(Convert.ToInt32(LeaseCheck.Perfiles.AdministradorCorredora).ToString()))
+                    {
+                        // Insertar valor en cli_comision_venta si el usuario es AdministradorCorredora
+                        cmd.Parameters.AddWithValue("@COMISION_VENTA", item.cli_comision_venta);
+                    }
+
 
                     cmd.ExecuteNonQuery();
                     cmd.Connection.Close();
@@ -390,11 +411,70 @@ namespace LeaseCheck.Root.Controller
                         cmd.Parameters.AddWithValue("@IDENTIFICADOR", item.cli_identificador);
                     }
 
+                    // Verificar si el usuario tiene el perfil AdministradorCorredora
+                    string[] perfiles = Session.UsuarioPerfil().Split(',');
+                    if (perfiles.Contains(Convert.ToInt32(LeaseCheck.Perfiles.AdministradorCorredora).ToString()))
+                    {
+                        // Insertar valor en cli_comision_venta si el usuario es AdministradorCorredora
+                        cmd.Parameters.AddWithValue("@COMISION_VENTA", item.cli_comision_venta);
+                    }
+
+
                     cmd.ExecuteNonQuery();
                     cmd.Connection.Close();
                     cmd.Dispose();
 
                     respuesta.detalle = "Registro actualizado con éxito.";
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    respuesta.detalle = ex.Message;
+                    respuesta.error = true;
+                }
+            }
+
+            return respuesta;
+        }
+
+
+        public Respuesta UpdateClienteComision(Cliente item)
+        {
+            Respuesta respuesta = new Respuesta();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = null;
+
+                try
+                {
+                    cmd = Conexion.GetCommand("UPD_CLIENTE_COMISION");
+
+                    cmd.Parameters.AddWithValue("@ID", item.cli_id);
+                    cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
+                    cmd.Parameters.AddWithValue("@RUT",item.cli_rut);
+                    cmd.Parameters.AddWithValue("@DV", item.cli_dv);
+                    cmd.Parameters.AddWithValue("@PAIS", Session.Pais());
+                    cmd.Parameters.AddWithValue("@NOMBRE", item.cli_nombre);
+                    cmd.Parameters.AddWithValue("@GIRO", item.cli_giro);
+                    cmd.Parameters.AddWithValue("@ALIAS", item.cli_alias);
+                    cmd.Parameters.AddWithValue("@COMUNA", item.cli_comuna);
+                    cmd.Parameters.AddWithValue("@DIRECCION", item.cli_direccion);
+                    cmd.Parameters.AddWithValue("@EMAIL", item.cli_email);
+                    cmd.Parameters.AddWithValue("@TELEFONO", item.cli_telefono);
+                    cmd.Parameters.AddWithValue("@LOGO", item.cli_logo);
+                    cmd.Parameters.AddWithValue("@CONTACTO_NOMBRE", item.cli_contacto_nombre);
+                    cmd.Parameters.AddWithValue("@CONTACTO_EMAIL", item.cli_contacto_email);
+                    cmd.Parameters.AddWithValue("@CONTACTO_TELEFONO", item.cli_contacto_telefono);
+                    cmd.Parameters.AddWithValue("@COMISION",item.cli_comision_venta);
+
+                    cmd.ExecuteNonQuery();
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    respuesta.detalle = "Comisión agregada con éxito.";
                 }
                 catch (Exception ex)
                 {

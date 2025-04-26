@@ -139,7 +139,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-lg-4 col-md-4 col-xs-12">
-                                    <label>Cantidad Leads</label>
+                                    <label>Cantidad Clientes Potenciales</label>
                                 </div>
                                 <div class="form-group col-lg-8 col-md-8 col-xs-12">
                                     <rad:RadNumericBox2 ID="TxtCantLead" runat="server" />
