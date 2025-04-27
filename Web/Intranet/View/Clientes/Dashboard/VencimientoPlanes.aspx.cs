@@ -19,6 +19,7 @@ public partial class View_Clientes_Dashboard_VencimientoPlanes : System.Web.UI.P
         }
     }
 
+    
     protected void Page_PreRender(object sender, EventArgs e)
     {
         DashboardController controller = new DashboardController();
