@@ -16,9 +16,7 @@ public partial class View_Clientes_Dashboard_PlanVigente : System.Web.UI.Page
     {
         DashboardController controller = new DashboardController();
 
-        if (Convert.ToInt32(LeaseCheck.Session.UsuarioPerfil()) == (int)LeaseCheck.LeaseCheck.Perfiles.Administrador ||
-            Convert.ToInt32(LeaseCheck.Session.UsuarioPerfil()) == (int)LeaseCheck.LeaseCheck.Perfiles.Administrativo ||
-            Convert.ToInt32(LeaseCheck.Session.UsuarioPerfil()) == (int)LeaseCheck.LeaseCheck.Perfiles.Psicologo)
+        if (Convert.ToInt32(LeaseCheck.Session.UsuarioPerfil()) == (int)LeaseCheck.LeaseCheck.Perfiles.AdministradorCorredora)
         {
   
             var a = controller.GetEstadisticaCliente();

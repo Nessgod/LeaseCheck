@@ -2,20 +2,10 @@
 using LeaseCheck.Root.Model;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using Telerik.Web.UI;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
-using iText.Html2pdf;
-using System.IO;
-using iText.Kernel.Geom;
-using System.Security.Policy;
+
 
 
 public partial class View_Clientes_Identidad_ClientePlan : System.Web.UI.Page
