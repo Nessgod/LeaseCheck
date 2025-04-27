@@ -1,15 +1,5 @@
-﻿using LeaseCheck.Controller;
-using LeaseCheck.Model;
-using LeaseCheck.Root.Controller;
-using LeaseCheck.Root.Model;
+﻿using LeaseCheck.Root.Model;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Telerik.Web.UI;
 
 public partial class View_Root_Mantenedores_Cliente_Cliente : System.Web.UI.Page
 {
@@ -25,9 +15,6 @@ public partial class View_Root_Mantenedores_Cliente_Cliente : System.Web.UI.Page
         set { ViewState.Add("IdCliente", value); }
     }
 
-
-
-    // Cambios Benja
     protected void Page_Load(object sender, EventArgs e)
     {
         #region SeguridadPagina

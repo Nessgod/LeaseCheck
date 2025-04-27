@@ -1,6 +1,4 @@
-﻿using LeaseCheck.Controller;
-using LeaseCheck.Model;
-using LeaseCheck.Root.Controller;
+﻿using LeaseCheck.Root.Controller;
 using LeaseCheck.Root.Model;
 using System;
 using System.Collections.Generic;

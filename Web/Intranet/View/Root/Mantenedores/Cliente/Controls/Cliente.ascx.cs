@@ -73,9 +73,6 @@ public partial class View_Root_Mantenedores_Cliente_Controls_Cliente : System.We
         {
             ragTab.Tabs[1].Visible = false;
             ragTab.Tabs[2].Visible = false;
-            ragTab.Tabs[3].Visible = false;
-            ragTab.Tabs[4].Visible = false;
-            //ragTab.Tabs[5].Visible = false;
 
             IdCliente = wucIdentidad.IdCliente;
         }
@@ -86,19 +83,9 @@ public partial class View_Root_Mantenedores_Cliente_Controls_Cliente : System.We
         wucUsuarios.IdCliente = IdCliente;
         wucUsuarios.ReadOnly = ReadOnly;
 
-
-        wucDocumentos.IdCliente = IdCliente;
-        wucDocumentos.ReadOnly = ReadOnly;
-
-
-
         wucPlanesTarifarios.IdCliente = IdCliente;
         wucPlanesTarifarios.ReadOnly = ReadOnly;
 
-
-
-        wucInstalaciones.IdCliente = IdCliente;
-        wucInstalaciones.ReadOnly = ReadOnly;
 
     }
 
