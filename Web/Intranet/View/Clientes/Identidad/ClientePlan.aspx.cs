@@ -7,7 +7,7 @@ using System.Web;
 using Telerik.Web.UI;
 
 
-
+//ESTE CAMBIO LO HIZO DEL GIT DE BENJAMIN
 public partial class View_Clientes_Identidad_ClientePlan : System.Web.UI.Page
 {
     protected int Id

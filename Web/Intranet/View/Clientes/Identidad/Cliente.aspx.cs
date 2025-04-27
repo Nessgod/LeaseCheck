@@ -11,7 +11,7 @@ public partial class View_Clientes_Identidad_Cliente : System.Web.UI.Page
         get { return Convert.ToInt32(ViewState["Cliente"]); }
         set { ViewState.Add("Cliente", value); }
     }
-
+    // Cambio Benjamins
     protected void Page_Load(object sender, EventArgs e)
     {
         #region SeguridadPagina
