@@ -213,7 +213,7 @@ protected void Page_PreRender(object sender, EventArgs e)
             contenidoHtml += "<p><strong>Valor:</strong> " + valor + "</p>";
             contenidoHtml += "<p><strong>Cantidad Documentos:</strong> " + documentos + "</p>";
             contenidoHtml += "<p><strong>Cantidad Instalación:</strong> " + propiedad + "</p>";
-            contenidoHtml += "<p><strong>Cantidad Lead:</strong> " + lead + "</p>";
+            contenidoHtml += "<p><strong>Cantidad de Potenciales Clientes:</strong> " + lead + "</p>";
             contenidoHtml += "<h2>Contenido del Plan</h2>";
             contenidoHtml += planHtml;
             contenidoHtml += "</body>";

@@ -25,15 +25,15 @@
     <link href="../Css/AjaxProgress/cssUpdateProgress.css" rel="stylesheet" />
 
     <!-- LookAndFeel CSS -->
-    <link href="../Css/LookAndFeel/Default.css?vrs=2" rel="stylesheet" />
+    <link href="../Css/LookAndFeel/Default.css?vrs=4" rel="stylesheet" />
 
     <!-- Telerik CSS -->
-    <link href="../Css/UI/Telerik/Bootstrap/Grid.css" rel="stylesheet" />
+    <link href="../Css/UI/Telerik/Bootstrap/Grid.css?vrs=2" rel="stylesheet" />
     <link href="../Css/UI/Telerik/Bootstrap/RadComboBox.css" rel="stylesheet" />
     
     <!-- WebControls CSS -->
     <link href="../Css/UI/WebControls/calendar/CSS/Classic.css" rel="stylesheet" />
-    <link href="../Css/UI/WebControls/Button.css" rel="stylesheet" />
+    <link href="../Css/UI/WebControls/Button.css?vrs=2" rel="stylesheet" />
     <link href="../Css/UI/WebControls/TextBox.css" rel="stylesheet" />
     
     <!-- SweetAlert CSS -->
@@ -194,14 +194,19 @@
                                 </asp:LinkButton>
                             </div>
                         </div>
-                        <!--<p class="text-muted">Admin Head</p>-->
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lnkCerrarSession_Click">
-                                    <i class="mdi mdi-power"></i>
-                                </asp:LinkButton>
+                          <ul class="list-inline">
+                            <li class="list-inline-item cerrarWrapper">
+                              <asp:LinkButton 
+                                  ID="LinkButton1" 
+                                  runat="server" 
+                                  OnClick="lnkCerrarSession_Click" 
+                                  ToolTip="Cerrar Sesión"
+                                  OnClientClick="mostrarTooltipCerrar();">
+                                  <i class="mdi mdi-power cerrarSessionMenu"></i>
+                              </asp:LinkButton>
+                              <span id="tooltipCerrar" class="tooltipSalir">Saliendo...</span>
                             </li>
-                        </ul>
+                          </ul>
                     </div>
 
                     <!--- Sidemenu -->
@@ -262,6 +267,16 @@
                     var oWin = $find("<%=rwMiCuenta.ClientID %>");
                      oWin.setUrl('<%=ResolveUrl("~/View/Root/Mantenedores/Usuarios/MiCuenta.aspx") %>');
                      oWin.show();
+                }
+
+                function mostrarTooltipCerrar() {
+                    var tooltip = document.getElementById("tooltipCerrar");
+                    if (tooltip) {
+                        tooltip.classList.add("visible");
+                        setTimeout(() => {
+                            tooltip.classList.remove("visible");
+                        }, 2000); // oculta en 2 segundos
+                    }
                 }
 
             </script>

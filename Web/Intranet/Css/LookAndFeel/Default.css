@@ -3,10 +3,10 @@
 }
 
 .tiempoCarga {
-    font-size:0.75rem;
-    margin-bottom:0px;
-    padding-bottom:0px;
-    height:12px;
+    font-size: 0.75rem;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    height: 12px;
 }
 
 .SubTitulos {
@@ -17,9 +17,9 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
     font-size: 1.6rem;
 }
-.form-control
-{
-    display:inline !important;
+
+.form-control {
+    display: inline !important;
 }
 
 .form-group {
@@ -57,11 +57,289 @@
     }
 }
 
-.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, 
-.col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, 
-.col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, 
-.col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, 
+.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto,
+.col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto,
+.col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto,
+.col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto,
 .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
-     padding-right: 0px !important;
-     padding-bottom:5px !important;
+    padding-right: 0px !important;
+    padding-bottom: 5px !important;
+}
+
+.left-side-menu {
+    background: #13315c !important;
+}
+
+.logo-sm {
+    background: #edf2f4 !important;
+}
+
+.logo-lg {
+    background: #edf2f4 !important;
+}
+
+
+/* Contenedor principal del sidebar */
+#sidebar-menu {
+    background-color: #13315c;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+    /* Lista principal */
+    #sidebar-menu .metismenu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        /* Elementos <li> del menú */
+        #sidebar-menu .metismenu > li {
+            margin: 0;
+        }
+
+            /* Enlaces de primer nivel */
+            #sidebar-menu .metismenu > li > a {
+                display: flex;
+                align-items: center;
+                padding: 12px 20px;
+                color: #e5e7eb;
+                font-size: 14px;
+                font-weight: 400;
+                text-decoration: none;
+                border-radius: 4px;
+                transition: background 0.2s, color 0.2s;
+            }
+
+                /* Íconos dentro del enlace */
+                #sidebar-menu .metismenu > li > a i {
+                    margin-right: 10px;
+                    font-size: 16px;
+                    color: #cbd5e1;
+                    transition: color 0.2s;
+                }
+
+                /* Hover y foco */
+                #sidebar-menu .metismenu > li > a:hover,
+                #sidebar-menu .metismenu > li > a:focus,
+                #sidebar-menu .metismenu > li > a:active {
+                    background-color: #1a4189;
+                    color: #3b82f6;
+                }
+
+                    /* Ícono en hover con azul de contraste */
+                    #sidebar-menu .metismenu > li > a:hover i {
+                        color: #3b82f6;
+                    }
+
+.nav-second-level li a {
+    color: #adb5bd !important;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+
+
+.user-box .user-name {
+    color: white !important;
+}
+
+#sidebar-menu .menu-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 4px;
+    border-radius: 30px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin-left: 22px;
+}
+
+.nav-second-level li a, .nav-thrid-level li a {
+    color: #d9d9d9;
+}
+
+.cerrarWrapper {
+    position: relative;
+}
+
+.cerrarSessionMenu {
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    color: #d40000;
+    font-size: 22px;
+    background: #fdf4f4;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ff4d4d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+    .cerrarSessionMenu:hover {
+        transform: scale(1.1);
+    }
+
+.tooltipSalir {
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+    .tooltipSalir.visible {
+        opacity: 1;
+    }
+
+
+/* Contenedor general del timeline */
+.timeline-container {
+    display: flex;
+    overflow-x: auto;
+    padding: 1rem;
+    gap: 1rem;
+    scroll-snap-type: x mandatory;
+    position: relative;
+}
+
+/* Elementos individuales del timeline */
+.timeline-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    background: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+    min-width: 200px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+/* Icono del estado */
+.timeline-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Título del estado */
+.timeline-title {
+    font-weight: bold;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+}
+
+/* Metainformación: fecha, hora, usuario */
+.timeline-meta {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* Estilos para el contenedor del timeline en el scroll */
+.timeline-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+.timeline-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+/* Estado actual: se resalta */
+.timeline-item.estado-actual {
+    background-color: #e6f0ff;
+    border: 2px solid #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+    position: relative;
+    padding-top: 2rem;
+}
+
+    /* Etiqueta de "Estado actual" en la parte superior */
+    .timeline-item.estado-actual::before {
+        content: "Estado actual";
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #007bff;
+        color: white;
+        font-size: 0.75rem;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-weight: bold;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+/* Estado pasado: con un fondo grisáceo y más apagado */
+.timeline-item.estado-pasado {
+    background-color: #f8f9fa;
+    border: 2px solid #dcdcdc;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0.7; /* Menos opacidad para resaltar el pasado */
+    position: relative;
+}
+
+    /* Detalles del estado pasado con una fecha más destacada */
+    .timeline-item.estado-pasado .timeline-title {
+        font-weight: normal;
+        color: #333;
+    }
+
+    .timeline-item.estado-pasado .timeline-meta {
+        font-size: 0.85rem;
+        color: #888; /* Un color gris para denotar el pasado */
+        font-style: italic; /* Itálicas para indicar que es pasado */
+    }
+
+    /* El icono en los estados pasados con color más apagado */
+    .timeline-item.estado-pasado .timeline-icon {
+        color: #6c757d; /* Gris para los íconos pasados */
+    }
+
+/* Separador con texto "Anteriores" */
+.timeline-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 20px;
+}
+
+.separator-line {
+    height: 100px;
+    border-left: 2px solid #6c757d;
+    position: absolute;
+    left: 50%;
+    top: 0;
+}
+
+.separator-text {
+    font-weight: bold;
+    font-size: 1rem; /* Puedes ajustar el tamaño según lo que necesites */
+    color: #6c757d;
+    text-align: center;
+    padding-bottom: 10px;
 }

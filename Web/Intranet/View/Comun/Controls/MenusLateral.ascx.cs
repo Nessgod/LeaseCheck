@@ -34,7 +34,7 @@ public partial class View_Comun_Controls_MenusLateral : System.Web.UI.UserContro
                 if (item.mnu_visible)
                 {
                     sbMenus.AppendLine("<li class='menu-title'>");
-                    sbMenus.AppendLine(item.mnu_nombre);
+                    sbMenus.AppendLine("<i class='fas fa-bars'></i>" + "MENUS");
                     sbMenus.AppendLine("</li>");
 
                     int countNivel = 1;

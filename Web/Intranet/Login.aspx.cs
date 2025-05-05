@@ -6,6 +6,7 @@ using AccesoDatosCorreo.Controller;
 using LeaseCheck.Root.Controller;
 using LeaseCheck.Root.Model;
 using Telerik.Web.UI;
+using WsCorreo;
 
 public partial class Login : System.Web.UI.Page
 {
@@ -35,35 +36,43 @@ public partial class Login : System.Web.UI.Page
             {
                 switch (queryValue)
                 {
-                    case "Postulante":
-                        Postulante.Style.Add("display", "");
-                        Acceso.Style.Add("display", "none");
-                        Soporte.Style.Add("display", "none");
-                        Comercial.Style.Add("display", "none");
-                        break;
-
                     case "Empresa":
-                        Postulante.Style.Add("display", "none");
+                        Propietario.Style.Add("display", "none");
+                        DivAccesos.Style.Add("display", "");
+                        DivSoporteComercial.Style.Add("display", "none");
                         Acceso.Style.Add("display", "");
                         Soporte.Style.Add("display", "none");
                         Comercial.Style.Add("display", "none");
                         break;
 
+                    case "Propietario":
+                        Propietario.Style.Add("display", "");
+                        Acceso.Style.Add("display", "none");
+                        DivAccesos.Style.Add("display", "");
+                        DivSoporteComercial.Style.Add("display", "none");
+                        Soporte.Style.Add("display", "none");
+                        Comercial.Style.Add("display", "none");
+                        break;
+
                     case "Soporte":
-                        Postulante.Style.Add("display", "none");
+                        Propietario.Style.Add("display", "none");
+                        DivAccesos.Style.Add("display", "none");
+                        DivSoporteComercial.Style.Add("display", "");
                         Acceso.Style.Add("display", "none");
                         Soporte.Style.Add("display", "");
                         Comercial.Style.Add("display", "none");
                         break;
 
                     case "Comercial":
-                        Postulante.Style.Add("display", "none");
+                        DivAccesos.Style.Add("display", "none");
+                        DivSoporteComercial.Style.Add("display", "");
+                        Propietario.Style.Add("display", "none");
                         Acceso.Style.Add("display", "none");
                         Soporte.Style.Add("display", "none");
                         Comercial.Style.Add("display", "");
                         break;
                     default:
-                        Postulante.Style.Add("display", "");
+                        Propietario.Style.Add("display", "");
                         Acceso.Style.Add("display", "none");
                         Soporte.Style.Add("display", "none");
                         Comercial.Style.Add("display", "none");
@@ -71,6 +80,7 @@ public partial class Login : System.Web.UI.Page
                 }
             }
         }
+        lblMensajeContenedor.Visible = false;
     }
 
 
@@ -164,9 +174,9 @@ public partial class Login : System.Web.UI.Page
     {
     }
 
-    protected void lnkPostulante_Click(object sender, EventArgs e)
+    protected void lnkPropietario_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Login.aspx?query=Postulante");
+        Response.Redirect("Login.aspx?query=Propietario");
     }
 
     protected void lnkEmpresa_Click(object sender, EventArgs e)
@@ -186,22 +196,27 @@ public partial class Login : System.Web.UI.Page
 
     }
 
-    //protected void btnLoginPostulante_Click(object sender, EventArgs e)
-    //{
-    //    LeaseCheck.Clientes.Controller.CargoController controller = new LeaseCheck.Clientes.Controller.CargoController();
+    protected void btnLoginPropietario_Click(object sender, EventArgs e)
+    {
+        //LeaseCheck.Clientes.Controller.CargoController controller = new LeaseCheck.Clientes.Controller.CargoController();
 
-    //    LeaseCheck.Clientes.Model.Cargo usuario = new LeaseCheck.Clientes.Model.Cargo();
-    //    usuario.car_clave = txtCodigoPostulante.Text;
+            //LeaseCheck.Clientes.Model.Cargo usuario = new LeaseCheck.Clientes.Model.Cargo();
+            //usuario.car_clave = txtCodigoPostulante.Text;
 
-    //    Respuesta respuesta = controller.GetCargoClave(usuario);
+            //Respuesta respuesta = controller.GetCargoClave(usuario);
 
-    //    if (!respuesta.error)
-    //    {
-    //        Response.Redirect("~/View/Candidatos/Candidato/Candidato.aspx");
-    //    }
+            //if (!respuesta.error)
+            //{
+            //    Response.Redirect("~/View/Candidatos/Candidato/Candidato.aspx");
+            //}
     //    else
-    //        lblMensajePostulante.Text = respuesta.detalle;
-    //}
+    //    {
+    //        lblMensaje.Text = respuesta.detalle;
+    //        lblMensaje.Visible = true;
+    //        lblMensajeContenedor.Visible = true;
+    //    }
+
+    }
 
     protected void btnLoginEmpresa_Click(object sender, EventArgs e)
     {
@@ -215,46 +230,18 @@ public partial class Login : System.Web.UI.Page
 
         if (!respuesta.error)
         {
-            //if (LeaseCheck.Session.Usuario_Es_Cliente() == "True")
-            //    Response.Redirect("~/View/Clientes/Cargo/Cargos.aspx");
-            //else
             Response.Redirect("~/Default.aspx");
         }
         else
+        {
             lblMensaje.Text = respuesta.detalle;
+            lblMensaje.Visible = true;
+            lblMensajeContenedor.Visible = true;
+        }
+           
     }
 
-    protected void btnEnviarConsulta_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Respuesta respuesta = new Respuesta();
-            MesaAyuda mesaAyuda = new MesaAyuda();
-            MesaAyudaController mesaAyudaController = new MesaAyudaController();
 
-            mesaAyuda.mes_nombre = txtNombreMesaAyuda.Text;
-            mesaAyuda.mes_telefono = int.Parse(txtTelefono.Text);
-            mesaAyuda.mes_correo = txtCorreo.Text;
-            mesaAyuda.mes_mensaje = txtMensaje.Text;
-
-            respuesta = mesaAyudaController.InsertMesaAyuda(mesaAyuda);
-
-            if (!respuesta.error)
-            {
-                Tools.tools.ClientAlert(respuesta.detalle, "ok");
-                Limpiar();
-            }
-            else
-            {
-                Tools.tools.ClientAlert(respuesta.detalle, "error");
-            }
-
-        }
-        catch (Exception ex)
-        {
-            Tools.tools.ClientAlert(ex.Message, "error");
-        }
-    }
 
     protected void btnEnviarComercial_Click(object sender, EventArgs e)
     {
@@ -290,14 +277,6 @@ public partial class Login : System.Web.UI.Page
         }
     }
 
-    protected void Limpiar()
-    {
-        txtNombreMesaAyuda.Text = "";
-        txtTelefono.Text = "";
-        txtCorreo.Text = "";
-        txtMensaje.Text = "";
-
-    }
 
     protected void LimpiarComercial()
     {

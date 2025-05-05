@@ -28,7 +28,7 @@ public partial class View_Clientes_Identidad_ClientePlanes : System.Web.UI.Page
             Grid.AddColumn("clp_fecha_hasta", "HASTA", "", HorizontalAlign.Left, DataFormat: "{0:dd-MM-yyyy}");
             Grid.AddColumn("plan_documento", "CANTIDAD DOCUMENTOS", "", HorizontalAlign.Left);
             Grid.AddColumn("plan_propiedad", "CANTIDAD PROPIEDADES", "", HorizontalAlign.Left);
-            Grid.AddColumn("plan_lead", "CANTIDAD LEAD", "", HorizontalAlign.Left);
+            Grid.AddColumn("plan_lead", "CANTIDAD DE POTENCIALES CLIENTES", "", HorizontalAlign.Left);
             Grid.AddColumn("valor_plan", "VALOR", "", HorizontalAlign.Left, DataFormat: "{0:N0}");
         }
     }

@@ -50,4 +50,6 @@ public class ClientePropiedad
 
     public double GANANCIA { get; set; }
 
+    public string OBSERVACION_ESTADO { get; set; }
+
 }

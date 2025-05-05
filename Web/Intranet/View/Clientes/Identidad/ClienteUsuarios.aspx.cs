@@ -58,9 +58,14 @@ public partial class View_Clientes_Identidad_ClienteUsuarios : System.Web.UI.Pag
             LinkButton lnkEliminarUsuario = (LinkButton)gridUsuarios.MasterTableView.GetItems(GridItemType.CommandItem)[0].FindControl("lnkEliminarUsuario");
             lnkEliminarUsuario.Visible = false;
 
+
+            LinkButton lnkReset = (LinkButton)gridUsuarios.MasterTableView.GetItems(GridItemType.CommandItem)[0].FindControl("lnkReset");
+            lnkReset.Visible = false;
+
+
             //LinkButton lnkReset = (LinkButton)gridUsuarios.MasterTableView.GetItems(GridItemType.CommandItem)[0].FindControl("lnkReset");
             //lnkReset.Visible = false;
-            
+
             wucFiltro.Visible = false;
         }
     }

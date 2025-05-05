@@ -27,7 +27,7 @@ public partial class View_Root_Mantenedores_MesaAyuda_MesaAyuda : System.Web.UI.
             Grid.AddColumn("MES_CORREO", "EMAIL", "10%");
             Grid.AddColumn("MES_TELEFONO", "FONO", "13%");         
             Grid.AddColumn("MES_FECHA_CREACION", "FECHA CONSULTA", "13%", DataFormat: "{0:dd-MM-yyyy}");
-            Grid.AddColumn("fecha_respuesta", "FECHA RESPUESTA", "13%", DataFormat: "{0:dd-MM-yyyy}");
+            Grid.AddColumn("FECHA_ULTIMA_RESPUESTA", "FECHA RESPUESTA", "13%", DataFormat: "{0:dd-MM-yyyy}");
             Grid.AddColumn("MES_ESTADO_NOMBRE", "ESTADO", "10%");
         }
 

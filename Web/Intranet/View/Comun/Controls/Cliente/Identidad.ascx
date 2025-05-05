@@ -246,7 +246,7 @@
         <label>Logo Empresa</label>
     </div>
     <div class="form-group col-lg-10 col-md-10 col-xs-12">
-        <asp:FileUpload ID="fudFoto" runat="server" />
+        <asp:FileUpload ID="fudFotoCliente" runat="server" />
     </div>
 </div>
 

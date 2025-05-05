@@ -36,14 +36,26 @@
             <rad:RadGrid2 ID="gridUsuarios" runat="server" onitemdatabound="gridUsuarios_ItemDataBound" AllowPaging="false" >
                 <MasterTableView CommandItemDisplay="Top" DataKeyNames="usu_id" >
                     <CommandItemTemplate>
-                        <div>
-                            <asp:LinkButton ID="lnkNuevoUsuario" runat="server" Text="Nuevo" CssClass="icono_guardar" OnClick="lnkNuevoUsuario_Click"/>
-                            <asp:LinkButton ID="lnkEliminarUsuario" runat="server" Text="Eliminar" CssClass="icono_eliminar"  OnClick="lnkEliminarUsuario_Click"
-                            OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea eliminar los registros seleccionados?');"/>
-                           <%-- <asp:LinkButton ID="lnkReset" runat="server" Text="Reset Password" CssClass="icono_eliminar" OnClick="lnkReset_Click"
-                                    OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea resetear las claves de los usuarios seleccionados?');" />--%>
-                           
-                        </div>
+                        <div class="contenedor-botones">
+                           <asp:LinkButton ID="lnkNuevoUsuario" runat="server" Text="Nuevo" CssClass="btn_dinamico btn_guardar" OnClick="lnkNuevoUsuario_Click" ToolTip="Añadir">
+                             <span class="text">Nuevo</span>
+                             <span class="icon"><i class="fas fa-plus"></i></span>
+                             </asp:LinkButton>
+
+
+                           <asp:LinkButton ID="lnkEliminarUsuario" runat="server" CssClass="btn_dinamico btn_eliminar" OnClick="lnkEliminarUsuario_Click"
+                               OnClientClick="return ConfirSweetAlert(this, '', '¿Está seguro que desea eliminar los registros seleccionados?');" ToolTip="Eliminar">
+                                 <span class="text">Eliminar</span>
+                                 <span class="icon"><i class="fas fa-trash-alt"></i></span>
+                             </asp:LinkButton>
+
+
+                           <asp:LinkButton ID="lnkReset" runat="server" CssClass="btn_dinamico_largo btn_reset_password" OnClick="lnkReset_Click"
+                               OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea resetear las claves de los usuarios seleccionados?');" >
+                               <span class="text">Reset Password</span>
+                            <span class="icon"><i class="fas fa-sync-alt"></i></span> 
+                           </asp:LinkButton>
+                       </div>
                     </CommandItemTemplate>
                 </MasterTableView>
                 <ClientSettings>

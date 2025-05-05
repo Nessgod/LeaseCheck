@@ -10,6 +10,10 @@ using System.Web.UI;
 using System.Web;
 using AjaxControlToolkit.HTMLEditor;
 using System.Linq;
+using iText.Kernel.Pdf.Canvas.Wmf;
+using WsCorreo;
+using System.Collections.Generic;
+using System.Text;
 
 
 
@@ -26,7 +30,7 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
         get { return Convert.ToInt32(ViewState["IdDetallePublicacion"]); }
         set { ViewState.Add("IdDetallePublicacion", value); }
     }
-    
+
     public int IdDatoLegal
     {
         get { return Convert.ToInt32(ViewState["IdDatoLegal"]); }
@@ -37,6 +41,12 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
     {
         get { return Convert.ToInt32(ViewState["IdFecha"]); }
         set { ViewState.Add("IdFecha", value); }
+    }
+
+    public int TipoServicio
+    {
+        get { return Convert.ToInt32(ViewState["TipoServicio"]); }
+        set { ViewState.Add("TipoServicio", value); }
     }
 
     public int Cliente
@@ -58,6 +68,13 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
     }
 
     private ClienteController controller = new ClienteController();
+    ClientePropiedad propiedad = new ClientePropiedad();
+    ClientePropiedadDatoLegal datolegal = new ClientePropiedadDatoLegal();
+    ClientePropiedadFicha ficha = new ClientePropiedadFicha();
+    ClientePropiedadMedio clientePropiedadMedio = new ClientePropiedadMedio();
+    ClientePropiedadDetallePublicacion detallePublicacion = new ClientePropiedadDetallePublicacion();
+    ClientePropiedadController clientePropiedadController = new ClientePropiedadController();
+
 
     #endregion
     protected void Page_Load(object sender, EventArgs e)
@@ -87,10 +104,11 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
                 }
             }
 
+            txtFechaFin.SelectedDate = DateTime.Today;
             ConfigurarGrid();
+            ConfigurarGridEstado();
 
         }
- 
     }
 
     protected void Page_PreRender(object sender, EventArgs e)
@@ -101,178 +119,169 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             CargarDatoLegal();
             CargarFicha();
             CargarDetallePublicacion();
-            CargarEstadoPropiedad();
+            CargarCronogramaEstadoPropiedad(null, null);
             CargaGrid();
+            CargaGridEstados();
+
+
+            CargarTpoPropiedad(cboTpoPropiedad);
+            CargarTpoServicio(cboTpoServicio);
+            CargarTpoEntrega(cboTpoEntrega);
+            CargarPaises(cboPais);
+            CargarRegiones(cboRegion);
+            CargarProvincias(cboProvincia);
+            CargarComunas(cboComuna);
+            CargarPropietarios(cboPropietario);
+
             updGrid.Update();
+
         }
 
+
+        CargaGridEstados();
         CargaGrid();
         updGrid.Update();
         Validaciones();
+        CargarCronogramaEstadoPropiedad(null, null);
     }
 
-    public void LoadControls(object sender, System.EventArgs e)
+    #region Combobox Carga
+    private void CargarTpoPropiedad(RadComboBox cbo)
     {
-        if (sender is RadComboBox)
+        if (cbo.Items.Count == 0)
         {
-            RadComboBox ctrl = (RadComboBox)sender;
-
-            switch (ctrl.ID)
+            var propiedad = controller.GetTipoPropiedad();
+            if (propiedad.Count > 0)
             {
-                #region Identidad
-                case "cboTpoPropiedad":
-                    var propiedad = controller.GetTipoPropiedad();
-                    if (propiedad.Count > 0)
-                    {
-                        ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
-                        ctrl.AppendDataBoundItems = true;
-                    }
-
-                    ctrl.DataSource = propiedad;
-                    ctrl.DataValueField = "tpr_id";
-                    ctrl.DataTextField = "tpr_nombre";
-                    ctrl.DataBind();
-                    break;
-
-                case "cboTpoServicio":
-                    var servicio = controller.GetTipoServicio();
-                    if (servicio.Count > 0)
-                    {
-                        ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
-                        ctrl.AppendDataBoundItems = true;
-                    }
-
-                    ctrl.DataSource = servicio;
-                    ctrl.DataValueField = "tsc_id";
-                    ctrl.DataTextField = "tsc_nombre";
-                    ctrl.DataBind();
-                    break;
-
-                case "cboTpoEntrega":
-                    var entrega = controller.GetTipoEntrega();
-                    if (entrega.Count > 0)
-                    {
-                        ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
-                        ctrl.AppendDataBoundItems = true;
-                    }
-
-                    ctrl.DataSource = entrega;
-                    ctrl.DataValueField = "cpt_id";
-                    ctrl.DataTextField = "cpt_nombre";
-                    ctrl.DataBind();
-                    break;
-
-                case "cboPais":
-                    var paises = controller.GetPaises();
-                    if (paises.Count > 0)
-                    {
-                        ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
-                        ctrl.AppendDataBoundItems = true;
-                    }
-
-                    ctrl.DataSource = paises;
-                    ctrl.DataValueField = "pai_id";
-                    ctrl.DataTextField = "pai_nombre";
-                    ctrl.DataBind();
-
-                    break;
-
-                case "cboRegion":
-                    LeaseCheck.Root.Model.Region filtro = new LeaseCheck.Root.Model.Region();
-                    var region = controller.GetRegiones(filtro);
-                    if (region.Count > 0)
-                    {
-                        ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
-                        ctrl.AppendDataBoundItems = true;
-                    }
-
-                    ctrl.DataSource = region;
-                    ctrl.DataValueField = "rgn_id";
-                    ctrl.DataTextField = "rgn_nombre";
-                    ctrl.DataBind();
-                    break;
-
-                case "cboProvincia":
-                    Provincia pro = new Provincia();
-                    var provincia = controller.GetProvincias(pro);
-                    if (provincia.Count > 0)
-                    {
-                        ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
-                        ctrl.AppendDataBoundItems = true;
-                    }
-
-                    ctrl.DataSource = provincia;
-                    ctrl.DataValueField = "pro_id";
-                    ctrl.DataTextField = "pro_nombre";
-                    ctrl.DataBind();
-                    break;
-
-
-                case "cboComuna":
-                    Comuna comuna = new Comuna();
-                    var comunas = controller.GetComunas(comuna);
-                    if (comunas.Count > 0)
-                    {
-                        ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
-                        ctrl.AppendDataBoundItems = true;
-                    }
-
-                    ctrl.DataSource = comunas;
-                    ctrl.DataValueField = "cmn_id";
-                    ctrl.DataTextField = "cmn_nombre";
-                    ctrl.DataBind();
-                    break;
-
-
-                case "cboEstado":
-                    var estados = controller.GetEstadosPropiedad();
-                    if (estados.Count > 0)
-                    {
-                        ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
-                        ctrl.AppendDataBoundItems = true;
-                    }
-                    cboEstado.Items.Clear();
-                    ctrl.DataSource = estados;
-                    ctrl.DataValueField = "cpe_id";
-                    ctrl.DataTextField = "cpe_nombre";
-                    ctrl.DataBind();
-                    break;
-                #endregion
-
-                #region Datos Legales
-                case "cboPropietario":
-                    var propietarios = controller.GetClienteUsuarioPropietarios();
-                    if (propietarios.Count > 0)
-                    {
-                        ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
-                        ctrl.AppendDataBoundItems = true;
-                    }
-                    ctrl.DataSource = propietarios;
-                    ctrl.DataValueField = "usu_id";
-                    ctrl.DataTextField = "NOMBRE_COMPLETO";
-                    ctrl.DataBind();
-                    break;
-                #endregion
-
-                #region Estado de Propiedad
-                case "cboEstadoPropiedad":
-                    var estados2 = controller.GetEstadosPropiedad();
-                    if (estados2.Count > 0)
-                    {
-                        ctrl.Items.Add(new RadComboBoxItem("Seleccione...", ""));
-                        ctrl.AppendDataBoundItems = true;
-                    }
-                    cboEstadoPropiedad.Items.Clear();
-                    ctrl.DataSource = estados2;
-                    ctrl.DataValueField = "cpe_id";
-                    ctrl.DataTextField = "cpe_nombre";
-                    ctrl.DataBind();
-                    break;
-                    #endregion
+                cbo.AppendDataBoundItems = true;
+                cbo.Items.Add(new RadComboBoxItem("Seleccione...", ""));
             }
+            cbo.DataSource = propiedad;
+            cbo.DataValueField = "tpr_id";
+            cbo.DataTextField = "tpr_nombre";
+            cbo.DataBind();
         }
     }
 
+    private void CargarTpoServicio(RadComboBox cbo)
+    {
+        if (cbo.Items.Count == 0)
+        {
+            var servicio = controller.GetTipoServicio();
+            if (servicio.Count > 0)
+            {
+                cbo.AppendDataBoundItems = true;
+                cbo.Items.Add(new RadComboBoxItem("Seleccione...", ""));
+            }
+            cbo.DataSource = servicio;
+            cbo.DataValueField = "tsc_id";
+            cbo.DataTextField = "tsc_nombre";
+            cbo.DataBind();
+        }
+    }
+
+    private void CargarTpoEntrega(RadComboBox cbo)
+    {
+        if (cbo.Items.Count == 0)
+        {
+            var entrega = controller.GetTipoEntrega();
+            if (entrega.Count > 0)
+            {
+                cbo.AppendDataBoundItems = true;
+                cbo.Items.Add(new RadComboBoxItem("Seleccione...", ""));
+            }
+            cbo.DataSource = entrega;
+            cbo.DataValueField = "cpt_id";
+            cbo.DataTextField = "cpt_nombre";
+            cbo.DataBind();
+        }
+    }
+
+    private void CargarPaises(RadComboBox cbo)
+    {
+        if (cbo.Items.Count == 0)
+        {
+            var paises = controller.GetPaises();
+            if (paises.Count > 0)
+            {
+                cbo.AppendDataBoundItems = true;
+                cbo.Items.Add(new RadComboBoxItem("Seleccione...", ""));
+            }
+            cbo.DataSource = paises;
+            cbo.DataValueField = "pai_id";
+            cbo.DataTextField = "pai_nombre";
+            cbo.DataBind();
+        }
+    }
+
+    private void CargarRegiones(RadComboBox cbo)
+    {
+        if (cbo.Items.Count == 0)
+        {
+            var region = controller.GetRegiones(new LeaseCheck.Root.Model.Region());
+            if (region.Count > 0)
+            {
+                cbo.AppendDataBoundItems = true;
+                cbo.Items.Add(new RadComboBoxItem("Seleccione...", ""));
+            }
+            cbo.DataSource = region;
+            cbo.DataValueField = "rgn_id";
+            cbo.DataTextField = "rgn_nombre";
+            cbo.DataBind();
+        }
+    }
+
+    private void CargarProvincias(RadComboBox cbo)
+    {
+        if (cbo.Items.Count == 0)
+        {
+            var provincia = controller.GetProvincias(new Provincia());
+            if (provincia.Count > 0)
+            {
+                cbo.AppendDataBoundItems = true;
+                cbo.Items.Add(new RadComboBoxItem("Seleccione...", ""));
+            }
+            cbo.DataSource = provincia;
+            cbo.DataValueField = "pro_id";
+            cbo.DataTextField = "pro_nombre";
+            cbo.DataBind();
+        }
+    }
+
+    private void CargarComunas(RadComboBox cbo)
+    {
+        if (cbo.Items.Count == 0)
+        {
+            var comunas = controller.GetComunas(new Comuna());
+            if (comunas.Count > 0)
+            {
+                cbo.AppendDataBoundItems = true;
+                cbo.Items.Add(new RadComboBoxItem("Seleccione...", ""));
+            }
+            cbo.DataSource = comunas;
+            cbo.DataValueField = "cmn_id";
+            cbo.DataTextField = "cmn_nombre";
+            cbo.DataBind();
+        }
+    }
+
+    private void CargarPropietarios(RadComboBox cbo)
+    {
+        if (cbo.Items.Count == 0)
+        {
+            var propietarios = controller.GetClienteUsuarioPropietarios();
+            if (propietarios.Count > 0)
+            {
+                cbo.AppendDataBoundItems = true;
+                cbo.Items.Add(new RadComboBoxItem("Seleccione...", ""));
+            }
+            cbo.DataSource = propietarios;
+            cbo.DataValueField = "usu_id";
+            cbo.DataTextField = "NOMBRE_COMPLETO";
+            cbo.DataBind();
+        }
+    }
+    #endregion
     protected void Validaciones()
     {
         if (Id > 0)
@@ -311,14 +320,15 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
     {
         if (Id > 0)
         {
-
-
-            ClientePropiedad propiedad = new ClientePropiedad();
-            ClientePropiedadController clientePropiedadController = new ClientePropiedadController();
+            #region Propiedad
             propiedad.cpd_id = Id;
 
             propiedad = clientePropiedadController.GetClientePropiedad(propiedad);
 
+
+            TipoServicio = propiedad.cpd_tipo_servicio;
+            CargarEstadosPropiedad(cboEstadoPropiedad, TipoServicio);
+            CargarEstadosPropiedad(cboEstado, TipoServicio);
             lblTituloUsuario.Text = "ID: " + propiedad.cpd_id + " | " + propiedad.TIPO_PROPIEDAD + ": " + propiedad.cpd_titulo;
 
 
@@ -327,6 +337,7 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             cboTpoEntrega.SelectedValue = propiedad.cpd_tipo_entrega.ToString();
 
             cboEstado.SelectedValue = propiedad.cpd_estado.ToString();
+            cboEstado.Enabled = false;
 
             cboPais.SelectedValue = propiedad.cpd_pais.ToString();
             cboRegion.SelectedValue = propiedad.cpd_region.ToString();
@@ -425,9 +436,11 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
                 rddSi.Checked = false;
                 rddNo.Checked = true;
             }
+            #endregion
 
         }
     }
+
 
     protected void btnGuardar_OnClick(object sender, EventArgs e)
     {
@@ -479,7 +492,7 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             propiedad.cpd_titulo = txtTitulo.Text;
             propiedad.cpd_valor_uf = int.Parse(txtValorUf.Text.ToString());
             propiedad.cpd_valor_venta = int.Parse(txtValorCLP.Text.ToString());
-            propiedad.cpd_valor_evaluo_fiscal= int.Parse(txtEvaluoFiscal.Text.ToString());
+            propiedad.cpd_valor_evaluo_fiscal = int.Parse(txtEvaluoFiscal.Text.ToString());
             propiedad.cpd_cantidad_bodega = cantBodega;
             propiedad.cpd_valor_bodega = valorBodega;
             propiedad.cpd_cantidad_estacionamiento = cantEst;
@@ -512,9 +525,6 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
     #region Creación de Datos Legales Propiedad
     protected void CargarDatoLegal()
     {
-
-        ClientePropiedadDatoLegal datolegal = new ClientePropiedadDatoLegal();
-        ClientePropiedadController clientePropiedadController = new ClientePropiedadController();
         datolegal.cdl_id_propiedad = Id;
 
         // Realiza la consulta primero
@@ -594,7 +604,7 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             datoLegal.cdl_numero_sitio = txtNumeroSitio.Text.ToString();
             datoLegal.cdl_copia_llaves = int.Parse(txtCopiaLlaves.Text.ToString());
             datoLegal.cdl_conjunto_habitacional = txtConHabitacional.Text.ToString();
-  
+
 
             if (rdiSi.Checked)
                 datoLegal.cdl_inventario = true;
@@ -627,8 +637,6 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
     #region Creación de Ficha de Propiedad (Caracteristicas)
     protected void CargarFicha()
     {
-        ClientePropiedadFicha ficha = new ClientePropiedadFicha();
-        ClientePropiedadController clientePropiedadController = new ClientePropiedadController();
         ficha.cpf_id_propiedad = Id;
 
         // Realiza la consulta primero
@@ -643,8 +651,21 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             txtCantidadPisos.Text = ficha.cpf_pisos.ToString();
             txtCantidadDormitorios.Text = ficha.cpf_dormitorio.ToString();
             txtCantidadBanios.Text = ficha.cpf_baño.ToString();
-            txtUbicacionPiso.Text = ficha.cpf_ubicacion_piso.ToString();
-            txtTipoPiso.Text = ficha.cpf_tipo_piso;
+
+            if(propiedad.TIPO_PROPIEDAD == 2.ToString())
+            {
+                txtUbicacionPiso.Visible = true;
+                txtUbicacionPisoEtiq.Visible = true;
+                txtUbicacionPiso.Text = ficha.cpf_ubicacion_piso.ToString();
+            }
+            else
+            {
+                txtUbicacionPiso.Visible = false;
+                txtUbicacionPisoEtiq.Visible = false;
+            }
+
+
+                txtTipoPiso.Text = ficha.cpf_tipo_piso;
             txtTipoVentana.Text = ficha.cpf_tipo_ventana;
             txtConexionCocina.Text = ficha.cpf_conexion_cocina;
             txtConexionLavadora.Text = ficha.cpf_conexion_lavadora;
@@ -708,8 +729,8 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             #endregion
 
 
-            bool datosExistentes = ficha != null && ficha.cpf_id > 0; 
-            hfDatosExistentes.Value = datosExistentes.ToString().ToLower(); 
+            bool datosExistentes = ficha != null && ficha.cpf_id > 0;
+            hfDatosExistentes.Value = datosExistentes.ToString().ToLower();
 
         }
     }
@@ -737,7 +758,7 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             ficha.cpf_id = dato.cpf_id;
             ficha.cpf_id_propiedad = Id;
             ficha.cpf_superficie_util = txtSuperficieUtil.Text.ToString();
-            ficha.cpf_superficie_total = txtSuperficieTotal.Text.ToString();    
+            ficha.cpf_superficie_total = txtSuperficieTotal.Text.ToString();
             ficha.cpf_pisos = int.Parse(txtCantidadPisos.Text.ToString());
             ficha.cpf_dormitorio = int.Parse(txtCantidadDormitorios.Text.ToString());
             ficha.cpf_baño = int.Parse(txtCantidadBanios.Text.ToString());
@@ -800,8 +821,7 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
     #region Creación de Detalle de Publicación
     protected void CargarDetallePublicacion()
     {
-        ClientePropiedadDetallePublicacion detallePublicacion = new ClientePropiedadDetallePublicacion();
-        ClientePropiedadController clientePropiedadController = new ClientePropiedadController();
+
         detallePublicacion.cdp_id_propiedad = Id;
 
         // Realiza la consulta primero
@@ -820,10 +840,6 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             txtRestaurant.Text = detallePublicacion.cdp_restaurant;
             txtTransportes.Text = detallePublicacion.cdp_transporte;
             txtDescripcion.Text = detallePublicacion.cdp_descripcion;
-
-            btnPubliar.Visible = true;
-
-
         }
     }
     protected void btnDetallePublicacion_Click(object sender, EventArgs e)
@@ -868,7 +884,6 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             {
                 respuesta = clientePropiedadController.InsertClientePropiedadDetallePublicacion(detallePublicacion);
                 detallePublicacion.cdp_id = respuesta.codigo;
-                btnPubliar.Visible = true;
             }
 
             if (!respuesta.error)
@@ -899,11 +914,10 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
 
     protected void CargaGrid()
     {
-        ClientePropiedadMedio clientePropiedadMedio = new ClientePropiedadMedio();
-        ClientePropiedadController propiedadController = new ClientePropiedadController();
+
         clientePropiedadMedio.cpm_id_propiedad = Id;
 
-        var medios = propiedadController.GetClientePropiedadMedios(clientePropiedadMedio);
+        var medios = clientePropiedadController.GetClientePropiedadMedios(clientePropiedadMedio);
 
         foreach (var medio in medios)
         {
@@ -1079,90 +1093,205 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
         HttpContext.Current.Response.Clear();
         HttpContext.Current.Response.Charset = "";
         HttpContext.Current.Response.ContentType = "image/jpeg";
-        string fileName = binario.DESCRIPCION + "_" + propiedadMedio.cpm_id.ToString() + ".jpg"; 
+        string fileName = binario.DESCRIPCION + "_" + propiedadMedio.cpm_id.ToString() + ".jpg";
         HttpContext.Current.Response.AddHeader("content-disposition", "attachment; filename=" + fileName);
         HttpContext.Current.Response.BinaryWrite(binario.cmb_binario);
         HttpContext.Current.Response.End();
     }
     #endregion
     #region Cambiar estado de la propiedad
-    private void CargarEstadoPropiedad()
+
+    private void CargarEstadosPropiedad(RadComboBox cboEstadoPropiedad, int tipoServicio)
     {
-        ClientePropiedad propiedad = new ClientePropiedad();
-        ClienteController controller = new ClienteController();
+        Parametros parametros = new Parametros();
+        ParametroSistemaController parametrosController = new ParametroSistemaController();
 
-        propiedad.cpd_id = Id;
-        propiedad = controller.GetEstadoPropiedad(propiedad);
-
-        string estado = propiedad.ESTADO != null ? propiedad.ESTADO.Trim() : "";
-        string emoji = "";
-        string cssClass = "badge badge-pill estado-propiedad";
-
-        switch (estado)
+        // Determinar el código del parámetro según el tipo de servicio
+        if (tipoServicio == 1)
         {
-            case "Publicado":
-                emoji = "🟢";
-                cssClass += " badge-success";
-                break;
-            case "Con Visitas":
-                emoji = "👀";
-                cssClass += " badge-info";
-                break;
-            case "Disponible":
-                emoji = "✅";
-                cssClass += " badge-success";
-                break;
-            case "Reservada":
-                emoji = "🟠";
-                cssClass += " badge-warning";
-                break;
-            case "En Proceso de Promesa de Compraventa":
-                emoji = "📑";
-                cssClass += " badge-primary";
-                break;
-            case "Esperando Firma de Escritura":
-                emoji = "✍️";
-                cssClass += " badge-primary";
-                break;
-            case "Vendida":
-                emoji = "🏠✅";
-                cssClass += " badge-dark";
-                break;
-            case "En Proceso de Contrato de Arriendo":
-                emoji = "📝";
-                cssClass += " badge-primary";
-                break;
-            case "Arrendada":
-                emoji = "📦";
-                cssClass += " badge-secondary";
-                break;
-            case "No Disponible":
-                emoji = "⛔";
-                cssClass += " badge-danger";
-                break;
-            default:
-                emoji = "❓";
-                cssClass += " badge-light";
-                break;
+            parametros.par_codigo = "Combo_Compra";
+        }
+        else
+        {
+            parametros.par_codigo = "Combo_Arriendo";
         }
 
-        lblEstadoPropiedad.Text = "Estado Actual: " + emoji + " " + estado;
-        lblEstadoPropiedad.CssClass = cssClass;
+        // Obtener los parámetros
+        parametros = parametrosController.GetParametros(parametros);
+        string combobox = parametros.par_valor;
+
+        // Obtener los estados de la propiedad
+        var estados = controller.GetEstadosPropiedad(combobox);
+
+        // Limpiar los elementos antes de agregar nuevos ítems
+        cboEstadoPropiedad.Items.Clear();
+
+        if (estados.Count > 0)
+        {
+            // Agregar ítem "Seleccione..." solo si hay datos
+            cboEstadoPropiedad.Items.Add(new RadComboBoxItem("Seleccione...", ""));
+            cboEstadoPropiedad.AppendDataBoundItems = true;
+        }
+
+        // Asignar los datos al control
+        cboEstadoPropiedad.DataSource = estados;
+        cboEstadoPropiedad.DataValueField = "cpe_id";
+        cboEstadoPropiedad.DataTextField = "cpe_nombre";
+        cboEstadoPropiedad.DataBind();
+
+        // Seleccionar el estado actual de la propiedad
+        if (propiedad != null && propiedad.cpd_estado > 0)
+        {
+            cboEstadoPropiedad.SelectedValue = propiedad.cpd_estado.ToString();
+        }
     }
 
-    #endregion
+    protected void btnFiltrar_Click(object sender, EventArgs e)
+    {
+        DateTime? fechaInicio = null;
+        DateTime? fechaFin = null;
+
+        // Obtener las fechas seleccionadas
+        if (txtFechaInicio.SelectedDate.HasValue)
+            fechaInicio = txtFechaInicio.SelectedDate.Value;
+
+        if (txtFechaFin.SelectedDate.HasValue)
+            fechaFin = txtFechaFin.SelectedDate.Value;
+
+        // Llamar al método para cargar el cronograma con las fechas filtradas
+        CargarCronogramaEstadoPropiedad(fechaInicio, fechaFin);
+    }
+
+    private void CargarCronogramaEstadoPropiedad(DateTime? fechaInicio, DateTime? fechaFin)
+    {
+        ClientePropiedadEstadoAvance estadoAvance = new ClientePropiedadEstadoAvance();
+        estadoAvance.cea_id_propiedad = Id;
+        ClientePropiedadController controller = new ClientePropiedadController();
+        List<ClientePropiedadEstadoAvance> listadoEstados = controller.GetListadoEstadoAvancePropiedades(estadoAvance);
+
+        StringBuilder cronograma = new StringBuilder();
+
+        var estadosFiltrados = listadoEstados.Where(estado =>
+            (!fechaInicio.HasValue || estado.cea_fecha_creacion >= fechaInicio.Value) &&
+            (!fechaFin.HasValue || estado.cea_fecha_creacion <= fechaFin.Value)).ToList();
+
+        if (estadosFiltrados.Count == 0)
+        {
+            cronograma.Append("<div class='card mt-3'><div class='card-body'>");
+            cronograma.Append("<h5 class='card-title text-center text-muted'>La propiedad no cuenta con estados</h5>");
+            cronograma.Append("</div></div>");
+        }
+        else
+        {
+            var estadoActual = estadosFiltrados.Last();
+            string estadoActualNombre = estadoActual.NOMBRE_ESTADO.Trim();
+            string fechaCreacionStr = estadoActual.cea_fecha_creacion.ToString("dd/MM/yyyy HH:mm");
+            string usuarioCreacion = estadoActual.NOMBRE_COMPLETO;
+            string observacionActual = string.IsNullOrWhiteSpace(estadoActual.OBSERVACION_ESTADO) ? "Sin observación" : estadoActual.OBSERVACION_ESTADO.Replace("'", "\\'").Replace("\n", "\\n").Replace("\"", "\\\"");
+
+            string iconClass = "fas fa-question-circle";
+            string color = "#6c757d";
+
+            switch (estadoActualNombre)
+            {
+                case "Publicado": iconClass = "fas fa-check-circle"; color = "#28a745"; break;
+                case "Con Visitas": iconClass = "fas fa-eye"; color = "#17a2b8"; break;
+                case "Disponible": iconClass = "fas fa-check"; color = "#007bff"; break;
+                case "Reservada": iconClass = "fas fa-clock"; color = "#ffc107"; break;
+                case "Esperando Firma de Promesa de Compraventa": iconClass = "fas fa-file-alt"; color = "#6f42c1"; break;
+                case "Esperando Firma de Escritura": iconClass = "fas fa-signature"; color = "#fd7e14"; break;
+                case "Vendida": iconClass = "fas fa-home"; color = "#20c997"; break;
+                case "Esperando Firma de  Contrato de Arriendo": iconClass = "fas fa-file-signature"; color = "#6610f2"; break;
+                case "Arrendada": iconClass = "fas fa-box"; color = "#6c757d"; break;
+                case "No Disponible": iconClass = "fas fa-ban"; color = "#dc3545"; break;
+                case "Promesada": iconClass = "fas fa-calendar-check"; color = "#fd7e14"; break;
+                case "Escriturada": iconClass = "fas fa-home"; color = "#17a2b8"; break;
+                case "Entregada": iconClass = "fas fa-handshake"; color = "#28a745"; break;
+                case "Arrendada con disponibilidad para compra": iconClass = "fas fa-box-open"; color = "#ffc107"; break;
+                case "Bloqueada": iconClass = "fas fa-ban"; color = "#dc3545"; break;
+            }
+
+            cronograma.Append("<fieldset class='border p-3 rounded mb-4 mr-4'><legend class='w-auto px-2'>Estado Actual</legend>");
+            cronograma.Append("<div class='row col-lg-12 col-md-12 col-xs-12'><div class='timeline-item estado-actual'>");
+            cronograma.AppendFormat("<div class='timeline-icon' style='color:{0}'><i class='{1}'></i></div>", color, iconClass);
+            cronograma.Append("<div class='timeline-details'>");
+            cronograma.AppendFormat("<div class='timeline-title'>{0}</div>", estadoActualNombre);
+            cronograma.AppendFormat("<div class='timeline-meta'>{0} | {1}</div>", fechaCreacionStr, usuarioCreacion);
+            cronograma.AppendFormat("<a href='#' onclick=\"mostrarObservacionSweetAlert('{0}')\">Ver observación</a>", observacionActual);
+            cronograma.Append("</div></div></div></fieldset>");
+
+            if (estadosFiltrados.Count > 1)
+            {
+                cronograma.Append("<fieldset class='border p-3 rounded'><legend class='w-auto px-2'>Cronograma de Estados</legend><div class='timeline-container'>");
+
+                foreach (var estado in estadosFiltrados.Take(estadosFiltrados.Count - 1))
+                {
+                    string estadoNombre = estado.NOMBRE_ESTADO.Trim();
+                    string fechaCreacion = estado.cea_fecha_creacion.ToString("dd/MM/yyyy HH:mm");
+                    string usuarioCreacionAnt = estado.NOMBRE_COMPLETO;
+                    string observacion = string.IsNullOrWhiteSpace(estado.OBSERVACION_ESTADO) ? "Sin observación" : estado.OBSERVACION_ESTADO.Replace("'", "\\'").Replace("\n", "\\n").Replace("\"", "\\\"");
+
+                    string iconClassRestante = "fas fa-question-circle";
+                    string colorRestante = "#6c757d";
+
+                    switch (estadoNombre)
+                    {
+                        case "Publicado": iconClassRestante = "fas fa-check-circle"; colorRestante = "#28a745"; break;
+                        case "Con Visitas": iconClassRestante = "fas fa-eye"; colorRestante = "#17a2b8"; break;
+                        case "Disponible": iconClassRestante = "fas fa-check"; colorRestante = "#007bff"; break;
+                        case "Reservada": iconClassRestante = "fas fa-clock"; colorRestante = "#ffc107"; break;
+                        case "Esperando Firma de Promesa de Compraventa": iconClassRestante = "fas fa-file-alt"; colorRestante = "#6f42c1"; break;
+                        case "Esperando Firma de Escritura": iconClassRestante = "fas fa-signature"; colorRestante = "#fd7e14"; break;
+                        case "Vendida": iconClassRestante = "fas fa-home"; colorRestante = "#20c997"; break;
+                        case "Esperando Firma de Contrato de Arriendo": iconClassRestante = "fas fa-file-signature"; colorRestante = "#6610f2"; break;
+                        case "Arrendada": iconClassRestante = "fas fa-box"; colorRestante = "#6c757d"; break;
+                        case "No Disponible": iconClassRestante = "fas fa-ban"; colorRestante = "#dc3545"; break;
+                        case "Promesada": iconClassRestante = "fas fa-calendar-check"; colorRestante = "#fd7e14"; break;
+                        case "Escriturada": iconClassRestante = "fas fa-home"; colorRestante = "#17a2b8"; break;
+                        case "Entregada": iconClassRestante = "fas fa-handshake"; colorRestante = "#28a745"; break;
+                        case "Arrendada con disponibilidad para compra": iconClassRestante = "fas fa-box-open"; colorRestante = "#ffc107"; break;
+                        case "Bloqueada": iconClassRestante = "fas fa-ban"; colorRestante = "#dc3545"; break;
+                    }
+
+                    cronograma.Append("<div class='timeline-item estado-pasado'>");
+                    cronograma.AppendFormat("<div class='timeline-icon' style='color:{0}'><i class='{1}'></i></div>", colorRestante, iconClassRestante);
+                    cronograma.Append("<div class='timeline-details'>");
+                    cronograma.AppendFormat("<div class='timeline-title'>{0}</div>", estadoNombre);
+                    cronograma.AppendFormat("<div class='timeline-meta'>{0} | {1}</div>", fechaCreacion, usuarioCreacionAnt);
+                    cronograma.AppendFormat("<a href='#' onclick=\"mostrarObservacionSweetAlert('{0}')\">Ver observación</a>", observacion);
+                    cronograma.Append("</div></div>");
+                }
+
+                cronograma.Append("</div></fieldset>");
+            }
+        }
+
+        txtCronogramaEstadoPropiedad.Text = cronograma.ToString();
+    }
+
 
     protected void btnPubliar_Click(object sender, EventArgs e)
     {
-        ClientePropiedad propiedad = new ClientePropiedad();
         ClientePropiedadController controller = new ClientePropiedadController();
+        Respuesta respuesta = new Respuesta();
 
-        propiedad.cpd_estado = 10; // Publicado
-        propiedad.cpd_id = Id;
-        controller.UpdateClientePropiedadEstado(propiedad);
+        try
+        {
+            propiedad.cpd_estado = 10; // Publicado
+            propiedad.cpd_id = Id;
+            respuesta = controller.UpdateClientePropiedadEstado(propiedad);
+
+            if (!respuesta.error)
+                Tools.tools.ClientAlert(respuesta.detalle, "ok");
+            else
+                Tools.tools.ClientAlert(respuesta.detalle, "alerta");
+        }
+        catch (Exception ex)
+        {
+            Tools.tools.ClientAlert(ex.ToString(), "error");
+        }
 
     }
-
 
 
     protected void cboEstadoPropiedad_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -1175,4 +1304,110 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
         int.TryParse(cboPropietario.SelectedValue, out estadoPropiedad);
 
     }
+
+    protected void cboServicio_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
+    {
+        int TipoServicio = 0;
+        int.TryParse(cboTpoServicio.SelectedValue, out TipoServicio);
+        CargarEstadosPropiedad(cboEstado, TipoServicio);
+    }
+
+
+    protected void ConfigurarGridEstado()
+    {
+        GridEstados.AddSelectColumn();
+        GridEstados.Columns[0].HeaderStyle.Width = Unit.Percentage(1); // Establece el ancho de la columna de selección al 5%
+        GridEstados.Columns[0].ItemStyle.Width = Unit.Percentage(1);   // Aplica el mismo ancho a las celdas de la columna
+        GridEstados.AddColumn("cea_id", "ID");
+        GridEstados.AddColumn("NOMBRE_ESTADO", "ESTADO");
+        Tools.tools.RegisterPostBackScript(GridEstados);
+    }
+
+
+    protected void CargaGridEstados()
+    {
+        ClientePropiedadEstadoAvance avance = new ClientePropiedadEstadoAvance();
+        avance.cea_id_propiedad = Id;
+
+        var medios = clientePropiedadController.GetListadoEstadoAvancePropiedades(avance);
+
+        // Asignamos a la grilla
+        GridEstados.DataSource = medios;
+        GridEstados.DataBind();
+    }
+
+    protected void lnkEliminarEstado_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (GridEstados.SelectedIndexes.Count == 0)
+            {
+                Tools.tools.ClientAlert("Debe seleccionar al menos un registro.", "alerta");
+                CargaGridEstados();
+            }
+            else
+            {
+                Respuesta respuesta = new Respuesta();
+
+                foreach (string item in GridEstados.SelectedIndexes)
+                {
+                    Telerik.Web.UI.DataKey value = GridEstados.MasterTableView.DataKeyValues[Int32.Parse(item)];
+                    int id = Int32.Parse(value["cea_id"].ToString());
+
+                    ClientePropiedadController propiedadController = new ClientePropiedadController();
+                    ClientePropiedadEstadoAvance avance = new ClientePropiedadEstadoAvance();
+                    avance.cea_id = id;
+
+                    respuesta = propiedadController.DeleteClientePropiedadEstado(avance);
+                }
+
+                if (!respuesta.error)
+                {
+                    Tools.tools.ClientAlert(respuesta.detalle, "ok");
+                    CargaGridEstados();
+                    updEstados.Update();
+                }
+
+                else
+                    Tools.tools.ClientAlert(respuesta.detalle, "alerta");
+            }
+        }
+        catch (Exception ex)
+        {
+            Tools.tools.ClientAlert(ex.Message, "error");
+        }
+    }
+    protected void btnGuardarEstadoPropiedad_Click(object sender, EventArgs e)
+    {
+        ClientePropiedadController controller = new ClientePropiedadController();
+        Respuesta respuesta = new Respuesta();
+
+        try
+        {
+            int estadoPropiedad = 0;
+
+            int.TryParse(cboEstadoPropiedad.SelectedValue, out estadoPropiedad);
+
+            propiedad.cpd_estado = estadoPropiedad;
+            propiedad.cpd_id = Id;
+            propiedad.OBSERVACION_ESTADO = txtObservacionEstado.Text.ToString();
+            respuesta = controller.UpdateClientePropiedadEstado(propiedad);
+
+            if (!respuesta.error)
+            {
+                Tools.tools.ClientAlert(respuesta.detalle, "ok");
+
+            }
+            else
+                Tools.tools.ClientAlert(respuesta.detalle, "alerta");
+        }
+        catch (Exception ex)
+        {
+            Tools.tools.ClientAlert(ex.ToString(), "error");
+        }
+    }
+
+
+    #endregion
+
 }

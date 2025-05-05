@@ -474,7 +474,7 @@ namespace LeaseCheck.Root.Controller
                     cmd.Connection.Close();
                     cmd.Dispose();
 
-                    respuesta.detalle = "Comisión agregada con éxito.";
+                    respuesta.detalle = "Cliente actualizado con éxito.";
                 }
                 catch (Exception ex)
                 {
@@ -1463,7 +1463,7 @@ namespace LeaseCheck.Root.Controller
             return estado;
         }
 
-        public List<ClientePropiedadEstado> GetEstadosPropiedad()
+        public List<ClientePropiedadEstado> GetEstadosPropiedadNueva()
         {
             List<ClientePropiedadEstado> entrega = new List<ClientePropiedadEstado>();
 
@@ -1474,6 +1474,47 @@ namespace LeaseCheck.Root.Controller
                 try
                 {
                     cmd.CommandText = "SEL_CLIENTE_PROPIEDAD_ESTADO";
+                    cmd.Parameters.AddWithValue("@TIPO", 2);
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            ClientePropiedadEstado item = new ClientePropiedadEstado();
+
+                            item.cpe_id = int.Parse(dr["CPE_ID"].ToString());
+                            item.cpe_nombre = dr["CPE_NOMBRE"].ToString();
+
+                            entrega.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    entrega = null;
+                }
+            }
+            return entrega;
+        }
+
+        public List<ClientePropiedadEstado> GetEstadosPropiedad(string estados)
+        {
+            List<ClientePropiedadEstado> entrega = new List<ClientePropiedadEstado>();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_CLIENTE_PROPIEDAD_ESTADO";
+                    cmd.Parameters.AddWithValue("@ESTADOS", estados);
 
                     using (SqlDataReader dr = Conexion.GetDataReader(cmd))
                     {

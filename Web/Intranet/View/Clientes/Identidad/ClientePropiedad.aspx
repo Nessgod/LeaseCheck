@@ -242,6 +242,16 @@
         });
 
 
+        function mostrarObservacionSweetAlert(observacion) {
+            Swal.fire({
+                title: 'Observación',
+                text: observacion,
+                icon: 'info',
+                confirmButtonText: 'Cerrar'
+            });
+        }
+
+
     </script>
 
 </asp:Content>
@@ -279,7 +289,7 @@
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtTitulo">Titulo:</label>
+                            <label class="control-label" for="txtTitulo">Titulo(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
                             <WebControls:TextBox2 ID="txtTitulo" runat="server" />
@@ -296,7 +306,7 @@
                             <label>Tipo Propiedad(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                            <rad:RadComboBox2 ID="cboTpoPropiedad" runat="server" OnLoad="LoadControls" Width="100%" Filter="Contains" />
+                            <rad:RadComboBox2 ID="cboTpoPropiedad" runat="server" Width="100%" Filter="Contains" />
                         </div>
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12 ">
@@ -304,7 +314,7 @@
                             <label>Tipo Servicio(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                            <rad:RadComboBox2 ID="cboTpoServicio" runat="server" OnLoad="LoadControls" Width="100%" Filter="Contains" />
+                            <rad:RadComboBox2 ID="cboTpoServicio" runat="server" Width="100%" Filter="Contains" AutoPostBack="true" OnSelectedIndexChanged="cboServicio_SelectedIndexChanged" />
                         </div>
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12 ">
@@ -312,12 +322,12 @@
                             <label>Tipo Entrega(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                            <rad:RadComboBox2 ID="cboTpoEntrega" runat="server" OnLoad="LoadControls" Width="100%" Filter="Contains" />
+                            <rad:RadComboBox2 ID="cboTpoEntrega" runat="server" Width="100%" Filter="Contains" />
                         </div>
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtFechaEntrega">Fecha de Entrega:</label>
+                            <label class="control-label" for="txtFechaEntrega">Fecha de Entrega(*)</label>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-xs-12">
                             <WebControls:Calendar ID="txtFechaEntrega" runat="server" Calendar-To-Control="txtFechaEntrega" />
@@ -330,7 +340,7 @@
 
                         </div>
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtObservacion">Observacion:</label>
+                            <label class="control-label" for="txtObservacion">Observacion</label>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-xs-12">
                             <WebControls:TextBox2 ID="txtObservacion" runat="server" />
@@ -341,7 +351,7 @@
                             <label>País(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                            <rad:RadComboBox2 ID="cboPais" runat="server" OnLoad="LoadControls" Width="100%" Filter="Contains" />
+                            <rad:RadComboBox2 ID="cboPais" runat="server" Width="100%" Filter="Contains" />
                         </div>
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12 ">
@@ -349,7 +359,7 @@
                             <label>Región(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                            <rad:RadComboBox2 ID="cboRegion" runat="server" OnLoad="LoadControls" Width="100%" Filter="Contains" />
+                            <rad:RadComboBox2 ID="cboRegion" runat="server" Width="100%" Filter="Contains" />
                         </div>
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12 ">
@@ -357,7 +367,7 @@
                             <label>Provincia(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                            <rad:RadComboBox2 ID="cboProvincia" runat="server" OnLoad="LoadControls" Width="100%" Filter="Contains" />
+                            <rad:RadComboBox2 ID="cboProvincia" runat="server" Width="100%" Filter="Contains" />
                         </div>
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12 ">
@@ -365,12 +375,12 @@
                             <label>Comuna(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                            <rad:RadComboBox2 ID="cboComuna" runat="server" OnLoad="LoadControls" Width="100%" Filter="Contains" />
+                            <rad:RadComboBox2 ID="cboComuna" runat="server" Width="100%" Filter="Contains" />
                         </div>
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtCalle">Calle(*):</label>
+                            <label class="control-label" for="txtCalle">Calle(*)</label>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-xs-12">
                             <WebControls:TextBox2 ID="txtCalle" runat="server" />
@@ -382,7 +392,7 @@
 
                         </div>
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtNumeroPropiedad">Número de Propiedad(*):</label>
+                            <label class="control-label" for="txtNumeroPropiedad">Número de Propiedad(*)</label>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-xs-12">
                             <WebControls:TextBox2 ID="txtNumeroPropiedad" runat="server" />
@@ -396,7 +406,7 @@
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12 ">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtValorUf">Valor UF (*):</label>
+                            <label class="control-label" for="txtValorUf">Valor UF (*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
                             <rad:RadNumericBox2 ID="txtValorUf" runat="server" />
@@ -409,7 +419,7 @@
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12 ">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtValorCLP">Valor Venta (*):</label>
+                            <label class="control-label" for="txtValorCLP">Valor Venta (*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
                             <rad:RadNumericBox2 ID="txtValorCLP" runat="server" />
@@ -422,7 +432,7 @@
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12 ">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtValorCLP">Valor Evaluo fiscal (*):</label>
+                            <label class="control-label" for="txtValorCLP">Valor Evaluo fiscal (*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
                             <rad:RadNumericBox2 ID="txtEvaluoFiscal" runat="server" />
@@ -499,7 +509,7 @@
 
                         <div class="row col-lg-12 col-md-12 col-xs-12 ">
                             <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                                <label class="control-label" for="txtCantidadBodega">Cantidad Bodega:</label>
+                                <label class="control-label" for="txtCantidadBodega">Cantidad Bodega</label>
                             </div>
                             <div class="form-group col-lg-10 col-md-10 col-xs-12">
                                 <rad:RadNumericBox2 ID="txtCantidadBodega" runat="server" />
@@ -511,7 +521,7 @@
                             <label>Estado(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                            <rad:RadComboBox2 ID="cboEstado" runat="server" OnLoad="LoadControls" Width="100%" Filter="Contains" />
+                            <rad:RadComboBox2 ID="cboEstado" runat="server" Width="100%" Filter="Contains" />
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-xs-12 form-col-center">
@@ -531,12 +541,12 @@
                             <label>Propietario(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                            <rad:RadComboBox2 ID="cboPropietario" runat="server" OnLoad="LoadControls" Width="100%" Filter="Contains" />
+                            <rad:RadComboBox2 ID="cboPropietario" runat="server" Width="100%" Filter="Contains" />
                         </div>
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtCalle">Rol(*):</label>
+                            <label class="control-label" for="txtCalle">Rol(*)</label>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-xs-12">
                             <WebControls:TextBox2 ID="txtRol" runat="server" />
@@ -550,7 +560,7 @@
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtFajas">Fojas:</label>
+                            <label class="control-label" for="txtFajas">Fojas(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
                             <WebControls:TextBox2 ID="txtFojas" runat="server" />
@@ -564,7 +574,7 @@
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtNumeroInscripcion">Número de Inscripción:</label>
+                            <label class="control-label" for="txtNumeroInscripcion">Número de Inscripción(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
                             <WebControls:TextBox2 ID="txtNumeroInscripcion" runat="server" />
@@ -578,7 +588,7 @@
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12 ">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtAnioInscripcion">Año Inscripción:</label>
+                            <label class="control-label" for="txtAnioInscripcion">Año Inscripción(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
                             <rad:RadNumericBox2 ID="txtAnioInscripcion" runat="server"
@@ -595,7 +605,7 @@
 
                     <div class="row col-lg-12 col-md-12 col-xs-12">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtNumeroSitio">Número de Sitio:</label>
+                            <label class="control-label" for="txtNumeroSitio">Número de Sitio(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
                             <WebControls:TextBox2 ID="txtNumeroSitio" runat="server" />
@@ -610,7 +620,7 @@
 
                     <div class="row col-lg-12 col-md-12 col-xs-12">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtNumeroManzana">Número de Manzana:</label>
+                            <label class="control-label" for="txtNumeroManzana">Número de Manzana(*)</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
                             <WebControls:TextBox2 ID="txtNumeroManzana" runat="server" />
@@ -624,7 +634,7 @@
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtConHabitacional">Conjunto Habitacional:</label>
+                            <label class="control-label" for="txtConHabitacional">Conjunto Habitacional</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
                             <WebControls:TextBox2 ID="txtConHabitacional" runat="server" />
@@ -682,7 +692,7 @@
                     <div style="display: none" id="divSuperficies" runat="server">
                         <div class="row col-lg-12 col-md-12 col-xs-12">
                             <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                                <label class="control-label" for="txtFajas">Superficie Util:</label>
+                                <label class="control-label" for="txtFajas">Superficie Util(*)</label>
                             </div>
                             <div class="form-group col-lg-10 col-md-10 col-xs-12">
                                 <WebControls:TextBox2 ID="txtSuperficieUtil" runat="server" />
@@ -697,7 +707,7 @@
 
                         <div class="row col-lg-12 col-md-12 col-xs-12">
                             <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                                <label class="control-label" for="txtSuperficieTotal">Superficie Total:</label>
+                                <label class="control-label" for="txtSuperficieTotal">Superficie Total(*)</label>
                             </div>
                             <div class="form-group col-lg-10 col-md-10 col-xs-12">
                                 <WebControls:TextBox2 ID="txtSuperficieTotal" runat="server" />
@@ -713,7 +723,7 @@
                     <div style="display: none" id="divCantidades" runat="server">
                         <div class="row col-lg-12 col-md-12 col-xs-12">
                             <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                                <label class="control-label" for="txtCantidadDormitorios">Cantidad de Dormitorios:</label>
+                                <label class="control-label" for="txtCantidadDormitorios">Cantidad de Dormitorios(*)</label>
                             </div>
                             <div class="form-group col-lg-10 col-md-10 col-xs-12">
                                 <rad:RadNumericBox2 ID="txtCantidadDormitorios" runat="server" />
@@ -726,7 +736,7 @@
                         </div>
                         <div class="row col-lg-12 col-md-12 col-xs-12 ">
                             <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                                <label class="control-label" for="txtCantidadBanios">Cantidad de Baños:</label>
+                                <label class="control-label" for="txtCantidadBanios">Cantidad de Baños(*)</label>
                             </div>
                             <div class="form-group col-lg-10 col-md-10 col-xs-12">
                                 <rad:RadNumericBox2 ID="txtCantidadBanios" runat="server" />
@@ -739,7 +749,7 @@
                         </div>
                         <div class="row col-lg-12 col-md-12 col-xs-12 ">
                             <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                                <label class="control-label" for="txtCantidadPisos">Cantidad de Pisos:</label>
+                                <label class="control-label" for="txtCantidadPisos">Cantidad de Pisos(*)</label>
                             </div>
                             <div class="form-group col-lg-10 col-md-10 col-xs-12">
                                 <rad:RadNumericBox2 ID="txtCantidadPisos" runat="server" />
@@ -753,7 +763,7 @@
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12" style="display: none" id="divDepartamentoPiso" runat="server">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label class="control-label" for="txtUbicacionPiso">Ubicación del piso:</label>
+                            <label  id="txtUbicacionPisoEtiq" runat="server" class="control-label" for="txtUbicacionPiso">Ubicación del piso:</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
                             <WebControls:TextBox2 ID="txtUbicacionPiso" runat="server" />
@@ -762,7 +772,7 @@
                     <div style="display: none" id="divTipos" runat="server">
                         <div class="row col-lg-12 col-md-12 col-xs-12">
                             <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                                <label class="control-label" for="txtTipoPiso">Tipo de Piso:</label>
+                                <label class="control-label" for="txtTipoPiso">Tipo de Piso(*)</label>
                             </div>
                             <div class="form-group col-lg-10 col-md-10 col-xs-12">
                                 <WebControls:TextBox2 ID="txtTipoPiso" runat="server" />
@@ -776,7 +786,7 @@
                         </div>
                         <div class="row col-lg-12 col-md-12 col-xs-12">
                             <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                                <label class="control-label" for="txtTipoVentana">Tipo de Ventana:</label>
+                                <label class="control-label" for="txtTipoVentana">Tipo de Ventana(*)</label>
                             </div>
                             <div class="form-group col-lg-10 col-md-10 col-xs-12">
                                 <WebControls:TextBox2 ID="txtTipoVentana" runat="server" />
@@ -790,7 +800,7 @@
                         </div>
                         <div class="row col-lg-12 col-md-12 col-xs-12">
                             <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                                <label class="control-label" for="txtConexionCocina">Tipo de Conexión de Cocina:</label>
+                                <label class="control-label" for="txtConexionCocina">Tipo de Conexión de Cocina(*)</label>
                             </div>
                             <div class="form-group col-lg-10 col-md-10 col-xs-12">
                                 <WebControls:TextBox2 ID="txtConexionCocina" runat="server" />
@@ -804,7 +814,7 @@
                         </div>
                         <div class="row col-lg-12 col-md-12 col-xs-12">
                             <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                                <label class="control-label" for="txtConexionCocina">Tipo de Conexión de Lavadora:</label>
+                                <label class="control-label" for="txtConexionCocina">Tipo de Conexión de Lavadora(*)</label>
                             </div>
                             <div class="form-group col-lg-10 col-md-10 col-xs-12">
                                 <WebControls:TextBox2 ID="txtConexionLavadora" runat="server" />
@@ -1012,41 +1022,109 @@
                     </asp:UpdatePanel>
                 </rad:RadPageView>
 
+                <%-- GESTIÓN DE ESTADOS DE PROPIEDAD --%>
                 <rad:RadPageView ID="rtvEstadoPropiedad" runat="server">
                     <br />
-                    <br />
-                    <!-- Estado actual de la propiedad -->
-                    <div class="row col-lg-12 col-md-12 col-xs-12">
-                        <div class="form-group col-lg-12 col-md-12 col-xs-12">
-                            <asp:Label ID="lblEstadoPropiedad" runat="server"
-                                CssClass="badge badge-pill estado-propiedad"
-                                Style="font-size: 1.2rem; padding: 10px 20px; background-color: #f0f0f0; color: #333;">
-                            </asp:Label>
-                        </div>
+                    <!-- Filtro de fechas -->
+                    <div class="form-group row col-lg-12 col-md-12 col-xs-12">
+                        <label for="txtFechaInicio" class="control-label" style="margin-right: 10px;">Desde:</label>
+                        <rad:RadDatePicker ID="txtFechaInicio" runat="server" Calendar-To-Control="txtFechaInicio" />
+
+                        <label for="txtFechaFin" class="control-label" style="margin-left: 20px; margin-right: 10px;">Hasta:</label>
+                        <rad:RadDatePicker ID="txtFechaFin" runat="server" Calendar-To-Control="txtFechaFin" />
+
+                        <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" OnClick="btnFiltrar_Click" CssClass="btn btn-primary" Style="margin-left: 20px;" />
                     </div>
 
-                    <!-- Cambio de estado -->
-                    <div class="row col-lg-12 col-md-12 col-xs-12">
-                        <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label><strong>🛠 Cambiar estado</strong></label>
-                        </div>
-                        <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                            <rad:RadComboBox2 ID="cboEstadoPropiedad" runat="server" OnLoad="LoadControls" Width="50%" Filter="Contains" OnSelectedIndexChanged="cboEstadoPropiedad_SelectedIndexChanged" />
-                        </div>
-                    </div>
+                    <asp:CustomValidator ID="CustomValidator23" runat="server"
+                        ControlToValidate="txtFechaInicio"
+                        ErrorMessage="Debe elegir una fecha de inicio"
+                        ValidateEmptyText="true"
+                        ClientValidationFunction="validaControl"
+                        ValidationGroup="Identidad" />
+
+                    <asp:CustomValidator ID="CustomValidator24" runat="server"
+                        ControlToValidate="txtFechaFin"
+                        ErrorMessage="Debe elegir una fecha de fin"
+                        ValidateEmptyText="true"
+                        ClientValidationFunction="validaControl"
+                        ValidationGroup="Identidad" />
+
+                    <div class="SubTitulos"></div>
+
+                    <asp:UpdatePanel runat="server" ID="updEstados" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <!-- Agregar estado -->
+                            <div class="form-row align-items-end">
+                                <!-- Combo Estado -->
+                                <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                                    <label for="cboEstadoPropiedad"><strong>Agregar estado</strong></label>
+                                    <rad:RadComboBox2 ID="cboEstadoPropiedad" runat="server" Width="100%" Filter="Contains" />
+                                </div>
+
+                                <!-- Observación -->
+                                <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                                    <label for="txtObservacionEstado">Observación</label>
+                                    <WebControls:TextBox2 ID="txtObservacionEstado" runat="server" CssClass="form-control" />
+                                </div>
+
+                                <!-- Botón Guardar -->
+                                <div class="form-group col-lg-2 col-md-6 col-sm-12">
+                                    <label>&nbsp;</label>
+                                    <WebControls:PushButton ID="btnGuardarEstadoPropiedad" runat="server"
+                                        Text="Guardar" CssClass="btn btn-success btn-block"
+                                        ValidationGroup="DetallePublicacion"
+                                        OnClick="btnGuardarEstadoPropiedad_Click" />
+                                </div>
+
+                                <!-- Botón Mostrar/Ocultar -->
+                                <div class="form-group col-lg-2 col-md-6 col-sm-12">
+                                    <label>&nbsp;</label>
+                                    <button class="btn btn-primary btn-block" type="button"
+                                        data-toggle="collapse" data-target="#collapseGridEstados"
+                                        aria-expanded="false" aria-controls="collapseGridEstados">
+                                        Mostrar/Ocultar Tabla
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- RadGrid colapsable -->
+                            <div class="collapse" id="collapseGridEstados">
+                                <div class="card card-body">
+                                    <rad:RadGrid2 ID="GridEstados" runat="server" AllowPaging="true">
+                                        <MasterTableView CommandItemDisplay="Top" DataKeyNames="cea_id">
+                                            <CommandItemTemplate>
+                                                <div>
+                                                    <asp:LinkButton ID="lnkEliminarEstado" runat="server" Text="Eliminar" CssClass="icono_eliminar"
+                                                        OnClick="lnkEliminarEstado_Click"
+                                                        OnClientClick="return ConfirSweetAlert(this, '', '¿Está seguro(a) que desea eliminar los registros seleccionados?');" />
+                                                </div>
+                                            </CommandItemTemplate>
+                                        </MasterTableView>
+                                        <ClientSettings>
+                                        </ClientSettings>
+                                    </rad:RadGrid2>
+                                </div>
+                            </div>
+
+                            <!-- Estado actual -->
+                            <div class="row col-lg-12 col-md-12 col-xs-12">
+                                <asp:Literal ID="txtCronogramaEstadoPropiedad" runat="server" />
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
 
                 </rad:RadPageView>
+
             </rad:RadMultiPage>
 
 
             <div class="col-lg-12 col-md-12 col-xs-12 form-col-center">
-                </br>
-                 <WebControls:PushButton ID="btnPubliar" Visible="false" runat="server" Text="Publicar"
-                     OnClick="btnPubliar_Click" />
                 <WebControls:PushButton ID="PushButton2" runat="server" Text="Cerrar" CssClass="ButtonCerrar"
                     OnClientClick="closeWindow();" />
             </div>
             <asp:HiddenField ID="hfDatosExistentes" runat="server" />
         </ContentTemplate>
     </asp:UpdatePanel>
+
 </asp:Content>

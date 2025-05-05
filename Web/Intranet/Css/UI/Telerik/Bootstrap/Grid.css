@@ -1,12 +1,383 @@
-.btn-pad{
-    margin-right:8px;
-    margin-bottom:4px;
+.btn-pad {
+    margin-right: 8px;
+    margin-bottom: 4px;
 }
+
 .content_botones {
     display: flex;
 }
 
-.icono_guardar {
+
+/* Personalización de Filtros */
+.filtro {
+    margin-bottom: 4px;
+    padding: 10px 5px;
+}
+
+.filtroBusqueda {
+    padding: 8px;
+    display: flex;
+    margin-top: -8px;
+}
+
+.filtroPersonalizado {
+    margin-right: 5px;
+    padding-right: 1px !important;
+}
+
+/* Barar de Busqueda */
+.search-input {
+    padding: 0.75rem 1.25rem;
+    border-radius: 30px 0 0 30px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+    .search-input:focus {
+        border-color: #53b4c7;
+        outline: none;
+    }
+
+/* Botón de búsqueda */
+.btn-search {
+    background-color: #13315c;
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0 30px 30px 0;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-search:hover {
+        background-color: white;
+        color: #13315c;
+        border: 1px solid #13315c;
+    }
+
+
+/*Botón Busqueda Avanzada*/
+.boton-busqueda-avanzada {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f4f6f8;
+    color: #13315c;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+    .boton-busqueda-avanzada .fa-filter {
+        font-size: 14px;
+        background-color: #13315c;
+        color: white;
+        padding: 6px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+
+    .boton-busqueda-avanzada:hover {
+        background-color: #13315c;
+        color: #ffffff;
+        border: 1px solid #13315c;
+    }
+
+        .boton-busqueda-avanzada:hover .fa-filter {
+            background-color: white;
+            color: #13315c;
+            transform: rotate(20deg);
+        }
+
+
+
+/*.icono_guardar {
+    font-family: Roboto,sans-serif;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    background-color: #488aec;
+    color: white !important;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: middle;
+    border-radius: 0.5rem;
+    user-select: none;
+    box-shadow: 0 4px 6px -1px #488aec31, 0 2px 4px -1px #488aec17;
+    transition: all 0.6s ease;
+}*/
+
+/* Ícono inicialmente oculto fuera del botón */
+/*.icono_guardar::before {
+    content: "\f067";*/ /* fa-plus */
+/*font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 1rem;
+    color: white;
+    position: absolute;
+    left: -100%;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.6s ease;
+    z-index: 2;
+}
+
+.icono_guardar:hover::before {
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.icono_guardar:hover {
+    color: transparent !important;
+}*/
+
+/* Personalización de Botones */
+/* Clase base para botones con animación */
+
+.contenedor-botones {
+    margin-bottom: 5px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn_dinamico_largo {
+    width: 200px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+    transition: 200ms;
+    font-family: 'Roboto', sans-serif;
+}
+
+    .btn_dinamico_largo .icon {
+        position: absolute;
+        transform: translateX(160px);
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+        transition: transform 200ms;
+    }
+
+
+    .btn_dinamico_largo .text {
+        transform: translateX(35px);
+        color: white;
+        font-weight: bold;
+        z-index: 2;
+    }
+
+    .btn_dinamico_largo i {
+        color: #eee;
+        font-size: 15px;
+        transition: transform 200ms;
+    }
+
+    .btn_dinamico_largo:focus {
+        outline: none;
+    }
+
+    .btn_dinamico_largo:active .icon i {
+        transform: scale(0.8);
+    }
+
+
+.btn_dinamico {
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+    transition: 200ms;
+    font-family: 'Roboto', sans-serif;
+}
+
+    .btn_dinamico .text {
+        transform: translateX(35px);
+        color: white;
+        font-weight: bold;
+        z-index: 2;
+    }
+
+    .btn_dinamico .icon {
+        position: absolute;
+        transform: translateX(110px);
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+        transition: transform 200ms;
+    }
+
+    .btn_dinamico i {
+        color: #eee;
+        font-size: 15px;
+        transition: transform 200ms;
+    }
+
+    .btn_dinamico:focus {
+        outline: none;
+    }
+
+    .btn_dinamico:active .icon i {
+        transform: scale(0.8);
+    }
+
+/* Estilo específico para .btn_guardar */
+.btn_guardar {
+    background: #00a600;
+}
+
+    .btn_guardar .icon {
+        border-left: 1px solid #007300;
+    }
+
+    .btn_guardar:hover {
+        background: #00a600;
+    }
+
+    .btn_guardar:active {
+        background: #00cc00;
+    }
+
+    .btn_guardar:hover .text {
+        color: transparent;
+    }
+
+    .btn_guardar:hover .icon {
+        width: 150px;
+        border-left: none;
+        transform: translateX(0);
+    }
+
+.btn_reset_password {
+    background: #e0dcdc;
+}
+
+    .btn_reset_password .text {
+        color: #393939;
+    }
+
+    .btn_reset_password .icon {
+        border-left: 1px solid #adb5bd;
+    }
+
+        .btn_reset_password .icon i {
+            color: #393939;
+        }
+
+    .btn_reset_password:hover {
+        background: #5a5a5a;
+        color: #fff;
+    }
+
+    .btn_reset_password:active {
+        background: #6e6e6e;
+    }
+
+    .btn_reset_password:hover .text {
+        color: transparent;
+    }
+
+    .btn_reset_password:hover .icon {
+        width: 200px;
+        border-left: none;
+        transform: translateX(0);
+    }
+
+
+        .btn_reset_password:hover .icon i {
+            color: white;
+        }
+
+/* Estilo específico para .btn_excel */
+.btn_excel {
+    background: #217346;
+}
+
+    .btn_excel .icon {
+        border-left: 1px solid #145c34;
+        padding: 0 10px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+    }
+
+        .btn_excel .icon i {
+            font-size: 18px;
+        }
+
+    .btn_excel:hover {
+        background: #217346;
+    }
+
+    .btn_excel:active {
+        background: #2e8b57;
+    }
+
+    .btn_excel:hover .text {
+        color: transparent;
+    }
+
+    .btn_excel:hover .icon {
+        width: 150px;
+        border-left: none;
+        transform: translateX(0);
+    }
+
+
+/* Estilo específico para .btn_eliminar */
+.btn_eliminar {
+    background: #e62222;
+}
+
+    .btn_eliminar .icon {
+        border-left: 1px solid #c41b1b;
+    }
+
+    .btn_eliminar:hover {
+        background: #ff3636;
+    }
+
+        .btn_eliminar:hover .text {
+            color: transparent;
+        }
+
+        .btn_eliminar:hover .icon {
+            width: 150px;
+            border-left: none;
+            transform: translateX(0);
+        }
+
+
+.icono_imprimir {
     font-family: Roboto,sans-serif;
     background-color: #20a6cf;
     line-height: 20px;
@@ -14,29 +385,28 @@
     color: #fff !important;
     padding: 10px 18px;
     padding-left: 30px;
-    background-image: url('Grid/icon_agregar2.png');
+    background-image: url('Grid/icon_imprimir.png');
     background-repeat: no-repeat;
-}
-
-.icono_guardar:hover {
-    background-color: #1a83a3 !important;
-    color: #fff !important;
-    background-image: url('Grid/icon_agregar2.png');
-    background-repeat: no-repeat;
+    border-radius: 0.5em;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 250ms;
 }
 
 .icono_descargar_excel {
-    font-family: Roboto,sans-serif;
-    background-color: forestgreen;
-    line-height: 20px;
+    font-family: Roboto, sans-serif;
     font-size: 14px;
-    color: #fff !important;
-    padding: 10px 18px;
-    padding-left: 30px;
-    background-image: url('Grid/excel.svg');
+    background-image: url(Grid/excel.svg);
     background-position: left;
     background-position-x: 0.5rem;
     background-repeat: no-repeat;
+    background-color: forestgreen;
+    line-height: 20px;
+    color: #fff !important;
+    padding: 10px 18px;
+    padding-left: 30px;
+    border-radius: 0.5em;
+    box-shadow: 4px 2px 5px #228b2250;
+    transition: all 250ms;
 }
 
 .icono_ok {
@@ -46,12 +416,13 @@
     font-size: 14px;
     color: #fff !important;
     padding: 10px 30px;
-    padding-left: 30px;
     background-image: url('Grid/check.png');
     background-position: left;
-    background-position-x: 0.5rem;
     background-repeat: no-repeat;
     background-size: 16px 16px;
+    border-radius: 0.5em;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 250ms;
 }
 
 .icono_descargar_excel:hover {
@@ -62,22 +433,35 @@
 }
 
 .icono_eliminar {
-    font-family: Roboto,sans-serif;
-    background-color: #6c757d;
+    font-family: 'Roboto', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #c1121f;
+    color: #ffffff !important;
     font-size: 14px;
-    color: #fff !important;
     padding: 10px 18px;
-    padding-left: 30px;
-    background-image: url('Grid/icon_eliminar2.png');
-    background-repeat: no-repeat;
+    border-radius: 0.5em;
+    border: none;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
 }
 
-.icono_eliminar:hover {
-    background-color: #4a5157;
-    color: #fff !important;
-    background-image: url('Grid/icon_eliminar2.png');
-    background-repeat: no-repeat;
-}
+    .icono_eliminar::before {
+        content: "\f1f8"; /* fa-trash */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        font-size: 14px;
+        margin-right: 6px;
+    }
+
+    .icono_eliminar:hover {
+        background-color: #9e0f19 !important;
+        color: #ffffff !important;
+    }
+
 
 .icono_Editar {
     font-family: Roboto,sans-serif;
@@ -89,16 +473,33 @@
     background-repeat: no-repeat;
 }
 
-.icono_ver_Lupa {
+.icono_Descargar {
     font-family: Roboto,sans-serif;
     font-size: 16px;
     color: white;
     margin: 5px;
     padding-left: 20px;
-    background-image: url('Grid/icon_lupa.png');
+    background-image: url('Grid/download.png');
     background-repeat: no-repeat;
 }
 
+.icono_ver_Lupa {
+    font-family: Roboto,sans-serif;
+    font-size: 16px;
+    margin: 5px;
+    padding-left: 20px;
+    background-image: url('Grid/lupa.png');
+    background-repeat: no-repeat;
+}
+
+.icono_ver {
+    font-family: Roboto,sans-serif;
+    font-size: 20px;
+    margin: 5px;
+    padding-left: 20px;
+    background-image: url('Grid/ver.png');
+    background-repeat: no-repeat;
+}
 /*Fuente*/
 /*.RadGrid_Bootstrap .rgMasterTable, .RadGrid_Bootstrap .rgDetailTable, 
   .RadGrid_Bootstrap .rgGroupPanel table, .RadGrid_Bootstrap 
@@ -130,7 +531,58 @@
     .left-boton {
         float: left;
     }
+
     .right-boton {
         float: right;
     }
 }
+
+.btnGrillaBuscar:before {
+    content: "\f002";
+    font-family: FontAwesome;
+    color: white;
+    margin: 5px;
+    font-size: 20px;
+}
+
+tbody .btnGrillaBuscar:before {
+    content: "\f002";
+    font-family: FontAwesome;
+    color: #53b4c7;
+    margin: 5px;
+    font-size: 20px;
+}
+
+.icono_ver_usuario:before {
+    content: "\f06e";
+    font-family: FontAwesome;
+    color: #53b4c7;
+    margin: 5px;
+    font-size: 15px;
+}
+
+
+.icono_Excel_Grid::before,
+.icono_Exportar_Excel::before {
+    content: "\f1c3";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 20px;
+    color: #53b4c7;
+    margin: 5px;
+}
+
+
+.icono_Excel_Grid::before,
+.icono_Exportar_Excel_Grid::before {
+    content: "\f1c3";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 20px;
+    color: #ffffff;
+    margin: 5px;
+}
+/*.RadGrid_Bootstrap .rgPagerCell, .rgHeader {
+    background: #d8eeff !important;
+}
+*/

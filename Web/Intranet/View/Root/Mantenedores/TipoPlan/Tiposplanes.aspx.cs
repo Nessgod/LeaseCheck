@@ -26,7 +26,7 @@ public partial class View_Mantenedores_TipoPlan_Tiposplanes : System.Web.UI.Page
             Grid.AddColumn("tpl_nombre", "PLAN", "33%", HorizontalAlign.Left);
             Grid.AddColumn("tpl_cantidad_documento", "CANTIDAD DOCUMENTO", "15%", HorizontalAlign.Left, DataFormat: "{0:N0}");
             Grid.AddColumn("tpl_cantidad_propiedad", "CANTIDAD PROPIEDAD", "15%", HorizontalAlign.Left, DataFormat: "{0:N0}");
-            Grid.AddColumn("tpl_cantidad_lead", "CANTIDAD LEAD", "15%", HorizontalAlign.Left, DataFormat: "{0:N0}");
+            Grid.AddColumn("tpl_cantidad_lead", "CANTIDAD DE POTENCIALES CLIENTES", "15%", HorizontalAlign.Left, DataFormat: "{0:N0}");
             Grid.AddColumn("tpl_valor_plan", "VALOR DE PLAN ($)", "15%", HorizontalAlign.Left, DataFormat: "{0:N0}");
             Grid.AddCheckboxColumn("tpl_habilitado", "HABILITADO");
         }

@@ -43,11 +43,12 @@
             <rad:RadGrid2 ID="Grid" runat="server" onitemdatabound="Grid_ItemDataBound"> 
                 <MasterTableView CommandItemDisplay="Top" DataKeyNames="MES_ID,MES_ESTADO" >
                     <CommandItemTemplate>
-                        <div>
-                            <span style="float:right">
-                             <asp:LinkButton ID="lnkDescargarPlantilla" runat="server" Text="Descargar excel " CssClass="icono_descargar_excel"  OnClick="LnkGenerar_Click"/>
-                            </span>
-                       </div>
+                       <div class="contenedor-botones">
+                                <asp:LinkButton ID="lnkDescargarPlantilla" runat="server" Text="Descargar excel " CssClass="btn_dinamico btn_excel" OnClick="LnkGenerar_Click">
+                                        <span class="text">Descargar</span>
+                                        <span class="icon"><i class="fas fa-file-excel"></i></span>
+                                </asp:LinkButton>
+                        </div>
                     </CommandItemTemplate>
                 </MasterTableView>
             </rad:RadGrid2>

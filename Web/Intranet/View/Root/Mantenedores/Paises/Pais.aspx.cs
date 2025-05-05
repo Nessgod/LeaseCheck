@@ -57,7 +57,7 @@ public partial class View_Root_Mantenedores_Paises_Pais : System.Web.UI.Page
                 pais = paisesController.GetPais(pais);
                 txtNombre.Text = pais.pai_nombre;
 
-                if (pais.pai_suma_resta == "+")
+                if (pais.pai_suma_resta == "1")
                     rbtDiferencia.SelectedValue = "1";
                 else
                     rbtDiferencia.SelectedValue = "2";

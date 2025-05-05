@@ -40,8 +40,8 @@
                     <label>Cliente:</label>
                 </div>
                 <div class="col-lg-2 col-md-2 col-xs-12">
-                    <rad:RadComboBox2 ID="cboCliente" runat="server" OnLoad="LoadControls" MarkFirstMatch="true" EnableLoadOnDemand="true" width="100%"/>
-                </div> 
+                    <rad:RadComboBox2 ID="cboCliente" runat="server" OnLoad="LoadControls" MarkFirstMatch="true" EnableLoadOnDemand="true" Width="100%" />
+                </div>
                 <div class="col-lg-1 col-md-1 col-xs-12">
                     <label>Pais:</label>
                 </div>
@@ -59,17 +59,25 @@
             <rad:RadGrid2 ID="Grid" runat="server" OnItemDataBound="Grid_ItemDataBound">
                 <MasterTableView CommandItemDisplay="Top" DataKeyNames="usu_id">
                     <CommandItemTemplate>
-                        <div>
-                            <span class="left-boton">
-                                <asp:LinkButton ID="lnkNuevo" runat="server" Text="Nuevo" CssClass="icono_guardar" OnClientClick="abrir(0)" />
-                                <asp:LinkButton ID="lnkEliminar" runat="server" Text="Eliminar" CssClass="icono_eliminar" OnClick="lnkEliminar_Click"
-                                    OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea eliminar los registros seleccionados?');" />
-                                <asp:LinkButton ID="lnkReset" runat="server" Text="Reset Password" CssClass="icono_eliminar" OnClick="lnkReset_Click"
-                                    OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea resetear las claves de los usuarios seleccionados?');" />
-                            </span>
-                            <span class="right-boton">
-                                <asp:LinkButton ID="lnkDescargarPlantilla" runat="server" Text="Descargar excel " CssClass="icono_descargar_excel" OnClick="LnkGenerar_Click" />
-                            </span>
+                        <div class="contenedor-botones">
+                           
+                                <asp:LinkButton ID="lnkNuevo" runat="server" CssClass="btn_dinamico btn_guardar" OnClientClick="abrir(0); return false;" ToolTip="Añadir">
+                                 <span class="text">Nuevo</span>
+                                 <span class="icon"><i class="fas fa-plus"></i></span>
+                                </asp:LinkButton>
+
+
+                                <asp:LinkButton ID="lnkEliminar" runat="server" CssClass="btn_dinamico btn_eliminar" OnClick="lnkEliminar_Click"
+                                    OnClientClick="return ConfirSweetAlert(this, '', '¿Está seguro que desea eliminar los registros seleccionados?');" ToolTip="Eliminar">
+                                     <span class="text">Eliminar</span>
+                                     <span class="icon"><i class="fas fa-trash-alt"></i></span>
+                                 </asp:LinkButton>
+
+                
+                                <asp:LinkButton ID="lnkDescargarPlantilla" runat="server" Text="Descargar excel " CssClass="btn_dinamico btn_excel" OnClick="LnkGenerar_Click">
+                                        <span class="text">Descargar</span>
+                                        <span class="icon"><i class="fas fa-file-excel"></i></span>
+                                </asp:LinkButton>
                         </div>
                     </CommandItemTemplate>
                 </MasterTableView>

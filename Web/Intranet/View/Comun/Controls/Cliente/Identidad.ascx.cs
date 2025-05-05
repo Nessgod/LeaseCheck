@@ -189,8 +189,8 @@ public partial class View_Comun_Controls_Cliente_Identidad : System.Web.UI.UserC
                 cliente.cli_identificador = txtIdentificador.Text;
             }
 
-            if (fudFoto.HasFile)
-                cliente.cli_logo = LeaseCheck.LeaseCheck.ReducirImagen(fudFoto.FileBytes, 100, 100);
+            if (fudFotoCliente.HasFile)
+                cliente.cli_logo = LeaseCheck.LeaseCheck.ReducirImagen(fudFotoCliente.FileBytes, 100, 100);
 
             if (rdbSi.Checked)
                 cliente.cli_habilitado = true;
@@ -235,11 +235,11 @@ public partial class View_Comun_Controls_Cliente_Identidad : System.Web.UI.UserC
     {
         try
         {
-            if (fudFoto.HasFile)
+            if (fudFotoCliente.HasFile)
             {
-                if (Path.GetExtension(fudFoto.FileName).ToUpper() == ".JPG" | Path.GetExtension(fudFoto.FileName).ToUpper() == ".PNG")
+                if (Path.GetExtension(fudFotoCliente.FileName).ToUpper() == ".JPG" | Path.GetExtension(fudFotoCliente.FileName).ToUpper() == ".PNG")
                 {
-                    if (fudFoto.FileBytes.Length > 2097152) //2MB (1 MB = 1048576 bytes)
+                    if (fudFotoCliente.FileBytes.Length > 2097152) //2MB (1 MB = 1048576 bytes)
                     {
                         Tools.tools.ClientAlert("El tamaño del archivo no debe superar los 2MB.", "alerta");
                         return false;

@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Master/Default.master" AutoEventWireup="true" CodeFile="ClientePropiedades.aspx.cs" Inherits="View_Clientes_Identidad_ClientePropiedades" %>
+
 <%@ Register TagPrefix="wuc" TagName="Filtro" Src="~/View/Comun/Controls/FiltroAvanzado.ascx" %>
 
 <asp:Content ID="ContenHeder" ContentPlaceHolderID="cphHeder" runat="server">
@@ -21,7 +22,7 @@
     </script>
 </asp:Content>
 
-<asp:Content ID="ContentTitulo" ContentPlaceHolderID="cphTitulo" Runat="Server">
+<asp:Content ID="ContentTitulo" ContentPlaceHolderID="cphTitulo" runat="Server">
     Propiedades
 </asp:Content>
 
@@ -29,24 +30,30 @@
     <wuc:Filtro runat="server" ID="wucFiltro" />
 </asp:Content>
 
-<asp:Content ID="ContentBody" ContentPlaceHolderID="cphBody" Runat="Server">
+<asp:Content ID="ContentBody" ContentPlaceHolderID="cphBody" runat="Server">
     <rad:RadWindow2 ID="rwiDetalle" runat="server" />
-    <asp:UpdatePanel runat="server" ID="udPanel"  UpdateMode="Conditional" >
+    <asp:UpdatePanel runat="server" ID="udPanel" UpdateMode="Conditional">
         <ContentTemplate>
-            <rad:RadGrid2 ID="Grid" runat="server" onitemdatabound="Grid_ItemDataBound" AllowPaging="false" >
-                <MasterTableView CommandItemDisplay="Top" DataKeyNames="cpd_id" >
+            <rad:RadGrid2 ID="Grid" runat="server" OnItemDataBound="Grid_ItemDataBound" AllowPaging="false">
+                <MasterTableView CommandItemDisplay="Top" DataKeyNames="cpd_id">
                     <CommandItemTemplate>
-                        <div>
-                            <asp:LinkButton ID="lnkNuevaPropiedad" runat="server" Text="Nuevo" CssClass="icono_guardar" OnClick="lnkNuevaPropiedad_Click"/>
-                            <asp:LinkButton ID="lnkEliminarPropiedad" runat="server" Text="Eliminar" CssClass="icono_eliminar"  OnClick="lnkEliminarPropiedad_Click"
-                            OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea eliminar los registros seleccionados?');"/>
-    
+                        <div class="contenedor-botones">
+                            <asp:LinkButton ID="lnkNuevaPropiedad" runat="server" Text="Nuevo" CssClass="btn_dinamico btn_guardar" OnClick="lnkNuevaPropiedad_Click" ToolTip="Añadir">
+                              <span class="text">Nuevo</span>
+                              <span class="icon"><i class="fas fa-plus"></i></span>
+                              </asp:LinkButton>
+
+                            <asp:LinkButton ID="lnkEliminarPropiedad" runat="server" CssClass="btn_dinamico btn_eliminar" OnClick="lnkEliminarPropiedad_Click"
+                                OnClientClick="return ConfirSweetAlert(this, '', '¿Está seguro que desea eliminar los registros seleccionados?');" ToolTip="Eliminar">
+                              <span class="text">Eliminar</span>
+                              <span class="icon"><i class="fas fa-trash-alt"></i></span>
+                          </asp:LinkButton>
                         </div>
                     </CommandItemTemplate>
                 </MasterTableView>
                 <ClientSettings>
-                </ClientSettings>  
+                </ClientSettings>
             </rad:RadGrid2>
-        </ContentTemplate>  
+        </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

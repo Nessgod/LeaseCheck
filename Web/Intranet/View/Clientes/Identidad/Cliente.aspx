@@ -47,6 +47,8 @@
                 imgLogo.show();
         }
 
+
+
     </script>
 </asp:Content>
 
@@ -65,7 +67,7 @@
             </div>
             <div class="row col-lg-12 col-md-12 col-xs-12 ">
                 <div class="form-group col-lg-2 col-md-2 col-xs-2">
-                    <label>ID</label>
+                    <label ID="lblEtiquetaId" runat="server">ID</label>
                 </div>
                 <div class="form-group col-lg-10 col-md-10 col-xs-10">
                     <asp:Label ID="lblID" runat="server" />
@@ -73,10 +75,10 @@
             </div>
             <div class="row col-lg-12 col-md-12 col-xs-12 ">
                 <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                    <label>Logo Empresa</label>
+                    <label ID="lblLogoEmpresa" runat="server"  >Logo Empresa</label>
                 </div>
                 <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                    <asp:FileUpload ID="fudFoto" runat="server" />
+                    <asp:FileUpload ID="fudFotoEmpresa" runat="server" />
                 </div>
             </div>
 
@@ -257,6 +259,8 @@
                 <WebControls:PushButton ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" ValidationGroup="Identidad" Visible="false" />
                 </div>
         </ContentTemplate>
-
+            <Triggers>
+        <asp:PostBackTrigger ControlID="btnGuardar" />
+    </Triggers>
     </asp:UpdatePanel>
 </asp:Content>

@@ -301,6 +301,7 @@ public class ClientePropiedadController
                 cmdExecute.Parameters.AddWithValue("@ID", item.cpd_id);
                 cmdExecute.Parameters.AddWithValue("@ESTADO", item.cpd_estado);
                 cmdExecute.Parameters.AddWithValue("@PAIS", Session.Pais());
+                cmdExecute.Parameters.AddWithValue("@OBSERVACION", item.OBSERVACION_ESTADO);
                 cmdExecute.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
 
 
@@ -308,7 +309,7 @@ public class ClientePropiedadController
                 cmdExecute.Connection.Close();
 
                 respuesta.codigo = 0;
-                respuesta.detalle = "País actualizado con éxito.";
+                respuesta.detalle = "Estado actualizado con éxito.";
                 respuesta.error = false;
             }
             catch (Exception ex)
@@ -1125,6 +1126,82 @@ public class ClientePropiedadController
             {
                 cmd = Conexion.GetCommand("DEL_CLIENTE_PROPIEDAD_MEDIO");
                 cmd.Parameters.AddWithValue("@ID", item.cpm_id);
+
+                cmd.ExecuteNonQuery();
+                cmd.Connection.Close();
+                cmd.Dispose();
+
+                respuesta.detalle = "Registro eliminado con éxito.";
+            }
+            catch (Exception ex)
+            {
+                cmd.Connection.Close();
+                cmd.Dispose();
+
+                respuesta.detalle = ex.Message;
+                respuesta.error = true;
+            }
+        }
+
+        return respuesta;
+    }
+
+
+    public List<ClientePropiedadEstadoAvance> GetListadoEstadoAvancePropiedades(ClientePropiedadEstadoAvance estado)
+    {
+        List<ClientePropiedadEstadoAvance> listado = new List<ClientePropiedadEstadoAvance>();
+        SqlCommand cmd = new SqlCommand();
+
+        try
+        {
+            cmd.CommandText = "SEL_CLIENTE_PROPIEDAD_ESTADO_AVANCE";
+            if (estado.cea_id_propiedad > 0) cmd.Parameters.AddWithValue("@ID_PROPIEDAD", estado.cea_id_propiedad);
+            if (estado.cea_id_estado > 0) cmd.Parameters.AddWithValue("@ESTADO", estado.cea_id_estado);
+            if (estado.cea_usuario_creacion > 0) cmd.Parameters.AddWithValue("@USUARIO", estado.cea_usuario_creacion);
+
+            using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+            {
+                while (dr.Read())
+                {
+                    ClientePropiedadEstadoAvance item = new ClientePropiedadEstadoAvance();
+                    item.cea_id = int.Parse(dr["CEA_ID"].ToString());
+                    item.cea_id_propiedad = int.Parse(dr["CEA_ID_PROPIEDAD"].ToString());
+                    item.cea_id_estado = int.Parse(dr["CEA_ID_ESTADO"].ToString());
+                    item.cea_usuario_creacion = int.Parse(dr["CEA_USUARIO_CREACION"].ToString());
+                    item.cea_fecha_creacion = DateTime.Parse(dr["CEA_FECHA_CREACION"].ToString());
+                    item.NOMBRE_ESTADO = dr["NOMBRE_ESTADO"].ToString();
+                    item.NOMBRE_COMPLETO = dr["NOMBRE_COMPLETO"].ToString();
+                    item.OBSERVACION_ESTADO = dr["OBSERVACION_ESTADO"].ToString();
+
+                    listado.Add(item);
+                }
+            }
+
+            cmd.Connection.Close();
+            cmd.Dispose();
+
+            return listado;
+        }
+        catch (Exception ex)
+        {
+            cmd.Connection.Close();
+            cmd.Dispose();
+            return listado;
+        }
+    }
+
+    public Respuesta DeleteClientePropiedadEstado(ClientePropiedadEstadoAvance item)
+    {
+        Respuesta respuesta = new Respuesta();
+
+        if (Token.TokenSeguridad())
+        {
+            SqlCommand cmd = null;
+
+            try
+            {
+                cmd = Conexion.GetCommand("DEL_CLIENTE_PROPIEDAD_ESTADO");
+                cmd.Parameters.AddWithValue("@ID", item.cea_id);
 
                 cmd.ExecuteNonQuery();
                 cmd.Connection.Close();

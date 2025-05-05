@@ -26,10 +26,17 @@
         <rad:RadGrid2 ID="Grid" runat="server" OnItemDataBound="Grid_ItemDataBound" AllowPaging="false">
             <MasterTableView CommandItemDisplay="Top" DataKeyNames="clp_id,tipo_dato">
                 <CommandItemTemplate>
-                    <div>
-                        <asp:LinkButton ID="lnkNuevo" runat="server" Text="Nuevo" CssClass="icono_guardar" OnClick="lnkNuevo_Click" />
-                        <asp:LinkButton ID="lnkEliminar" runat="server" Text="Eliminar" CssClass="icono_eliminar" OnClick="lnkEliminar_Click"
-                            OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea eliminar los registros seleccionados?');" />
+                    <div class="contenedor-botones">
+                        <asp:LinkButton ID="lnkNuevo" runat="server" Text="Nuevo" CssClass="btn_dinamico btn_guardar" OnClick="lnkNuevo_Click" ToolTip="Añadir">
+                          <span class="text">Nuevo</span>
+                          <span class="icon"><i class="fas fa-plus"></i></span>
+                          </asp:LinkButton>
+
+                        <asp:LinkButton ID="lnkEliminar" runat="server" CssClass="btn_dinamico btn_eliminar" OnClick="lnkEliminar_Click"
+                            OnClientClick="return ConfirSweetAlert(this, '', '¿Está seguro que desea eliminar los registros seleccionados?');" ToolTip="Eliminar">
+                              <span class="text">Eliminar</span>
+                              <span class="icon"><i class="fas fa-trash-alt"></i></span>
+                          </asp:LinkButton>
                     </div>
                 </CommandItemTemplate>
             </MasterTableView>
