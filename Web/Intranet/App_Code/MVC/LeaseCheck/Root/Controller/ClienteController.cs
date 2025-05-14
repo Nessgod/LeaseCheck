@@ -9,6 +9,47 @@ namespace LeaseCheck.Root.Controller
 {
     public class ClienteController
     {
+        public List<Cliente> GetClientesCBO()
+        {
+            List<Cliente> listado = new List<Cliente>();
+
+            if (Token.TokenSeguridad())
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                try
+                {
+                    cmd.CommandText = "SEL_CLIENTE";
+                    cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
+
+                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            Cliente item = new Cliente();
+
+                            item.cli_id = int.Parse(dr["CLI_ID"].ToString());
+                            item.cli_nombre = dr["CLI_NOMBRE"].ToString();
+
+                            listado.Add(item);
+                        }
+                    }
+
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    cmd.Connection.Close();
+                    cmd.Dispose();
+
+                    listado = null;
+                }
+            }
+
+            return listado;
+        }
+
         public List<Cliente> GetClientes(Cliente filtro)
         {
             List<Cliente> listado = new List<Cliente>();
@@ -128,47 +169,7 @@ namespace LeaseCheck.Root.Controller
             return listado;
         }
 
-        public List<Cliente> GetClientesCBO()
-        {
-            List<Cliente> listado = new List<Cliente>();
-
-            if (Token.TokenSeguridad())
-            {
-                SqlCommand cmd = new SqlCommand();
-
-                try
-                {
-                    cmd.CommandText = "SEL_CLIENTE";
-                    cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
-
-                    using (SqlDataReader dr = Conexion.GetDataReader(cmd))
-                    {
-                        while (dr.Read())
-                        {
-                            Cliente item = new Cliente();
-
-                            item.cli_id = int.Parse(dr["CLI_ID"].ToString());
-                            item.cli_nombre = dr["CLI_NOMBRE"].ToString();
-
-                            listado.Add(item);
-                        }
-                    }
-
-                    cmd.Connection.Close();
-                    cmd.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    cmd.Connection.Close();
-                    cmd.Dispose();
-
-                    listado = null;
-                }
-            }
-
-            return listado;
-        }
-
+     
         public Cliente GetCliente(Cliente filtro)
         {
             Cliente item = new Cliente();
@@ -1993,7 +1994,7 @@ namespace LeaseCheck.Root.Controller
                     cmdExecute.Connection.Close();
 
                     respuesta.codigo = 0;
-                    respuesta.detalle = "Password reseteado con éxito.";
+                    respuesta.detalle = "Password reseteado con éxito. La nueva contraseña provisoria es: 123456";
                     respuesta.error = false;
 
                 }

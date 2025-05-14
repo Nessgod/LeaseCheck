@@ -86,7 +86,8 @@
 <asp:Content ID="ContentBody" ContentPlaceHolderID="cphBody" runat="Server">
     <asp:UpdatePanel runat="server" ID="udPanel" UpdateMode="Conditional">
         <ContentTemplate>
-            <div class="SubTitulos"><asp:Label ID="lblTitulo" runat="server"></asp:Label></div>
+            <div class="SubTitulos">
+                <asp:Label ID="lblTitulo" runat="server"></asp:Label></div>
 
             <div class="col-12 mb-0">
                 <label class="form-label fw-bold">Seleccione el tipo de medio:</label>
@@ -121,6 +122,7 @@
                         <label>Descripción: </label>
                     </div>
                     <div class="col-lg-10 col-md-10 col-xs-12">
+                        <asp:Label ID="lblInfoFrontis" runat="server" CssClass="text-muted medium" Text="* Si desea que esta imagen sea la principal, ingrese 'Frontis' como descripción."></asp:Label>
                         <WebControls:TextBox2 ID="txtDescripcion" runat="server" MaxLength="200" UpperCase="true" />
                         <asp:CustomValidator ID="CustomValidator1" runat="server"
                             ControlToValidate="txtDescripcion"
@@ -129,6 +131,7 @@
                             ValidationGroup="Documento" />
                     </div>
                 </div>
+
                 <div class="row col-lg-12 col-md-12 col-xs-12" id="divLink" style="display: none" runat="server">
                     <div class="col-lg-2 col-md-2 col-xs-12">
                         <label>Link: </label>

@@ -6,7 +6,6 @@ using System.Data.SqlClient;
 using System.Linq;
 
 
-
 public class ClientePropiedadController
 {
     #region Cliente Propiedad
@@ -29,64 +28,66 @@ public class ClientePropiedadController
                 // Si no es AdministradorCorredora, filtrar por el usuario que creó la propiedad
                 cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
             }
+            else
+                cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
 
             using (SqlDataReader dr = Conexion.GetDataReader(cmd))
-            {
-                while (dr.Read())
                 {
-                    ClientePropiedad item = new ClientePropiedad();
-                    item.cpd_id = int.Parse(dr["cpd_id"].ToString());
-                    item.cpd_tipo_propiedad = int.Parse(dr["cpd_tipo_propiedad"].ToString());
-                    item.cpd_tipo_servicio = int.Parse(dr["cpd_tipo_servicio"].ToString());
-                    item.cpd_tipo_entrega = int.Parse(dr["cpd_tipo_entrega"].ToString());
-                    item.cpd_fecha_entrega = DateTime.Parse(dr["cpd_fecha_entrega"].ToString());
-                    item.cpd_fecha_entrega_detalle = dr["cpd_fecha_entrega_detalle"].ToString();
-                    item.cpd_estado = int.Parse(dr["cpd_estado"].ToString());
-                    item.cpd_cliente = int.Parse(dr["cpd_cliente"].ToString());
-                    item.cpd_pais = int.Parse(dr["cpd_pais"].ToString());
-                    item.cpd_region = int.Parse(dr["cpd_region"].ToString());
-                    item.cpd_provincia = int.Parse(dr["cpd_provincia"].ToString());
-                    item.cpd_comuna = int.Parse(dr["cpd_comuna"].ToString());
-                    item.cpd_calle = dr["cpd_calle"].ToString();
-                    item.cpd_numero_propiedad = dr["cpd_numero_propiedad"].ToString();
-                    item.cpd_titulo = dr["cpd_titulo"].ToString();
-                    item.cpd_valor_uf = int.Parse(dr["cpd_valor_uf"].ToString());
-                    item.cpd_valor_venta = int.Parse(dr["cpd_valor_venta"].ToString());
-                    item.cpd_valor_evaluo_fiscal = int.Parse(dr["cpd_valor_evaluo_fiscal"].ToString());
-                    item.cpd_contribucciones = Boolean.Parse(dr["cpd_contribucciones"].ToString());
-                    item.cpd_derecho_municipal = Boolean.Parse(dr["cpd_derecho_municipal"].ToString());
-                    item.cpd_bodega = Boolean.Parse(dr["cpd_bodega"].ToString());
-                    item.cpd_estacionamiento = Boolean.Parse(dr["cpd_estacionamiento"].ToString());
-                    item.cpd_valor_estacionamiento = int.Parse(dr["cpd_valor_estacionamiento"].ToString());
-                    item.cpd_valor_bodega = int.Parse(dr["cpd_valor_bodega"].ToString());
-                    item.cpd_cantidad_estacionamiento = int.Parse(dr["cpd_cantidad_estacionamiento"].ToString());
-                    item.cpd_cantidad_bodega = int.Parse(dr["cpd_cantidad_bodega"].ToString());
-                    item.cpd_usuario_creacion = int.Parse(dr["cpd_usuario_creacion"].ToString());
-                    item.cpd_usuario_act = int.Parse(dr["cpd_usuario_act"].ToString());
-                    item.cpd_fecha_creacion = DateTime.Parse(dr["cpd_fecha_creacion"].ToString());
-                    item.cpd_fecha_act = DateTime.Parse(dr["cpd_fecha_act"].ToString());
-                    item.ESTADO = dr["ESTADO"].ToString();
-                    item.TIPO_PROPIEDAD = dr["TIPO_PROPIEDAD"].ToString();
-                    item.PAIS = dr["PAIS"].ToString();
-                    item.CLIENTE = dr["CLIENTE"].ToString();
-                    item.COMUNA = dr["COMUNA"].ToString();
-                    item.REGION = dr["REGION"].ToString();
-                    item.PROVINCIA = dr["PROVINCIA"].ToString();
-                    item.TIPO_ENTREGA = dr["TIPO_ENTREGA"].ToString();
-                    item.TIPO_SERVICIO = dr["TIPO_SERVICIO"].ToString();
-                    if (dr["GANANCIA"] != DBNull.Value)
+                    while (dr.Read())
                     {
-                        item.GANANCIA = double.Parse(dr["GANANCIA"].ToString());
-                    }
-                    else
-                    {
-                        item.GANANCIA = 0.0;  
-                    }
+                        ClientePropiedad item = new ClientePropiedad();
+                        item.cpd_id = int.Parse(dr["cpd_id"].ToString());
+                        item.cpd_tipo_propiedad = int.Parse(dr["cpd_tipo_propiedad"].ToString());
+                        item.cpd_tipo_servicio = int.Parse(dr["cpd_tipo_servicio"].ToString());
+                        item.cpd_tipo_entrega = int.Parse(dr["cpd_tipo_entrega"].ToString());
+                        item.cpd_fecha_entrega = DateTime.Parse(dr["cpd_fecha_entrega"].ToString());
+                        item.cpd_fecha_entrega_detalle = dr["cpd_fecha_entrega_detalle"].ToString();
+                        item.cpd_estado = int.Parse(dr["cpd_estado"].ToString());
+                        item.cpd_cliente = int.Parse(dr["cpd_cliente"].ToString());
+                        item.cpd_pais = int.Parse(dr["cpd_pais"].ToString());
+                        item.cpd_region = int.Parse(dr["cpd_region"].ToString());
+                        item.cpd_provincia = int.Parse(dr["cpd_provincia"].ToString());
+                        item.cpd_comuna = int.Parse(dr["cpd_comuna"].ToString());
+                        item.cpd_calle = dr["cpd_calle"].ToString();
+                        item.cpd_numero_propiedad = dr["cpd_numero_propiedad"].ToString();
+                        item.cpd_titulo = dr["cpd_titulo"].ToString();
+                        item.cpd_valor_uf = int.Parse(dr["cpd_valor_uf"].ToString());
+                        item.cpd_valor_venta = int.Parse(dr["cpd_valor_venta"].ToString());
+                        item.cpd_valor_evaluo_fiscal = int.Parse(dr["cpd_valor_evaluo_fiscal"].ToString());
+                        item.cpd_contribucciones = Boolean.Parse(dr["cpd_contribucciones"].ToString());
+                        item.cpd_derecho_municipal = Boolean.Parse(dr["cpd_derecho_municipal"].ToString());
+                        item.cpd_bodega = Boolean.Parse(dr["cpd_bodega"].ToString());
+                        item.cpd_estacionamiento = Boolean.Parse(dr["cpd_estacionamiento"].ToString());
+                        item.cpd_valor_estacionamiento = int.Parse(dr["cpd_valor_estacionamiento"].ToString());
+                        item.cpd_valor_bodega = int.Parse(dr["cpd_valor_bodega"].ToString());
+                        item.cpd_cantidad_estacionamiento = int.Parse(dr["cpd_cantidad_estacionamiento"].ToString());
+                        item.cpd_cantidad_bodega = int.Parse(dr["cpd_cantidad_bodega"].ToString());
+                        item.cpd_usuario_creacion = int.Parse(dr["cpd_usuario_creacion"].ToString());
+                        item.cpd_usuario_act = int.Parse(dr["cpd_usuario_act"].ToString());
+                        item.cpd_fecha_creacion = DateTime.Parse(dr["cpd_fecha_creacion"].ToString());
+                        item.cpd_fecha_act = DateTime.Parse(dr["cpd_fecha_act"].ToString());
+                        item.ESTADO = dr["ESTADO"].ToString();
+                        item.TIPO_PROPIEDAD = dr["TIPO_PROPIEDAD"].ToString();
+                        item.PAIS = dr["PAIS"].ToString();
+                        item.CLIENTE = dr["CLIENTE"].ToString();
+                        item.COMUNA = dr["COMUNA"].ToString();
+                        item.REGION = dr["REGION"].ToString();
+                        item.PROVINCIA = dr["PROVINCIA"].ToString();
+                        item.TIPO_ENTREGA = dr["TIPO_ENTREGA"].ToString();
+                        item.TIPO_SERVICIO = dr["TIPO_SERVICIO"].ToString();
+                        if (dr["GANANCIA"] != DBNull.Value)
+                        {
+                            item.GANANCIA = double.Parse(dr["GANANCIA"].ToString());
+                        }
+                        else
+                        {
+                            item.GANANCIA = 0.0;
+                        }
 
 
-                    listado.Add(item);
+                        listado.Add(item);
+                    }
                 }
-            }
 
             cmd.Connection.Close();
             cmd.Dispose();
@@ -100,6 +101,8 @@ public class ClientePropiedadController
             return listado;
         }
     }
+
+    
 
     public ClientePropiedad GetClientePropiedad(ClientePropiedad clientePropiedad)
     {
@@ -156,6 +159,8 @@ public class ClientePropiedadController
                     item.TIPO_ENTREGA = dr["TIPO_ENTREGA"].ToString();
                     item.TIPO_SERVICIO = dr["TIPO_SERVICIO"].ToString();
 
+
+
                 }
             }
 
@@ -172,6 +177,7 @@ public class ClientePropiedadController
 
         return item;
     }
+
     public Respuesta InsertClientePropiedad(ClientePropiedad item)
     {
         Respuesta respuesta = new Respuesta();
@@ -184,13 +190,14 @@ public class ClientePropiedadController
             {
                 cmd = Conexion.GetCommand("INS_CLIENTE_PROPIEDAD");
 
-                cmd.Parameters.AddWithValue("@ID", item.cpd_id);
+                int id = 0;
+
+                cmd.Parameters.AddWithValue("@ID", id).Direction = System.Data.ParameterDirection.Output;
                 cmd.Parameters.AddWithValue("@TIPO_PROPIEDAD", item.cpd_tipo_propiedad);
                 cmd.Parameters.AddWithValue("@TIPO_SERVICIO", item.cpd_tipo_servicio);
                 cmd.Parameters.AddWithValue("@TIPO_ENTREGA", item.cpd_tipo_entrega);
                 cmd.Parameters.AddWithValue("@FECHA_ENTREGA", item.cpd_fecha_entrega);
                 cmd.Parameters.AddWithValue("@FECHA_ENTREGA_DETALLE", item.cpd_fecha_entrega_detalle);
-                cmd.Parameters.AddWithValue("@ESTADO", item.cpd_estado);
                 cmd.Parameters.AddWithValue("@PAIS", item.cpd_pais);
                 cmd.Parameters.AddWithValue("@REGION", item.cpd_region);
                 cmd.Parameters.AddWithValue("@PROVINCIA", item.cpd_provincia);
@@ -215,13 +222,18 @@ public class ClientePropiedadController
                 cmd.Connection.Close();
                 cmd.Dispose();
 
-                respuesta.detalle = "Propiedad agregado con éxito.";
+                id = (int)cmd.Parameters["@ID"].Value;
+
+                respuesta.codigo = id;
+                respuesta.detalle = "Registro creado con éxito.";
+                respuesta.error = false;
             }
             catch (Exception ex)
             {
                 cmd.Connection.Close();
                 cmd.Dispose();
 
+                respuesta.codigo = -1;
                 respuesta.detalle = ex.Message;
                 respuesta.error = true;
             }
@@ -229,6 +241,7 @@ public class ClientePropiedadController
 
         return respuesta;
     }
+
     public Respuesta UpdateClientePropiedad(ClientePropiedad item)
     {
         SqlCommand cmdExecute = new SqlCommand();
@@ -246,7 +259,6 @@ public class ClientePropiedadController
                 cmdExecute.Parameters.AddWithValue("@TIPO_ENTREGA", item.cpd_tipo_entrega);
                 cmdExecute.Parameters.AddWithValue("@FECHA_ENTREGA", item.cpd_fecha_entrega);
                 cmdExecute.Parameters.AddWithValue("@FECHA_ENTREGA_DETALLE", item.cpd_fecha_entrega_detalle);
-                cmdExecute.Parameters.AddWithValue("@ESTADO", item.cpd_estado);
                 cmdExecute.Parameters.AddWithValue("@PAIS", item.cpd_pais);
                 cmdExecute.Parameters.AddWithValue("@REGION", item.cpd_region);
                 cmdExecute.Parameters.AddWithValue("@PROVINCIA", item.cpd_provincia);
@@ -723,7 +735,7 @@ public class ClientePropiedadController
                     item.cdp_seguridad = dr["CDP_SEGURIDAD"].ToString();
                     item.cdp_transporte = dr["CDP_TRANSPORTE"].ToString();
                     item.cdp_descripcion = dr["CDP_DESCRIPCION"].ToString();
-   
+
                 }
             }
 
@@ -1051,7 +1063,7 @@ public class ClientePropiedadController
 
             using (SqlDataReader dr = Conexion.GetDataReader(cmd))
             {
-                while (dr.Read()) 
+                while (dr.Read())
                 {
                     ClientePropiedadMedioBinario item = new ClientePropiedadMedioBinario();
 
@@ -1059,7 +1071,7 @@ public class ClientePropiedadController
 
                     if (!string.IsNullOrEmpty(dr["CMB_BINARIO"].ToString())) item.cmb_binario = (byte[])dr["CMB_BINARIO"];
                     if (!string.IsNullOrEmpty(dr["DESCRIPCION"].ToString())) item.DESCRIPCION = dr["DESCRIPCION"].ToString();
-                   
+
                     // Añadimos el objeto a la lista
                     binarios.Add(item);
                 }

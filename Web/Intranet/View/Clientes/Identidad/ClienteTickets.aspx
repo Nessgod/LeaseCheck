@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Master/Default.master" AutoEventWireup="true" CodeFile="ClienteTickets.aspx.cs" Inherits="View_Clientes_Identidad_ClienteTickets" %>
 
+<%@ Register TagPrefix="wuc" TagName="Filtro" Src="~/View/Comun/Controls/FiltroAvanzado.ascx" %>
 <asp:Content ID="ContenHeder" ContentPlaceHolderID="chpScript" runat="server">
     <script type="text/javascript" language="javascript">
 
@@ -25,6 +26,9 @@
     </style>
 </asp:Content>
 
+
+
+
 <asp:Content ID="ContentBody" ContentPlaceHolderID="cphBody" runat="Server">
     <rad:RadWindow2 ID="rwiDetalle" runat="server" />
     <asp:UpdatePanel runat="server" ID="udPanel" UpdateMode="Conditional">
@@ -32,7 +36,7 @@
 
             <div class="container">
                 <!-- Botón Mis Tickets alineado a la derecha -->
-                <div class="d-flex justify-content-end mb-3">
+                <div class="d-flex justify-content-start mb-3">
                     <asp:LinkButton ID="lnkAbirTickets" runat="server" OnClick="lnkAbrirTickets_Click"
                         CssClass="btn btn-outline-primary d-flex align-items-center gap-2" ToolTip="Ver mis tickets">
             <i class="fas fa-ticket-alt"></i>

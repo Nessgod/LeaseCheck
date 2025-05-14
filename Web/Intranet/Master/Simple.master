@@ -26,7 +26,7 @@
     <link href="../Css/AjaxProgress/cssUpdateProgress.css" rel="stylesheet" />
 
     <!-- LookAndFeel CSS -->
-    <link href="../Css/LookAndFeel/Default.css?vrs=3" rel="stylesheet" />
+    <link href="../Css/LookAndFeel/Default.css?vrs=4" rel="stylesheet" />
 
     <!-- Telerik CSS -->
     <link href="../Css/UI/Telerik/Bootstrap/Grid.css" rel="stylesheet" />

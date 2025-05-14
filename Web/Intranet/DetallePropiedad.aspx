@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Portal.aspx.cs" Inherits="Portal" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="DetallePropiedad.aspx.cs" Inherits="DetallePropiedad" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -385,171 +385,130 @@
                 </div>
             </div>
         </nav>
+        <!-- Contenedor general -->
+        <div class="container my-5">
 
-        <div class="hero">
-            <div class="container">
-                <h1>Encuentra tu hogar ideal</h1>
-                <p>Descubre las mejores propiedades en venta y alquiler</p>
-            </div>
-        </div>
+            <!-- FILA PRINCIPAL: Imagen + Detalle -->
+            <div class="row g-4">
+                <!-- IMAGEN PRINCIPAL -->
+                <div class="col-md-7">
+                    <asp:Image ID="imgPrincipal" runat="server" CssClass="img-fluid rounded-4 shadow-sm w-100 mb-3" />
+                </div>
 
+                <!-- DETALLE PROPIEDAD -->
+                <div class="col-md-5 p-4 bg-light rounded-4 shadow-sm">
+                    <h2 class="fw-bold text-primary mb-1">
+                        <i class="fas fa-home me-2"></i>
+                        <asp:Label ID="lblTituloPropiedad" runat="server" />
+                    </h2>
+                    <h4 class="text-success mb-3">
+                        <i class="fas fa-dollar-sign me-1"></i>
+                        <asp:Label ID="lblPrecio" runat="server" />
+                    </h4>
 
-        <div class="container search-box">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <h2 style="font-weight: 700;">Encuentra Tu Hogar Ideal</h2>
-                    <p style="font-size: 1.2em; margin-bottom: 30px;">
-                        Descubre las mejores propiedades en venta y alquiler
+                    <p class="mb-2 text-muted">
+                        <i class="fas fa-map-marker-alt text-danger me-2"></i>
+                        <asp:Label ID="lblUbicacion" runat="server" />
                     </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2 form-group">
-                    <asp:TextBox ID="txtUbicacion" runat="server" CssClass="form-control input-lg" placeholder="Ubicación"></asp:TextBox>
-                </div>
-                <div class="col-sm-2 form-group">
-                    <asp:DropDownList ID="ddlTipo" runat="server" CssClass="form-control input-lg">
-                        <asp:ListItem Text="Tipo" Value="" />
-                        <asp:ListItem Text="Casa" Value="casa" />
-                        <asp:ListItem Text="Departamento" Value="departamento" />
-                    </asp:DropDownList>
-                </div>
-                <div class="col-sm-2 form-group">
-                    <asp:DropDownList ID="ddlHabitaciones" runat="server" CssClass="form-control input-lg">
-                        <asp:ListItem Text="Habitaciones" Value="" />
-                        <asp:ListItem Text="1" Value="1" />
-                        <asp:ListItem Text="2" Value="2" />
-                        <asp:ListItem Text="3" Value="3" />
-                        <asp:ListItem Text="4" Value="4" />
-                    </asp:DropDownList>
-                </div>
-                <div class="col-sm-2 form-group">
-                    <asp:DropDownList ID="ddlBanos" runat="server" CssClass="form-control input-lg">
-                        <asp:ListItem Text="Baños" Value="" />
-                        <asp:ListItem Text="1" Value="1" />
-                        <asp:ListItem Text="2" Value="2" />
-                        <asp:ListItem Text="3" Value="3" />
-                    </asp:DropDownList>
-                </div>
-                <div class="col-sm-2 form-group">
-                    <asp:TextBox ID="txtPrecioMax" runat="server" CssClass="form-control input-lg" placeholder="Precio Máx."></asp:TextBox>
-                </div>
-                <div class="col-sm-2 form-group">
-                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary btn-lg btn-block" />
-                </div>
-            </div>
-        </div>
 
-        <div class="container" style="margin-top: 50px;">
-            <h2 class="text-center" style="font-weight: normal; margin-bottom: 40px;">Últimas Propiedades</h2>
+                    <hr />
 
-            <div class="row">
-                <asp:Repeater ID="rptPropiedades" runat="server" OnItemDataBound="rptPropiedades_ItemDataBound">
-                    <ItemTemplate>
-                        <div class="col-md-4">
-                            <div class="property-card">
-                                <div class="featured-badge">Destacado</div>
-                                <div class="property-card">
-                                    <asp:Image ID="imgPropiedad" runat="server" CssClass="property-image" />
-                                    <div class="property-details">
-                                        <asp:Label ID="lblTitulo" runat="server" CssClass="property-title" />
-                                        <asp:Label ID="lblPrecio" runat="server" CssClass="property-price" />
-                                        <p class="property-meta">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            <asp:Label ID="lblUbicacion" runat="server" />
-                                        </p>
-                                        <p class="property-meta">
-                                            <i class="fas fa-bed"></i>
-                                            <asp:Label ID="lblHabitaciones" runat="server" />
-                                            |
-                            <i class="fas fa-bath"></i>
-                                            <asp:Label ID="lblBanos" runat="server" />
-                                            |
-                            <i class="fas fa-ruler-combined"></i>
-                                            <asp:Label ID="lblMetros" runat="server" />
-                                            m²
-                                        </p>
-                                        <p class="property-meta">
-                                            <i class="far fa-clock"></i>
-                                            <asp:Label ID="lblPublicado" runat="server" />
-                                        </p>
-                                        <p class="property-meta">
-                                            <i class="fas fa-user"></i>Corredora:
-                                        <asp:Label ID="lblNombreCorredora" runat="server" />
-                                        </p>
-                                        <asp:HyperLink ID="lnkDetalle" runat="server" CssClass="btn btn-custom" Text="Ver más detalles" />
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="row small text-dark">
+                        <div class="col-6">
+                            <p><i class="fas fa-building me-1 text-secondary"></i>Tipo:
+                                <asp:Label ID="lblTipoPropiedad" runat="server" /></p>
+                            <p><i class="fas fa-box-open me-1 text-secondary"></i>Entrega:
+                                <asp:Label ID="lblTipoEntrega" runat="server" /></p>
+                            <p><i class="fas fa-bed me-1 text-secondary"></i>Dormitorios:
+                                <asp:Label ID="lblDormitorios" runat="server" /></p>
+                            <p><i class="fas fa-bath me-1 text-secondary"></i>Baños:
+                                <asp:Label ID="lblBanos" runat="server" /></p>
+                            <p><i class="fas fa-layer-group me-1 text-secondary"></i>Pisos:
+                                <asp:Label ID="lblPisos" runat="server" /></p>
                         </div>
+                        <div class="col-6">
+                            <p><i class="fas fa-expand me-1 text-secondary"></i>Útiles:
+                                <asp:Label ID="lblMetrosUtiles" runat="server" />
+                                m²</p>
+                            <p><i class="fas fa-ruler-combined me-1 text-secondary"></i>Totales:
+                                <asp:Label ID="lblMetrosTotales" runat="server" />
+                                m²</p>
+                            <p><i class="fas fa-car me-1 text-secondary"></i>Estacionamiento:
+                                <asp:Label ID="lblEstacionamiento" runat="server" /></p>
+                            <p><i class="fas fa-warehouse me-1 text-secondary"></i>Bodega:
+                                <asp:Label ID="lblBodega" runat="server" /></p>
                         </div>
-                    </ItemTemplate>
-                </asp:Repeater>
+                    </div>
+
+                    <asp:Button ID="btnContactar" runat="server" Text="📩 Contactar Agente"
+                        CssClass="btn btn-primary btn-lg rounded-pill mt-3 w-100 shadow" />
+                </div>
             </div>
 
+            <!-- CARACTERÍSTICAS ADICIONALES -->
+            <div class="mt-5 p-4 bg-white rounded-4 shadow-sm border">
+                <h5 class="fw-semibold mb-3"><i class="fas fa-tools me-2 text-info"></i>Características adicionales</h5>
+                <ul class="list-inline text-muted small">
+                    <li class="list-inline-item me-4"><i class="fas fa-grip-lines-vertical me-1"></i>Piso:
+                        <asp:Label ID="lblTipoPiso" runat="server" /></li>
+                    <li class="list-inline-item me-4"><i class="fas fa-window-restore me-1"></i>Ventanas:
+                        <asp:Label ID="lblTipoVentana" runat="server" /></li>
+                    <li class="list-inline-item me-4"><i class="fas fa-fire me-1"></i>Cocina:
+                        <asp:Label ID="lblConexionCocina" runat="server" /></li>
+                    <li class="list-inline-item me-4"><i class="fas fa-tint me-1"></i>Lavadora:
+                        <asp:Label ID="lblConexionLavadora" runat="server" /></li>
+                </ul>
+                <ul class="list-inline mt-2 text-dark fw-semibold">
+                    <li class="list-inline-item">
+                        <asp:Label ID="lblQuincho" runat="server" /></li>
+                    <li class="list-inline-item">
+                        <asp:Label ID="lblPiscina" runat="server" /></li>
+                    <li class="list-inline-item">
+                        <asp:Label ID="lblCalefaccion" runat="server" /></li>
+                    <li class="list-inline-item">
+                        <asp:Label ID="lblGimnasio" runat="server" /></li>
+                    <li class="list-inline-item">
+                        <asp:Label ID="lblSalonMultiple" runat="server" /></li>
+                </ul>
+            </div>
+
+            <!-- DESCRIPCIÓN -->
+            <div class="mt-4 p-4 bg-light rounded-4 shadow-sm border">
+                <h5 class="fw-semibold"><i class="fas fa-file-alt me-2 text-secondary"></i>Descripción</h5>
+                <p class="text-secondary" style="white-space: pre-line;">
+                    <asp:Label ID="lblDescripcion" runat="server" />
+                </p>
+            </div>
+
+            <!-- ENTORNO -->
+            <div class="mt-4 p-4 bg-white rounded-4 shadow-sm border">
+                <h5 class="fw-semibold mb-3"><i class="fas fa-tree-city me-2 text-success"></i>Entorno</h5>
+                <div class="row text-muted small">
+                    <div class="col-md-6">
+                        <p><i class="fas fa-bus me-1"></i>Transporte:
+                            <asp:Label ID="lblTransporte" runat="server" /></p>
+                        <p><i class="fas fa-lock me-1"></i>Seguridad:
+                            <asp:Label ID="lblSeguridad" runat="server" /></p>
+                        <p><i class="fas fa-utensils me-1"></i>Restaurantes:
+                            <asp:Label ID="lblRestaurant" runat="server" /></p>
+                        <p><i class="fas fa-leaf me-1"></i>Áreas verdes:
+                            <asp:Label ID="lblAreasVerdes" runat="server" /></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><i class="fas fa-school me-1"></i>Educación:
+                            <asp:Label ID="lblEducacion" runat="server" /></p>
+                        <p><i class="fas fa-hospital me-1"></i>Salud:
+                            <asp:Label ID="lblSalud" runat="server" /></p>
+                        <p><i class="fas fa-shopping-cart me-1"></i>Centro Comercial:
+                            <asp:Label ID="lblCentroComercial" runat="server" /></p>
+                        <p><i class="fas fa-wifi me-1"></i>Conectividad:
+                            <asp:Label ID="lblConectividad" runat="server" /></p>
+                    </div>
+                </div>
+            </div>
 
         </div>
-        +
-        <div class="container" style="margin-top: 60px;">
-            <h2 class="text-center" style="margin-bottom: 30px;">Propiedades en Chile</h2>
-            <div class="row text-center">
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/region-antofagasta.jpg" class="img-responsive" /><p>Antofagasta</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/concon.jpg" class="img-responsive" /><p>Concón</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/concepcion.png" class="img-responsive" /><p>Concepción</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/santiago.png" class="img-responsive" /><p>Santiago</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/temuco.png" class="img-responsive" /><p>Temuco</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/la_serena.png" class="img-responsive" /><p>La Serena</p>
-                </div>
-            </div>
-            <div class="row text-center" style="margin-top: 20px;">
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/pucon.png" class="img-responsive" /><p>Pucón</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/vina.png" class="img-responsive" /><p>Viña del Mar</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/iquique.png" class="img-responsive" /><p>Iquique</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/rancagua.png" class="img-responsive" /><p>Rancagua</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/valdivia.png" class="img-responsive" /><p>Valdivia</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/coquimbo.png" class="img-responsive" /><p>Coquimbo</p>
-                </div>
-            </div>
-            <div class="row text-center" style="margin-top: 20px;">
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/valparaiso.png" class="img-responsive" /><p>Valparaíso</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/pto_varas.png" class="img-responsive" /><p>Pto. Varas</p>
-                </div>
-            </div>
-        </div>
 
-
-
-        <!-- CTA full-width -->
-        <div class="cta-full-width">
-            <h2 class="cta-title">¿Listo para Encontrar Tu Hogar Perfecto?</h2>
-            <p class="cta-subtitle">Únete a miles de clientes satisfechos que encontraron sus propiedades ideales con nosotros.</p>
-            <a href="#" class="btn-white">Explorar Propiedades</a>
-        </div>
 
         <!-- FOOTER full-width -->
         <footer class="footer-full-width">

@@ -23,6 +23,13 @@ public partial class Login : System.Web.UI.Page
         set { ViewState.Add("postulante", value); }
     }
 
+    public int resultadoContacto
+    {
+        get { return Convert.ToInt32(ViewState["resultadoContacto"]); }
+        set { ViewState.Add("resultadoContacto", value); }
+    }
+
+
     protected void Page_Load(object sender, EventArgs e)
     {
         CargaPaises();
@@ -41,7 +48,6 @@ public partial class Login : System.Web.UI.Page
                         DivAccesos.Style.Add("display", "");
                         DivSoporteComercial.Style.Add("display", "none");
                         Acceso.Style.Add("display", "");
-                        Soporte.Style.Add("display", "none");
                         Comercial.Style.Add("display", "none");
                         break;
 
@@ -50,35 +56,29 @@ public partial class Login : System.Web.UI.Page
                         Acceso.Style.Add("display", "none");
                         DivAccesos.Style.Add("display", "");
                         DivSoporteComercial.Style.Add("display", "none");
-                        Soporte.Style.Add("display", "none");
                         Comercial.Style.Add("display", "none");
                         break;
 
-                    case "Soporte":
-                        Propietario.Style.Add("display", "none");
-                        DivAccesos.Style.Add("display", "none");
-                        DivSoporteComercial.Style.Add("display", "");
-                        Acceso.Style.Add("display", "none");
-                        Soporte.Style.Add("display", "");
-                        Comercial.Style.Add("display", "none");
-                        break;
 
                     case "Comercial":
                         DivAccesos.Style.Add("display", "none");
                         DivSoporteComercial.Style.Add("display", "");
                         Propietario.Style.Add("display", "none");
                         Acceso.Style.Add("display", "none");
-                        Soporte.Style.Add("display", "none");
                         Comercial.Style.Add("display", "");
                         break;
                     default:
-                        Propietario.Style.Add("display", "");
-                        Acceso.Style.Add("display", "none");
-                        Soporte.Style.Add("display", "none");
+                        DivAccesos.Style.Add("display", "");
+                        DivSoporteComercial.Style.Add("display", "none");
+                        Propietario.Style.Add("display", "none");
+                        Acceso.Style.Add("display", "");
                         Comercial.Style.Add("display", "none");
                         break;
+
                 }
             }
+
+            generarValores();
         }
         lblMensajeContenedor.Visible = false;
     }
@@ -170,6 +170,21 @@ public partial class Login : System.Web.UI.Page
 
     #endregion
 
+
+    protected void generarValores()
+    {
+        int valor1 = 0;
+        int valor2 = 0;
+        Random r = new Random();
+        valor1 = r.Next(1, 9);
+        valor2 = r.Next(1, 9);
+        lblValorUnoContacto.Text = valor1.ToString();
+        lblValorDosContacto.Text = "+ " + valor2.ToString();
+        resultadoContacto = valor1 + valor2;
+
+    }
+
+
     protected void btnLogin_Click(object sender, EventArgs e)
     {
     }
@@ -184,12 +199,6 @@ public partial class Login : System.Web.UI.Page
         Response.Redirect("Login.aspx?query=Empresa");
 
     }
-
-    protected void lnkSoporte_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("Login.aspx?query=Soporte");
-    }
-
     protected void lnkComercial_Click(object sender, EventArgs e)
     {
         Response.Redirect("Login.aspx?query=Comercial");
@@ -247,6 +256,12 @@ public partial class Login : System.Web.UI.Page
     {
         try
         {
+            if (resultadoContacto.ToString() != txtResultadoContacto.Text)
+            {
+                Tools.tools.ClientAlert("Resultado incorrecto!", "error");
+                return;
+            }
+
             Respuesta respuesta = new Respuesta();
             ContactoComercial contacto = new ContactoComercial();
             EnvioCorreoController controller = new EnvioCorreoController();
@@ -288,4 +303,9 @@ public partial class Login : System.Web.UI.Page
         txtMensajeComercial.Text = "";
     }
 
+
+    protected void lnkPortal_Click(object sender, EventArgs e)
+    {
+
+    }
 }

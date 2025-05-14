@@ -15,6 +15,11 @@
             bloqueaScroll(false);
         }
 
+        function onCerrarPropiedad(sender, args) {
+            __doPostBack('', '');
+        }
+
+
         function refreshUsuarios() {
             __doPostBack("<%=Grid.ClientID %>", '')
         }
@@ -31,7 +36,7 @@
 </asp:Content>
 
 <asp:Content ID="ContentBody" ContentPlaceHolderID="cphBody" runat="Server">
-    <rad:RadWindow2 ID="rwiDetalle" runat="server" />
+    <rad:RadWindow2 ID="rwiDetalle" runat="server" OnClientClose="onCerrarPropiedad"/>
     <asp:UpdatePanel runat="server" ID="udPanel" UpdateMode="Conditional">
         <ContentTemplate>
             <rad:RadGrid2 ID="Grid" runat="server" OnItemDataBound="Grid_ItemDataBound" AllowPaging="false">

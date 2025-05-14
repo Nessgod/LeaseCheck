@@ -28,11 +28,11 @@ public partial class View_Comun_Controls_Cliente_Usuarios : System.Web.UI.UserCo
     private ClienteDocumentoController controllerClienteDocumento = new ClienteDocumentoController();
     protected void Page_Load(object sender, EventArgs e)
     {
-        #region SeguridadPagina
-        MenuPerfil ver = new MenuPerfil();
-        ver.mpe_menu = (int)LeaseCheck.Paginas.menu_cliente.Ver;
-        LeaseCheck.Token.SecurityManagerVer(ver);
-        #endregion
+        //#region SeguridadPagina
+        //MenuPerfil ver = new MenuPerfil();
+        //ver.mpe_menu = (int)LeaseCheck.Paginas.menu_cliente.Ver;
+        //LeaseCheck.Token.SecurityManagerVer(ver);
+        //#endregion
 
         if (!IsPostBack)
         {

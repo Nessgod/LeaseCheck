@@ -132,12 +132,20 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             CargarProvincias(cboProvincia);
             CargarComunas(cboComuna);
             CargarPropietarios(cboPropietario);
-
+            CargarEstadosPropiedad(cboEstadoPropiedad, TipoServicio);
             updGrid.Update();
 
         }
 
-
+        CargarTpoPropiedad(cboTpoPropiedad);
+        CargarTpoServicio(cboTpoServicio);
+        CargarTpoEntrega(cboTpoEntrega);
+        CargarPaises(cboPais);
+        CargarRegiones(cboRegion);
+        CargarProvincias(cboProvincia);
+        CargarComunas(cboComuna);
+        CargarPropietarios(cboPropietario);
+        CargarEstadosPropiedad(cboEstadoPropiedad, TipoServicio);
         CargaGridEstados();
         CargaGrid();
         updGrid.Update();
@@ -328,7 +336,6 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
 
             TipoServicio = propiedad.cpd_tipo_servicio;
             CargarEstadosPropiedad(cboEstadoPropiedad, TipoServicio);
-            CargarEstadosPropiedad(cboEstado, TipoServicio);
             lblTituloUsuario.Text = "ID: " + propiedad.cpd_id + " | " + propiedad.TIPO_PROPIEDAD + ": " + propiedad.cpd_titulo;
 
 
@@ -336,8 +343,6 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             cboTpoServicio.SelectedValue = propiedad.cpd_tipo_servicio.ToString();
             cboTpoEntrega.SelectedValue = propiedad.cpd_tipo_entrega.ToString();
 
-            cboEstado.SelectedValue = propiedad.cpd_estado.ToString();
-            cboEstado.Enabled = false;
 
             cboPais.SelectedValue = propiedad.cpd_pais.ToString();
             cboRegion.SelectedValue = propiedad.cpd_region.ToString();
@@ -358,40 +363,6 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             txtValorCLP.Text = propiedad.cpd_valor_venta.ToString();
             txtValorUf.Text = propiedad.cpd_valor_uf.ToString();
             txtEvaluoFiscal.Text = propiedad.cpd_valor_evaluo_fiscal.ToString();
-
-            // Crear un filtro para obtener los tipos de cuenta asociados al banco
-            Provincia filtro = new Provincia();
-            filtro.pro_region = propiedad.cpd_region;
-            var provincias = controller.GetProvincias(filtro);
-            // Limpiar y cargar el combo de tipos de cuenta
-            cboProvincia.Items.Clear();
-            if (provincias.Count > 0)
-            {
-                cboProvincia.Items.Add(new RadComboBoxItem("Seleccione...", ""));
-                cboProvincia.AppendDataBoundItems = true;
-            }
-            cboProvincia.DataSource = provincias;
-            cboProvincia.DataValueField = "pro_id";
-            cboProvincia.DataTextField = "pro_nombre";
-            cboProvincia.DataBind();
-
-            Comuna comuna = new Comuna();
-            comuna.cmn_provincia = propiedad.cpd_provincia;
-
-            // Obtener los tipos de cuenta asociados al banco
-            var comunas = controller.GetComunas(comuna);
-
-            // Limpiar y cargar el combo de tipos de cuenta
-            cboComuna.Items.Clear();
-            if (comunas.Count > 0)
-            {
-                cboComuna.Items.Add(new RadComboBoxItem("Seleccione...", ""));
-                cboComuna.AppendDataBoundItems = true;
-            }
-            cboComuna.DataSource = comunas;
-            cboComuna.DataValueField = "cmn_id";
-            cboComuna.DataTextField = "cmn_nombre";
-            cboComuna.DataBind();
 
             if (bool.Parse(propiedad.cpd_estacionamiento.ToString()))
             {
@@ -458,7 +429,6 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             int region = 0;
             int provincia = 0;
             int comuna = 0;
-            int estado = 0;
             int cantBodega = 0;
             int valorBodega = 0;
             int cantEst = 0;
@@ -471,7 +441,6 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             int.TryParse(cboRegion.SelectedValue, out region);
             int.TryParse(cboProvincia.SelectedValue, out provincia);
             int.TryParse(cboComuna.SelectedValue, out comuna);
-            int.TryParse(cboEstado.SelectedValue, out estado);
             int.TryParse(txtCantidadBodega.Text, out cantBodega);
             int.TryParse(txtValorBodega.Text, out valorBodega);
             int.TryParse(txtCantidadEstacionamiento.Text, out cantEst);
@@ -486,7 +455,6 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             propiedad.cpd_region = region;
             propiedad.cpd_provincia = provincia;
             propiedad.cpd_comuna = comuna;
-            propiedad.cpd_estado = estado;
             propiedad.cpd_calle = txtCalle.Text.ToString();
             propiedad.cpd_numero_propiedad = txtNumeroPropiedad.Text.ToString();
             propiedad.cpd_titulo = txtTitulo.Text;
@@ -512,7 +480,7 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
             }
 
             if (!respuesta.error)
-                Tools.tools.ClientAlert(respuesta.detalle, "ok");
+                Tools.tools.ClientAlert(respuesta.detalle, "ok", true);
             else
                 Tools.tools.ClientAlert(respuesta.detalle, "alerta");
         }
@@ -1307,9 +1275,9 @@ public partial class View_Clientes_Identidad_ClientePropiedad : System.Web.UI.Pa
 
     protected void cboServicio_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
     {
-        int TipoServicio = 0;
-        int.TryParse(cboTpoServicio.SelectedValue, out TipoServicio);
-        CargarEstadosPropiedad(cboEstado, TipoServicio);
+        //int TipoServicio = 0;
+        //int.TryParse(cboTpoServicio.SelectedValue, out TipoServicio);
+        //CargarEstadosPropiedad(cboEstado, TipoServicio);
     }
 
 

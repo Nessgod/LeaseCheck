@@ -23,5 +23,11 @@ namespace LeaseCheck.Root.Model
         public string plan_nombre { get; set; }
         public DateTime filtro_desde { get; set; }
         public DateTime filtro_hasta { get; set; }
+
+        // Dashboard - Cantidad Propiedades
+        public int plan_propiedad_actual { get; set; }
+        public int plan_propiedad_total { get; set; }
+        public int plan_propiedad_antigua { get; set; }
+        public string productos { get; set; }
     }
 }

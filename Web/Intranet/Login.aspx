@@ -34,16 +34,6 @@
 
     <script src="Js/Library.js?V1"></script>
     <script>
-        function ValidaEmailFormat() {
-            var txtCorreo = $('#<%=txtCorreo.ClientID %>');
-            if (txtCorreo.val() != "") {
-                if (!ValidaEmail(txtCorreo.val())) {
-                    txtCorreo.val('');
-                    AlertSweet('Formato correo invalido', '', 'alerta');
-                }
-            }
-        }
-
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode
             if (charCode > 31 && (charCode < 48 || charCode > 57))
@@ -206,63 +196,112 @@
                 border: 1px solid #003566;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             }
+
+
+        .modern-navbar {
+            background: rgba(255, 255, 255, 0.05) !important;
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Estilo de los links */
+        .nav-item .nav-link {
+            color: #ffffff !important;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+        }
+
+            .nav-item .nav-link:hover {
+                background-color: white !important;
+                color: #003566 !important;
+                text-decoration: none;
+            }
+
+            .nav-item .nav-link i {
+                font-size: 1.2rem;
+            }
+
+        .custom-toggler {
+            background-color: transparent !important;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+            .custom-toggler i {
+                font-size: 1.8rem;
+                color: white;
+                transition: color 0.3s ease, transform 0.3s ease;
+            }
+
+            .custom-toggler:hover i {
+                color: #0767e9;
+                transform: rotate(90deg);
+            }
+
+        .navbar-toggler[aria-expanded="true"] i {
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .navbar-toggler[aria-expanded="false"] i {
+            transform: rotate(0deg);
+        }
     </style>
 </head>
 
 <body class="authentication-bg">
     <form id="form" runat="server">
+        <!-- Navbar -->
         <div class="topbar-menu">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-10 col-md-9 col-sm-8 col-xs-7 col-7">
-                        <nav class="navbar navbar-expand-lg navbar-light col-md-9 col-sm-8 col-xl-8">
+                    <div class="col-12">
+                        <nav class="navbar navbar-expand-lg navbar-light modern-navbar">
+                            <div class="container-fluid">
+                                <!-- Botón de colapso para móviles -->
+                                <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <i class="fas fa-bars"></i>
+                                </button>
 
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navigation-menu">
-                                    <li class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                                        <asp:LinkButton ID="lnkPostulante" runat="server" OnClick="lnkPropietario_Click" CssClass="white-text">
-                                        <i class=" dripicons-user"></i>Soy Cliente<div class="arrow-down"></div>
-                                        </asp:LinkButton>
-                                    </li>
-
-
-                                    <li class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                                        <asp:LinkButton ID="lnkEmpresa" runat="server" OnClick="lnkEmpresa_Click" CssClass="white-text"><i class="dripicons-store"></i>Soy Empresa<div class="arrow-down"></div>
-                                        </asp:LinkButton>
-                                    </li>
-
-                                    <li class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                                        <asp:LinkButton ID="lnkSoporte" runat="server" OnClick="lnkSoporte_Click" CssClass="white-text"><i data-icon="~"></i>Necesito Ayuda<div class="arrow-down"></div>
-                                        </asp:LinkButton>
-                                    </li>
-
-                                    <li class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                                        <asp:LinkButton ID="lnkComercial" runat="server" OnClick="lnkComercial_Click" CssClass="white-text"><i class="dripicons-user-id"></i>Comercial<div class="arrow-down"></div>
-                                        </asp:LinkButton>
-                                    </li>
-                                </ul>
+                                <!-- Contenido del navbar -->
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                        <li class="nav-item">
+                                            <asp:LinkButton ID="lnkPropietario" runat="server" CssClass="nav-link" OnClick="lnkPropietario_Click">
+                                                <i class="dripicons-user me-2"></i> Soy Propietario
+                                            </asp:LinkButton>
+                                        </li>
+                                        <li class="nav-item">
+                                            <asp:LinkButton ID="lnkEmpresa" runat="server" CssClass="nav-link" OnClick="lnkEmpresa_Click">
+                                                 <i class="dripicons-store me-2"></i> Soy Empresa
+                                            </asp:LinkButton>
+                                        </li>
+                                        <li class="nav-item">
+                                            <asp:LinkButton ID="lnkContactanos" runat="server" CssClass="nav-link" OnClick="lnkComercial_Click">
+                                                <i class="dripicons-message me-2"></i> Contáctenos
+                                            </asp:LinkButton>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </nav>
-                        <!-- Navigation Menu-->
-
-                        <!-- End navigation menu -->
-
-                        <div class="clearfix"></div>
                     </div>
-                    <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
-
                 </div>
-                <!-- end #navigation -->
             </div>
-            <!-- end container -->
         </div>
-        <!-- end navbar-custom -->
 
-        <div class="mt-5 mb-5" id="DivAccesos" runat="server" style="display: none;">
+        <div class="mt-5 mb-5" id="DivAccesos" runat="server" style="display: block;">
             <div class="container-fluid d-flex justify-content-start align-items-center mt-3">
 
                 <!-- Agrupador de logo y login -->
@@ -284,13 +323,27 @@
                                 <div class="text-center mb-4">
                                     <h4 class="text-uppercase">Inicio de Sesión</h4>
                                 </div>
-                                <div class="form-group">
-                                    <label for="txtLogin">Login</label>
-                                    <asp:TextBox ID="txtLogin" runat="server" CssClass="form-control" placeholder="Ingresa tu usuario" />
+                                <div class="form-group mb-3">
+                                    <label for="txtLogin" class="form-label">Login</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" style="color:#003566;">
+                                                <i class="fas fa-user"></i>
+                                            </span>
+                                        </div>
+                                        <asp:TextBox ID="txtLogin" runat="server" CssClass="form-control" placeholder="Ingresa tu usuario" />
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="txtPassword">Password</label>
-                                    <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" placeholder="Ingresa tu password" TextMode="Password" />
+                                <div class="form-group mb-3">
+                                    <label for="txtPassword" class="form-label">Password</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" style="color:#003566;">
+                                                <i class="fas fa-lock"></i>
+                                            </span>
+                                        </div>
+                                        <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" placeholder="Ingresa tu password" TextMode="Password" />
+                                    </div>
                                 </div>
                                 <div class="form-group mb-3 text-center">
                                     <asp:Button ID="btnLoginEmpresa" runat="server" Text="Ingreso" OnClick="btnLoginEmpresa_Click" CssClass="btn-custom w-50" />
@@ -302,8 +355,15 @@
                                     <h4 class="text-uppercase">Inicio de Sesión</h4>
                                 </div>
                                 <div class="form-group">
-                                    <label for="fullname">Código</label>
-                                    <asp:TextBox ID="txtCodigoPostulante" runat="server" class="form-control" placeholder="Ingresa tu código" />
+                                    <label for="txtCodigoPostulante" class="form-label mb-0 mr-2">Código</label>
+                                    <div class="input-group justify-content-center">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" style="color:#003566;">
+                                                <i class="fas fa-key"></i>
+                                            </span>
+                                        </div>
+                                        <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control" placeholder="Ingresa tu código" />
+                                    </div>
                                 </div>
                                 <div class="form-group mb-0 text-center">
                                     <asp:Button ID="btnLoginPropietario" runat="server" Text="Ingreso" OnClick="btnLoginPropietario_Click" class="btn-custom w-50" />
@@ -319,8 +379,7 @@
         <div class="container" id="DivSoporteComercial" runat="server" style="display: none;">
             <div class="row justify-content-left">
                 <div class="col-md-8 col-lg-6 col-xl-5">
-                    <div class="text-center" style="margin-bottom: 20px">
-                        <img src="Imagen/LeaseCheck_logo_Blanco.png?v1" alt="" class="logo-dark mx-auto responsive-logo">
+                    <div class="text-center" style="margin-bottom: 60px">
                     </div>
 
                     <div class="card">
@@ -330,7 +389,7 @@
                                 <div class="text-center mb-2">
                                     <h4 class="text-uppercase mt-0">Comercial</h4>
                                 </div>
-                                <div class="row">
+                                <div class="row text-center mb-2">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <a href="https://api.whatsapp.com/send?phone=56950199884" alt="whatsapp" style="text-align: center;">
                                             <asp:Image ID="Image1" ImageUrl="~/Imagen/whatsappp.png" runat="server" />
@@ -412,8 +471,29 @@
                                         ValidationGroup="Comercial" />
                                 </div>
 
-                                <div>
-                                    <asp:Button ID="btnEnviarComercial" runat="server" Text="Ingresar" ValidationGroup="Comercial" OnClick="btnEnviarComercial_Click" class="btn btn-primary btn-block" />
+
+                                <!-- CAPTCHA -->
+
+                                <div class="alert alert-warning col-lg-12 col-md-12 col-12 text-center">
+                                    <div>
+                                        <b>Para comprobar que no es un bot, resuelva la adición:</b>
+                                        <b>
+                                            <asp:Label ID="lblValorUnoContacto" runat="server"></asp:Label></b>
+                                        <b>
+                                            <asp:Label ID="lblValorDosContacto" runat="server"></asp:Label></b>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-12 align-content-center">
+                                        <WebControls:TextBox2 runat="server" CssClass="form-control" ID="txtResultadoContacto" placeholder="Ingrese resultado" Style="resize: none;" TextMode="Number" />
+                                        <asp:CustomValidator ID="CustomValidator11" runat="server"
+                                            ControlToValidate="txtResultadoContacto"
+                                            ValidateEmptyText="true"
+                                            ClientValidationFunction="validaControl"
+                                            ValidationGroup="Contacto" />
+                                    </div>
+                                </div>
+
+                                <div class="text-center">
+                                    <asp:Button ID="btnEnviarComercial" runat="server" Text="Ingresar" ValidationGroup="Comercial" OnClick="btnEnviarComercial_Click" class="btn btn-custom w-50" />
                                 </div>
                             </div>
                         </div>
@@ -421,9 +501,15 @@
                 </div>
             </div>
         </div>
+
+        <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
         <script>
 
             $(document).ready(function () {
+                $(".navbar-toggler").click(function () {
+                    $("#navbarSupportedContent").toggleClass("show");
+                });
+
                 function showMensaje() {
                     var mensaje = document.getElementById('lblMensajeContenedor');
                     if (mensaje) {
@@ -446,6 +532,40 @@
                 showMensaje();
             });
 
+            function ValidaEmailFormat() {
+                var txtCorreo = $('#<%=txtCorreoComercial.ClientID %>');
+                if (txtCorreo.val() != "") {
+                    if (!ValidaEmail(txtCorreo.val())) {
+                        txtCorreo.val('');
+                        AlertSweet('Formato correo invalido', '', 'alerta');
+                    }
+                }
+            }
+
+            function isNumberKey(evt) {
+                var charCode = (evt.which) ? evt.which : event.keyCode
+                if (charCode > 31 && (charCode < 48 || charCode > 57))
+                    return true;
+
+                return false;
+            }
+
+            function ValidaEmail(email) {
+                var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return regex.test(email);
+            }
+
+            function ValidaDominioCorreo(email) {
+                var dominiosNoPermitidos = ["@gmail.com", "@hotmail.com"];
+                email = email.toLowerCase();
+
+                for (var i = 0; i < dominiosNoPermitidos.length; i++) {
+                    if (email.endsWith(dominiosNoPermitidos[i])) {
+                        return false;
+                    }
+                }
+                return true;
+            }
 
 
         </script>

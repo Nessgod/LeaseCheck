@@ -20,57 +20,18 @@
     </script>
 
     <style>
-        .chat-container {
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .chat-message {
-            margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        .system-message {
-            background-color: #e9f7ef;
-            border: 1px solid #d4edda;
-        }
-
-        .client-message {
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-        }
-
-        .message-header {
-            font-size: 0.9em;
-            color: #555;
-            margin-bottom: 5px;
-        }
-
-        .message-author {
-            font-weight: bold;
-        }
-
-        .message-date {
-            float: right;
-            font-style: italic;
-        }
-
-        .message-body {
-            font-size: 1em;
-            color: #333;
-        }
     </style>
+
+
 
 </asp:Content>
 
 <asp:Content ID="ContentBody" ContentPlaceHolderID="cphBody" runat="Server">
     <asp:UpdatePanel runat="server" ID="udPanel" UpdateMode="Conditional">
         <ContentTemplate>
+            <div class="SubTitulos">
+                <label id="lblNumeroConsulta" runat="server" />
+            </div>
             <fieldset class="border p-3 rounded">
                 <legend class="w-auto px-2">Detalles de la Consulta</legend>
                 <div class="form-group">
@@ -103,31 +64,67 @@
             </fieldset>
 
 
-            <div id="chatContainer" class="chat-container" runat="server">
-                <asp:Literal ID="chatTickets" runat="server" />
-            </div>
+            <fieldset class="border p-3 rounded mb-4" id="HistorialChat" runat="server">
+                <legend class="w-auto px-2">Historial Ticket</legend>
+                <div class="row col-lg-12 col-md-12 col-xs-12">
+                    <div class="col-lg-7 col-md-7 col-xs-12">
+                        <div id="chatContainer" class="chat-wrapper" runat="server">
+
+                            <!-- Encabezado del chat -->
+                            <div class="chat-header">
+                                <div class="chat-title">Centro de Ayuda</div>
+                                <div class="chat-status">Conectado a Soporte</div>
+                            </div>
+
+                            <!-- Cuerpo del chat (respuestas renderizadas con Literal) -->
+                            <div class="chat-body" id="chatScrollArea">
+                                <asp:Literal ID="chatTickets" runat="server" />
+                            </div>
+
+                            <!-- Barra de entrada de mensaje -->
+                            <div class="chat-input-area" id="areaRespuesta" runat="server">
+                                <asp:TextBox ID="txtRespuesta" runat="server" CssClass="chat-input" placeholder="Escribe tu mensaje..." TextMode="MultiLine" Rows="2" />
+                                <asp:Button ID="btnEnviar" runat="server" CssClass="chat-send-button" Text="Enviar" OnClick="btnEnviarRespuesta_Click" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-xs-12">
+                        <fieldset class="border p-3 rounded" id="DetalleCierre" runat="server">
+                            <legend class="w-auto px-2">Detalle del Cierre</legend>
+                            <div class="row form-group">
+                                <label id="lblObservacionCierre" runat="server"></label>
+                            </div>
+                            <div class="row form-group">
+                                <label id="lblUsuarioCierre" runat="server"></label>
+                            </div>
+                            <div class="row form-group">
+                                <label id="lblFechaCierre" runat="server"></label>
+                            </div>
+                        </fieldset>
 
 
-            <fieldset class="border p-3 rounded">
-                <legend class="w-auto px-2">Responder</legend>
-                <div class="form-group">
-                    <label for="txtRespuesta">Respuesta <span class="text-danger">*</span></label>
-                    <WebControls:TextArea2 ID="txtRespuesta" runat="server" CssClass="form-control" placeholder="Ingresar respuesta" />
-                    <asp:CustomValidator ID="CustomValidator3" runat="server"
-                        ControlToValidate="txtRespuesta"
-                        ValidateEmptyText="true"
-                        Text="* obligatorio"
-                        ClientValidationFunction="validaControl"
-                        ValidationGroup="MesaAyuda"
-                        CssClass="text-danger small" />
+                        <fieldset class="border p-3 rounded" id="CerrarTicket" runat="server">
+                            <legend class="w-auto px-2">Cerrar Ticket</legend>
+                            <div class="row form-group">
+                                <label for="txtObservacionCierre" id="Label1" runat="server">Observación de Cierre <span class="text-danger">*</span></label>
+                                <asp:TextBox ID="txtObservacionCierre" runat="server" CssClass="form-control" placeholder="Ingresa observación de cierre" />
+                                <asp:CustomValidator ID="CustomValidator1" runat="server"
+                                    ControlToValidate="txtObservacionCierre"
+                                    ValidateEmptyText="true"
+                                    Text="* obligatorio"
+                                    ClientValidationFunction="validaControl"
+                                    ValidationGroup="Cierre"
+                                    CssClass="text-danger small" />
+                            </div>
+                            <div class="text-center mt-2">
+                                <WebControls:PushButton ID="PushButton1" runat="server" Text="Cerrar Ticket" ValidationGroup="Cierre"
+                                    OnClick="btnCerrarTicket_Click" />
+                            </div>
+                        </fieldset>
+                    </div>
                 </div>
-                <div class="text-center mt-2">
-                    <WebControls:PushButton ID="btnEnviarRespuesta" runat="server" Text="Responder" ValidationGroup="MesaAyuda"
-                        OnClick="btnEnviarRespuesta_Click" />
-                </div>
-
             </fieldset>
-
 
         </ContentTemplate>
     </asp:UpdatePanel>

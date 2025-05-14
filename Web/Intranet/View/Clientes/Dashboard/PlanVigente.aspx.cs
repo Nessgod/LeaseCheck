@@ -21,13 +21,45 @@ public partial class View_Clientes_Dashboard_PlanVigente : System.Web.UI.Page
   
             var a = controller.GetEstadisticaCliente();
 
-            lblPlanVigente.Text = a.plan_nombre;
-            lblInformesDisponibles.Text = a.plan_informes_disponibles.ToString();
-            lblInformesConsumidos.Text = (a.plan_informes_mes_actual).ToString();
+            string mesActual = DateTime.Now.ToString("MMMM yyyy", new System.Globalization.CultureInfo("es-CL")).ToUpper();
+            string mesAnterior = DateTime.Now.AddMonths(-1).ToString("MMMM yyyy", new System.Globalization.CultureInfo("es-CL")).ToUpper();
 
-            //hdfConsumoAnterior.Value = b.plan_informes_antiguos.ToString();
-            hdfConsumoActual.Value = a.plan_informes_mes_actual.ToString();
-            hdfConsumoDisponible.Value = a.plan_informes_disponibles.ToString();
+
+            lblFechaActual.Text = "Mes Actual: " + mesActual;
+            lblFechaActual1.Text = "Mes Actual: " + mesActual;
+            lblFechaActual2.Text = "Mes Actual: " + mesActual;
+            lblFechaActual3.Text = "Mes Actual: " + mesActual;
+            lblFechaActual4.Text = "Mes Actual: " + mesActual;
+
+            lblFechaAnterior.Text = "Mes Anterior: " + mesAnterior;
+
+            lblPlanVigente.InnerText = a.plan_nombre;
+            lblInformesDisponibles.Text = a.plan_propiedad_total.ToString();
+            lblInformesConsumidos.Text = (a.plan_propiedad_actual).ToString();
+            lblCreadasAnterior.Text = (a.plan_propiedad_antigua).ToString();
+            if (!string.IsNullOrEmpty(a.productos))
+            {
+                var partes = a.productos.Split(',');
+                var html = "<ul class='lista-productos'>";
+
+                foreach (var p in partes)
+                {
+                    html += "<li>" + p.Trim() + "</li>";
+                }
+
+                html += "</ul>";
+                lblProductos.Text = html;
+            }
+            else
+            {
+                lblProductos.Text = "<span class='lista-productos'>No hay productos asignados.</span>";
+            }
+
+
+            hdfConsumoAnterior.Value = a.plan_propiedad_antigua.ToString();
+            hdfConsumoActual.Value = a.plan_propiedad_actual.ToString();
+            hdfConsumoDisponible.Value = a.plan_propiedad_total.ToString();
+
         }
     }
 }

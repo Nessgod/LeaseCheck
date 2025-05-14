@@ -161,8 +161,8 @@ public partial class View_Clientes_Identidad_ClienteUsuarios : System.Web.UI.Pag
 
 
                 if (!respuesta.error)
-                    Tools.tools.ClientAlert(respuesta.detalle, "ok");
-                else
+                    Tools.tools.ClientAlert(respuesta.detalle + "la nueva contraseña provisoria es 123456","ok");
+                else 
                     Tools.tools.ClientAlert(respuesta.detalle, "alerta");
 
             }

@@ -38,8 +38,11 @@
                           </asp:LinkButton>
 
 
-                        <asp:LinkButton ID="lnkReset" runat="server" Text="Reset Password" CssClass="icono_eliminar" OnClick="lnkReset_Click"
-                            OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea resetear las claves de los usuarios seleccionados?');" />
+                        <asp:LinkButton ID="lnkReset" runat="server" CssClass="btn_dinamico_largo btn_reset_password" OnClick="lnkReset_Click"
+                            OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea resetear las claves de los usuarios seleccionados?');">
+                                <span class="text">Reset Password</span>
+                             <span class="icon"><i class="fas fa-sync-alt"></i></span> 
+                        </asp:LinkButton>
                     </div>
                 </CommandItemTemplate>
             </MasterTableView>

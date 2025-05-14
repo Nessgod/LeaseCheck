@@ -28,6 +28,9 @@ namespace LeaseCheck.Root.Model
         public string NOMBRE_MODULO { get; set; }
         public string NOMBRE_CREADOR { get; set; }
 
+        public string RESPONSABLE_CIERRE { get; set; }
+        public string PERFIL { get; set; }
+
         public DateTime FECHA_ULTIMA_RESPUESTA { get; set; }
         public string filtro { get; set; }
 

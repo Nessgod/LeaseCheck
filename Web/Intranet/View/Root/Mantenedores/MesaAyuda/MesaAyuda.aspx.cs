@@ -21,14 +21,16 @@ public partial class View_Root_Mantenedores_MesaAyuda_MesaAyuda : System.Web.UI.
         {
             //Grid.AddSelectColumn();
             Grid.AddColumn("MES_ID", "", "2%");
-            Grid.AddColumn("MES_ID", "ID", "5%");
+            Grid.AddColumn("mes_id", "N° CONSULTA");
+            Grid.AddColumn("NOMBRE_CLIENTE", "CLIENTE", "10%");
             Grid.AddColumn("MES_NOMBRE", "NOMBRE", "30%");
             Grid.AddColumn("MES_MENSAJE", "CONSULTA", "20%");
-            Grid.AddColumn("MES_CORREO", "EMAIL", "10%");
-            Grid.AddColumn("MES_TELEFONO", "FONO", "13%");         
-            Grid.AddColumn("MES_FECHA_CREACION", "FECHA CONSULTA", "13%", DataFormat: "{0:dd-MM-yyyy}");
-            Grid.AddColumn("FECHA_ULTIMA_RESPUESTA", "FECHA RESPUESTA", "13%", DataFormat: "{0:dd-MM-yyyy}");
+            Grid.AddColumn("NOMBRE_CREADOR", "CREADOR", "10%");
+            Grid.AddColumn("PERFIL", "PERFIL", "13%");         
+            Grid.AddColumn("MES_FECHA_CREACION", "FECHA CONSULTA", "13%", DataFormat: "{0:dd-MM-yyyy HH:mm}");
+            Grid.AddColumn("FECHA_ULTIMA_RESPUESTA", "FECHA RESPUESTA", "13%", DataFormat: "{0:dd-MM-yyyy HH:mm}");
             Grid.AddColumn("MES_ESTADO_NOMBRE", "ESTADO", "10%");
+            
         }
 
         Tools.tools.RegisterPostBackScript(Grid);
@@ -96,16 +98,22 @@ public partial class View_Root_Mantenedores_MesaAyuda_MesaAyuda : System.Web.UI.
                 string estado = item.GetDataKeyValue("MES_ESTADO").ToString();
                 string query = Server.UrlEncode(Tools.Crypto.Encrypt("Id=" + id + "&Estado="+estado));
 
+                // Corrección del TryParse para C# 4.x
+                string fechaTexto = item["FECHA_ULTIMA_RESPUESTA"].Text;
+                DateTime fechaUltimaRespuesta;
+                if (string.IsNullOrWhiteSpace(fechaTexto) ||
+                    fechaTexto == "&nbsp;" ||
+                    (DateTime.TryParse(fechaTexto, out fechaUltimaRespuesta) && fechaUltimaRespuesta == DateTime.MinValue))
+                {
+                    item["FECHA_ULTIMA_RESPUESTA"].Text = "Sin registro";
+                }
+
+
                 HyperLink Editar = new HyperLink();
                 Editar.ID = "lnk" + id;
-                if (estado == "1") Editar.CssClass = "icono_Editar";
-                else {
-                    Editar.CssClass = "fa fa-search";
-                    Editar.Style.Add("color", "#6d6d6d");
-                    Editar.Style.Add("padding-left", "5px");
-                } 
-                
-                
+                Editar.CssClass = "fa fa-search";
+                Editar.Style.Add("color", "#6d6d6d");
+                Editar.Style.Add("padding-left", "5px");
                 Editar.NavigateUrl = "javascript:void(0)";
                 Editar.Attributes.Add("onclick", "abrir('" + query + "')");
 

@@ -28,7 +28,7 @@
             __doPostBack("<%=Grid.ClientID %>", '')
         }
 
-   
+
     </script>
 </asp:Content>
 
@@ -118,15 +118,24 @@
                 <rad:RadGrid2 ID="Grid" runat="server">
                     <MasterTableView CommandItemDisplay="Top" DataKeyNames="plp_id">
                         <CommandItemTemplate>
-                            <div>
-                                <asp:LinkButton ID="lnlNuevo" runat="server" Text="Nuevo" CssClass="icono_guardar" OnClick="lnlNuevo_Click" />
-                                <asp:LinkButton ID="lnkEliminar" runat="server" Text="Eliminar" CssClass="icono_eliminar" OnClick="lnkEliminar_Click"
-                                    OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea eliminar los registros seleccionados?');" />
+                            <div class="contenedor-botones">
+                                <asp:LinkButton ID="lnkNuevo" runat="server" CssClass="btn_dinamico btn_guardar" OnClick="lnlNuevo_Click" ToolTip="Añadir">
+                                  <span class="text">Nuevo</span>
+                                  <span class="icon"><i class="fas fa-plus"></i></span>
+                                  </asp:LinkButton>
+
+
+                                <asp:LinkButton ID="lnkEliminar" runat="server" CssClass="btn_dinamico btn_eliminar" OnClick="lnkEliminar_Click"
+                                    OnClientClick="return ConfirSweetAlert(this, '', '¿Está seguro que desea eliminar los registros seleccionados?');" ToolTip="Eliminar">
+                              <span class="text">Eliminar</span>
+                              <span class="icon"><i class="fas fa-trash-alt"></i></span>
+                          </asp:LinkButton>
                             </div>
+
                         </CommandItemTemplate>
                     </MasterTableView>
                     <ClientSettings>
-                        <Scrolling AllowScroll="True" ScrollHeight="320" />
+                        <Scrolling AllowScroll="True" ScrollHeight="400" />
                     </ClientSettings>
                 </rad:RadGrid2>
                 <br />

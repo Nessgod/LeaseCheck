@@ -78,12 +78,12 @@ public partial class View_Clientes_Identidad_ClienteTickets : System.Web.UI.Page
             mesaAyuda.mes_otro_modulo = txtOtroModulo.Text;
 
             respuesta = controller.InsertMesaAyuda(mesaAyuda);
+            int numeroConsulta = respuesta.codigo;
 
             if (!respuesta.error)
             {
-                Tools.tools.ClientAlert(respuesta.detalle, "ok");
+                Tools.tools.ClientAlert(respuesta.detalle + "N° Consulta: " + numeroConsulta, "ok");
                 Limpiar();
-                // Actualizar el UpdatePanel
                 udPanel.Update();
 
             }

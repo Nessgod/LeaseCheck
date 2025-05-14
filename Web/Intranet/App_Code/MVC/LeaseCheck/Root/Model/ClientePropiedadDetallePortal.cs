@@ -5,20 +5,12 @@ using System.Web;
 
 
 [Serializable]
-public class ClientePropiedad
+public class ClientePropiedadDetallePotal
 {
     public int cpd_id { get; set; }
-    public int cpd_tipo_propiedad { get; set; }
-    public int cpd_tipo_servicio { get; set; }
-    public int cpd_tipo_entrega { get; set; }
     public DateTime cpd_fecha_entrega { get; set; }
     public string cpd_fecha_entrega_detalle { get; set; }
-    public int cpd_estado { get; set; }
     public int cpd_cliente { get; set; }
-    public int cpd_pais { get; set; }
-    public int cpd_region { get; set; }
-    public int cpd_provincia { get; set; }
-    public int cpd_comuna { get; set; }
     public string cpd_calle { get; set; }
     public string cpd_numero_propiedad { get; set; }
     public string cpd_titulo { get; set; }
@@ -34,10 +26,6 @@ public class ClientePropiedad
     public int cpd_valor_bodega { get; set; }
     public int cpd_cantidad_estacionamiento { get; set; }
     public int cpd_cantidad_bodega { get; set; }
-    public int cpd_usuario_creacion { get; set; }
-    public int cpd_usuario_act { get; set; }
-    public DateTime cpd_fecha_creacion { get; set; }
-    public DateTime cpd_fecha_act { get; set; }
     public string ESTADO { get; set; }
     public string TIPO_PROPIEDAD { get; set; }
     public string TIPO_SERVICIO { get; set; }
@@ -47,8 +35,6 @@ public class ClientePropiedad
     public string REGION { get; set; }
     public string COMUNA { get; set; }
     public string PROVINCIA { get; set; }
-
-    public double GANANCIA { get; set; }
 
     public string OBSERVACION_ESTADO { get; set; }
 
@@ -63,5 +49,38 @@ public class ClientePropiedad
     public string SUPERFICIE_TOTAL { get; set; }
     public byte[] IMAGEN_BINARIA { get; set; }
     public string UBICACION { get; set; }
+
+    public string cpf_tipo_piso { get; set; }
+
+    public string cpf_tipo_ventana { get; set; }
+    public string cpf_conexion_cocina { get; set; }
+
+    public string cpf_conexion_lavadora { get; set; }
+
+    public bool cpf_quincho { get; set; }
+
+    public bool cpf_piscina { get; set; }
+
+    public bool cpf_calefaccion { get; set; }
+
+    public bool cpf_salon_multiple { get; set; }
+    public bool cpf_gimnasio { get; set; }
+
+    public string cdp_conectividad { get; set; }
+
+    public string cdp_centro_comercial { get; set; }
+
+    public string cdp_servicio_salud { get; set; }
+
+    public string cdp_educacion { get; set; }
+
+    public string cdp_area_verde { get; set; }
+
+    public string cdp_seguridad { get; set; }
+
+    public string cdp_restaurant { get; set; }
+
+    public string cdp_transporte { get; set; }
+    public string cdp_descripcion { get; set; }
 
 }

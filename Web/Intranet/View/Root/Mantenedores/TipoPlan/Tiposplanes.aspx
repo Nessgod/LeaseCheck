@@ -53,8 +53,7 @@
             <rad:RadGrid2 ID="Grid" runat="server" OnItemDataBound="Grid_ItemDataBound">
                 <MasterTableView CommandItemDisplay="Top" DataKeyNames="tpl_id">
                     <CommandItemTemplate>
-                        <div class="contenedor-botones">
-
+                           <div class="contenedor-botones">
                             <asp:LinkButton ID="lnkNuevo" runat="server" CssClass="btn_dinamico btn_guardar" OnClientClick="abrir(0); return false;" ToolTip="Añadir">
                                   <span class="text">Nuevo</span>
                                   <span class="icon"><i class="fas fa-plus"></i></span>

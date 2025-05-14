@@ -1,9 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/Simple.master" AutoEventWireup="true" CodeFile="Producto.aspx.cs" Inherits="View_Root_Mantenedores_Productos_Producto" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="cphHeder" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="cphHeder" runat="Server">
 </asp:Content>
 
-<asp:Content ID="ContentScript" ContentPlaceHolderID="chpScript" Runat="Server">
+<asp:Content ID="ContentScript" ContentPlaceHolderID="chpScript" runat="Server">
     <script type="text/javascript" language="javascript">
         function getRadWindow() {
             var oWindow = null;
@@ -48,33 +48,33 @@
     </script>
 </asp:Content>
 
-<asp:Content ID="ContentBody" ContentPlaceHolderID="cphBody" Runat="Server">
+<asp:Content ID="ContentBody" ContentPlaceHolderID="cphBody" runat="Server">
     <rad:RadWindow2 ID="rwiDetalle" runat="server" />
-    <asp:UpdatePanel runat="server" ID="udPanel"  UpdateMode="Conditional" >
+    <asp:UpdatePanel runat="server" ID="udPanel" UpdateMode="Conditional">
         <ContentTemplate>
             <div class="SubTitulos">Productos</div>
             <div class="row col-lg-12 col-md-12 col-xs-12 ">
-	            <div class="form-group col-lg-2 col-md-2 col-xs-12"> 
-		            <label>Nombre(*)</label>
-	            </div>
-	            <div class="form-group col-lg-10 col-md-10 col-xs-12"> 
-		            <WebControls:TextBox2 ID="txtNombre" runat="server" />
-                    <asp:CustomValidator ID="CustomValidator1" runat="server" 
-                        ControlToValidate="txtNombre" 
+                <div class="form-group col-lg-2 col-md-2 col-xs-12">
+                    <label>Nombre(*)</label>
+                </div>
+                <div class="form-group col-lg-10 col-md-10 col-xs-12">
+                    <WebControls:TextBox2 ID="txtNombre" runat="server" />
+                    <asp:CustomValidator ID="CustomValidator1" runat="server"
+                        ControlToValidate="txtNombre"
                         ValidateEmptyText="true"
-                        ClientValidationFunction="validaControl" 
+                        ClientValidationFunction="validaControl"
                         ValidationGroup="Identidad" />
-	            </div>
+                </div>
             </div>
-            
+
             <div class="row col-lg-12 col-md-12 col-xs-12 ">
-	            <div class="form-group col-lg-2 col-md-2 col-xs-12"> 
-		            <label>Habilitado(*)</label>
-	            </div>
-	            <div class="form-group col-lg-10 col-md-10 col-xs-12"> 
-		            <asp:RadioButton ID="rdbSi" runat="server" Text="SI" GroupName="Habilitado" />
+                <div class="form-group col-lg-2 col-md-2 col-xs-12">
+                    <label>Habilitado(*)</label>
+                </div>
+                <div class="form-group col-lg-10 col-md-10 col-xs-12">
+                    <asp:RadioButton ID="rdbSi" runat="server" Text="SI" GroupName="Habilitado" />
                     <asp:RadioButton ID="rdbNo" runat="server" Text="NO" GroupName="Habilitado" />
-	            </div>
+                </div>
             </div>
 
             <asp:Panel ID="pnlDocumento" runat="server" Visible="true">
@@ -82,43 +82,59 @@
                 <rad:RadGrid2 ID="Grid" runat="server">
                     <MasterTableView CommandItemDisplay="Top" DataKeyNames="prd_id">
                         <CommandItemTemplate>
-                            <div>
-                                <asp:LinkButton ID="lnlNuevo" runat="server" Text="Nuevo" CssClass="icono_guardar" OnClick="lnlNuevo_Click" />
-                                <asp:LinkButton ID="lnkEliminar" runat="server" Text="Eliminar" CssClass="icono_eliminar" OnClick="lnkEliminar_Click"
-                                    OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea eliminar los registros seleccionados?');" />
+                            <div class="contenedor-botones">
+                                <asp:LinkButton ID="lnkNuevo" runat="server" CssClass="btn_dinamico btn_guardar" OnClick="lnlNuevo_Click" ToolTip="Añadir">
+                              <span class="text">Nuevo</span>
+                              <span class="icon"><i class="fas fa-plus"></i></span>
+                              </asp:LinkButton>
+
+
+                                <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn_dinamico btn_eliminar" OnClick="lnkEliminar_Click"
+                                    OnClientClick="return ConfirSweetAlert(this, '', '¿Está seguro que desea eliminar los registros seleccionados?');" ToolTip="Eliminar">
+                              <span class="text">Eliminar</span>
+                              <span class="icon"><i class="fas fa-trash-alt"></i></span>
+                          </asp:LinkButton>
                             </div>
                         </CommandItemTemplate>
                     </MasterTableView>
                     <ClientSettings>
-                        <Scrolling AllowScroll="True"  />
+                        <Scrolling AllowScroll="True" />
                     </ClientSettings>
                 </rad:RadGrid2>
                 <br />
             </asp:Panel>
 
-              <asp:Panel ID="pnlServicios" runat="server" Visible="true">
-                  <div class="SubTitulos">Servicios Asociados</div>
-                  <rad:RadGrid2 ID="GridServicio" runat="server">
-                      <MasterTableView CommandItemDisplay="Top" DataKeyNames="psc_id">
-                          <CommandItemTemplate>
-                              <div>
-                                  <asp:LinkButton ID="lnlNuevoServicio" runat="server" Text="Nuevo" CssClass="icono_guardar" OnClick="lnlNuevoServicio_Click" />
-                                  <asp:LinkButton ID="lnlEliminarServicio" runat="server" Text="Eliminar" CssClass="icono_eliminar" OnClick="lnlEliminarServicio_Click"
-                                      OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea eliminar los registros seleccionados?');" />
-                              </div>
-                          </CommandItemTemplate>
-                      </MasterTableView>
-                      <ClientSettings>
-                          <Scrolling AllowScroll="True" ScrollHeight="320" />
-                      </ClientSettings>
-                  </rad:RadGrid2>
-                  <br />
-              </asp:Panel>
+            <asp:Panel ID="pnlServicios" runat="server" Visible="true">
+                <div class="SubTitulos">Servicios Asociados</div>
+                <rad:RadGrid2 ID="GridServicio" runat="server">
+                    <MasterTableView CommandItemDisplay="Top" DataKeyNames="psc_id">
+                        <CommandItemTemplate>
+                            <div class="contenedor-botones">
+                                <asp:LinkButton ID="lnkNuevo" runat="server" CssClass="btn_dinamico btn_guardar" OnClick="lnlNuevoServicio_Click" ToolTip="Añadir">
+                                    <span class="text">Nuevo</span>
+                                    <span class="icon"><i class="fas fa-plus"></i></span>
+                                    </asp:LinkButton>
+
+
+                                <asp:LinkButton ID="lnkEliminar" runat="server" CssClass="btn_dinamico btn_eliminar" OnClick="lnlEliminarServicio_Click"
+                                    OnClientClick="return ConfirSweetAlert(this, '', '¿Está seguro que desea eliminar los registros seleccionados?');" ToolTip="Eliminar">
+                                    <span class="text">Eliminar</span>
+                                    <span class="icon"><i class="fas fa-trash-alt"></i></span>
+                                </asp:LinkButton>
+                            </div>
+                        </CommandItemTemplate>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Scrolling AllowScroll="True" ScrollHeight="320" />
+                    </ClientSettings>
+                </rad:RadGrid2>
+                <br />
+            </asp:Panel>
             <div class="col-lg-12 col-md-12 col-xs-12 form-col-center">
                 </br>
-                <WebControls:PushButton ID="btnGuardar" runat="server" Text="Guardar" ValidationGroup="Identidad" OnClick="btnGuardar_Click"/>
-                <WebControls:PushButton ID="btnCerrar" runat="server" Text="Cerrar" OnClientClick="closeWindow();" CssClass="ButtonCerrar"/>
-           </div>
+                <WebControls:PushButton ID="btnGuardar" runat="server" Text="Guardar" ValidationGroup="Identidad" OnClick="btnGuardar_Click" />
+                <WebControls:PushButton ID="btnCerrar" runat="server" Text="Cerrar" OnClientClick="closeWindow();" CssClass="ButtonCerrar" />
+            </div>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

@@ -21,6 +21,8 @@ namespace LeaseCheck.Root.Model
 
         public string NOMBRE_EJECUTOR { get; set; }
         public string QUIEN_RESPONDIO { get; set; }
+        public string NOMBRE_CLIENTE { get; set; }
 
+        public byte[] FOTO_USUARIO { get; set; }
     }
 }

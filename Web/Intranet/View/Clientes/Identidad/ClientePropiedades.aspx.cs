@@ -44,8 +44,14 @@ public partial class View_Clientes_Identidad_ClientePropiedades : System.Web.UI.
     }
     protected void Page_PreRender(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            CargaGridPropiedades();
+            udPanel.Update();
+        }
         CargaGridPropiedades();
         udPanel.Update();
+
     }
 
     protected void CargaGridPropiedades()

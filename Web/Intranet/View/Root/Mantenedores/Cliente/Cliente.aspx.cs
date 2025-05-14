@@ -17,11 +17,11 @@ public partial class View_Root_Mantenedores_Cliente_Cliente : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        #region SeguridadPagina
-        MenuPerfil ver = new MenuPerfil();
-        ver.mpe_menu = (int)LeaseCheck.Paginas.menu_cliente.Ver;
-        LeaseCheck.Token.SecurityManagerVer(ver);
-        #endregion
+        //#region SeguridadPagina
+        //MenuPerfil ver = new MenuPerfil();
+        //ver.mpe_menu = (int)LeaseCheck.Paginas.menu_cliente.Ver;
+        //LeaseCheck.Token.SecurityManagerVer(ver);
+        //#endregion
 
     }
 

@@ -20,7 +20,10 @@ namespace LeaseCheck.Root.Controller
 
             try
             {
+                int id = 0;
+
                 cmdExecute = Conexion.GetCommand("INS_MESA_AYUDA");
+                cmdExecute.Parameters.AddWithValue("@ID", id).Direction = System.Data.ParameterDirection.Output;
                 cmdExecute.Parameters.AddWithValue("@NOMBRE", mesaAyuda.mes_nombre);
                 cmdExecute.Parameters.AddWithValue("@MENSAJE", mesaAyuda.mes_mensaje);
                 cmdExecute.Parameters.AddWithValue("@MODULO", mesaAyuda.mes_id_modulo);
@@ -31,7 +34,10 @@ namespace LeaseCheck.Root.Controller
                 cmdExecute.ExecuteNonQuery();
                 cmdExecute.Connection.Close();
 
-                respuesta.codigo = -1;
+                id = (int)cmdExecute.Parameters["@ID"].Value;
+
+
+                respuesta.codigo = id;
                 respuesta.detalle = "Consulta enviada con exito.";
                 respuesta.error = false;
             }
@@ -61,6 +67,7 @@ namespace LeaseCheck.Root.Controller
                 cmdExecute.Parameters.AddWithValue("@ID", mesaAyuda.mes_id);
                 cmdExecute.Parameters.AddWithValue("@RESPUESTA", mesaAyuda.mes_observacion_cierre);
                 cmdExecute.Parameters.AddWithValue("@PAIS", Session.Pais());
+                cmdExecute.Parameters.AddWithValue("@USUARIO_CIERRE", Session.UsuarioId());
 
                 cmdExecute.ExecuteNonQuery();
                 cmdExecute.Connection.Close();
@@ -81,6 +88,8 @@ namespace LeaseCheck.Root.Controller
 
             return respuesta;
         }
+
+
         public List<MesaAyuda> GetMesaAyuda(MesaAyuda mesaAyuda = null)
         {
             List<MesaAyuda> mesaAyudas = new List<MesaAyuda>();
@@ -113,6 +122,8 @@ namespace LeaseCheck.Root.Controller
                         if (dr["NOMBRE_CLIENTE"].ToString() != "")  mesaAyuda.NOMBRE_CLIENTE = dr["NOMBRE_CLIENTE"].ToString();
                         if (dr["NOMBRE_MODULO"].ToString() != "") mesaAyuda.NOMBRE_MODULO = dr["NOMBRE_MODULO"].ToString();
                         if (dr["NOMBRE_CREADOR"].ToString() != "") mesaAyuda.NOMBRE_CREADOR = dr["NOMBRE_CREADOR"].ToString();
+                        if (dr["RESPONSABLE_CIERRE"].ToString() != "") mesaAyuda.RESPONSABLE_CIERRE = dr["RESPONSABLE_CIERRE"].ToString();
+                        if (dr["PERFIL"].ToString() != "") mesaAyuda.PERFIL = dr["PERFIL"].ToString();
                         mesaAyuda.mes_fecha_creacion = DateTime.Parse(dr["MES_FECHA_CREACION"].ToString());
                         if (dr["MES_FECHA_CIERRE"].ToString() != "") mesaAyuda.fecha_respuesta = DateTime.Parse(dr["MES_FECHA_CIERRE"].ToString());
                         if (dr["FECHA_RESPUESTA"].ToString() != "") mesaAyuda.FECHA_ULTIMA_RESPUESTA = DateTime.Parse(dr["FECHA_RESPUESTA"].ToString());
@@ -165,6 +176,7 @@ namespace LeaseCheck.Root.Controller
                         if (dr["NOMBRE_CLIENTE"].ToString() != "") mesaAyuda.NOMBRE_CLIENTE = dr["NOMBRE_CLIENTE"].ToString();
                         if (dr["NOMBRE_MODULO"].ToString() != "") mesaAyuda.NOMBRE_MODULO = dr["NOMBRE_MODULO"].ToString();
                         if (dr["NOMBRE_CREADOR"].ToString() != "") mesaAyuda.NOMBRE_CREADOR = dr["NOMBRE_CREADOR"].ToString();
+                        if (dr["RESPONSABLE_CIERRE"].ToString() != "") mesaAyuda.RESPONSABLE_CIERRE = dr["RESPONSABLE_CIERRE"].ToString();
 
                     }
                 }
@@ -242,6 +254,8 @@ namespace LeaseCheck.Root.Controller
                         respuesta.NOMBRE_EJECUTOR = dr["NOMBRE_EJECUTOR"].ToString();
                         respuesta.QUIEN_RESPONDIO = dr["QUIEN_RESPONDIO"].ToString();
                         respuesta.mer_respuesta = dr["MER_RESPUESTA"].ToString();
+                        respuesta.FOTO_USUARIO = dr["FOTO_USUARIO"] == DBNull.Value ? null : (byte[])dr["FOTO_USUARIO"];
+                        respuesta.NOMBRE_CLIENTE = dr["NOMBRE_CLIENTE"].ToString();
                         respuesta.mer_fecha_creacion = DateTime.Parse(dr["MER_FECHA_CREACION"].ToString());
 
 
@@ -307,6 +321,7 @@ namespace LeaseCheck.Root.Controller
             if (mesaAyuda.mes_id > 0) cmd.Parameters.AddWithValue("@MES_ID", mesaAyuda.mes_id);
             if (mesaAyuda.filtro != null) cmd.Parameters.AddWithValue("@FILTRO", mesaAyuda.filtro);
             if (mesaAyuda.mes_estado > 0) cmd.Parameters.AddWithValue("@ESTADO", mesaAyuda.mes_estado);
+            if (Session.UsuarioId() != "") cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
             string filename = "INFORME MESA DE AYUDA" + DateTime.Now;
             Tools.Excel.exportExcel(Conexion.GetDataTable(cmd), filename, true);
         }

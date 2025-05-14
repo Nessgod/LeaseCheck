@@ -297,7 +297,7 @@
                                 ControlToValidate="txtTitulo"
                                 ValidateEmptyText="true"
                                 ClientValidationFunction="validaControl"
-                                ValidationGroup="Identidad" />
+                                ValidationGroup="Propiedad" />
 
                         </div>
                     </div>
@@ -336,7 +336,7 @@
                                 ErrorMessage="Debe elegir una fecha"
                                 ValidateEmptyText="true"
                                 ClientValidationFunction="validaControl"
-                                ValidationGroup="Identidad" />
+                                ValidationGroup="Propiedad" />
 
                         </div>
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
@@ -388,7 +388,7 @@
                                 ControlToValidate="txtCalle"
                                 ValidateEmptyText="true"
                                 ClientValidationFunction="validaControl"
-                                ValidationGroup="Identidad" />
+                                ValidationGroup="Propiedad" />
 
                         </div>
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
@@ -400,7 +400,7 @@
                                 ControlToValidate="txtNumeroPropiedad"
                                 ValidateEmptyText="true"
                                 ClientValidationFunction="validaControl"
-                                ValidationGroup="Identidad" />
+                                ValidationGroup="Propiedad" />
 
                         </div>
                     </div>
@@ -414,7 +414,7 @@
                                 ControlToValidate="txtValorUf"
                                 ValidateEmptyText="true"
                                 ClientValidationFunction="validaControl"
-                                ValidationGroup="Identidad" />
+                                ValidationGroup="Propiedad" />
                         </div>
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12 ">
@@ -427,7 +427,7 @@
                                 ControlToValidate="txtValorCLP"
                                 ValidateEmptyText="true"
                                 ClientValidationFunction="validaControl"
-                                ValidationGroup="Identidad" />
+                                ValidationGroup="Propiedad" />
                         </div>
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12 ">
@@ -440,7 +440,7 @@
                                 ControlToValidate="txtEvaluoFiscal"
                                 ValidateEmptyText="true"
                                 ClientValidationFunction="validaControl"
-                                ValidationGroup="Identidad" />
+                                ValidationGroup="Propiedad" />
                         </div>
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12">
@@ -516,18 +516,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row col-lg-12 col-md-12 col-xs-12 ">
-                        <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label>Estado(*)</label>
-                        </div>
-                        <div class="form-group col-lg-10 col-md-10 col-xs-12">
-                            <rad:RadComboBox2 ID="cboEstado" runat="server" Width="100%" Filter="Contains" />
-                        </div>
-                    </div>
                     <div class="col-lg-12 col-md-12 col-xs-12 form-col-center">
                         </br>
                             <WebControls:PushButton ID="btnGuardar" runat="server" Text="Guardar"
-                                ValidationGroup="Identidad"
+                                ValidationGroup="Propiedad"
                                 OnClick="btnGuardar_OnClick" />
                     </div>
                 </rad:RadPageView>
@@ -669,7 +661,7 @@
                 <%-- FICHA DE PROPIEDAD --%>
                 <rad:RadPageView ID="rtvFicha" runat="server">
                     <br />
-                    <div class="row col-12 mb-3" style="display: none" id="divSeleccionTipoPropiedad" runat="server">
+                    <div class="row col-12 mb-3" id="divSeleccionTipoPropiedad" runat="server">
                         <div class="col-12 mb-0">
                             <label class="form-label fw-bold">Seleccione el tipo de propiedad:</label>
                         </div>
@@ -763,7 +755,7 @@
                     </div>
                     <div class="row col-lg-12 col-md-12 col-xs-12" style="display: none" id="divDepartamentoPiso" runat="server">
                         <div class="form-group col-lg-2 col-md-2 col-xs-12">
-                            <label  id="txtUbicacionPisoEtiq" runat="server" class="control-label" for="txtUbicacionPiso">Ubicación del piso:</label>
+                            <label id="txtUbicacionPisoEtiq" runat="server" class="control-label" for="txtUbicacionPiso">Ubicación del piso:</label>
                         </div>
                         <div class="form-group col-lg-10 col-md-10 col-xs-12">
                             <WebControls:TextBox2 ID="txtUbicacionPiso" runat="server" />
@@ -1008,10 +1000,18 @@
                             <rad:RadGrid2 ID="GridImagenes" runat="server" AllowPaging="true" OnItemDataBound="GridDocumentos_ItemDataBound" OnItemCreated="GridDocumentos_ItemCreated">
                                 <MasterTableView CommandItemDisplay="Top" DataKeyNames="cpm_id, cpm_imagen, cpm_video">
                                     <CommandItemTemplate>
-                                        <div>
-                                            <asp:LinkButton ID="lnkNuevoDocumento" runat="server" Text="Nuevo" CssClass="icono_guardar" OnClick="lnkNuevoDocumento_Click" />
-                                            <asp:LinkButton ID="lnkEliminarDocumento" runat="server" Text="Eliminar" CssClass="icono_eliminar" OnClick="lnkEliminarDocumento_Click"
-                                                OnClientClick="return ConfirSweetAlert(this, '', '¿Esta seguro(a) que desea eliminar los registros seleccionados?');" />
+                                        <div class="contenedor-botones">
+                                            <asp:LinkButton ID="lnkNuevo" runat="server" CssClass="btn_dinamico btn_guardar" OnClick="lnkNuevoDocumento_Click" ToolTip="Añadir">
+                                               <span class="text">Nuevo</span>
+                                               <span class="icon"><i class="fas fa-plus"></i></span>
+                                              </asp:LinkButton>
+
+
+                                            <asp:LinkButton ID="lnkEliminar" runat="server" CssClass="btn_dinamico btn_eliminar" OnClick="lnkEliminarDocumento_Click"
+                                                OnClientClick="return ConfirSweetAlert(this, '', '¿Está seguro que desea eliminar los registros seleccionados?');" ToolTip="Eliminar">
+                                               <span class="text">Eliminar</span>
+                                               <span class="icon"><i class="fas fa-trash-alt"></i></span>
+                                           </asp:LinkButton>
                                         </div>
                                     </CommandItemTemplate>
                                 </MasterTableView>
@@ -1041,14 +1041,14 @@
                         ErrorMessage="Debe elegir una fecha de inicio"
                         ValidateEmptyText="true"
                         ClientValidationFunction="validaControl"
-                        ValidationGroup="Identidad" />
+                        ValidationGroup="Estado" />
 
                     <asp:CustomValidator ID="CustomValidator24" runat="server"
                         ControlToValidate="txtFechaFin"
                         ErrorMessage="Debe elegir una fecha de fin"
                         ValidateEmptyText="true"
                         ClientValidationFunction="validaControl"
-                        ValidationGroup="Identidad" />
+                        ValidationGroup="Estado" />
 
                     <div class="SubTitulos"></div>
 
