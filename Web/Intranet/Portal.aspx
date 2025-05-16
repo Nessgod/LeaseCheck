@@ -444,7 +444,7 @@
             <div class="row col-lg-12 col-md-12 col-sm-12">
                 <asp:Repeater ID="rptVenta" runat="server" OnItemDataBound="rptPropiedadesVenta_ItemDataBound">
                     <ItemTemplate>
-                        <div class="col-md-4">
+                        <div class="col-md-4 mt-4">
                             <div class="property-card">
                                 <div class="featured-badge">Destacado</div>
                                 <div class="">
@@ -510,7 +510,7 @@
             <div class="row col-lg-12 col-md-12 col-sm-12">
                 <asp:Repeater ID="rptArriendo" runat="server" OnItemDataBound="rptPropiedadesArriendo_ItemDataBound">
                     <ItemTemplate>
-                        <div class="col-md-4">
+                        <div class="col-md-4 mt-4">
                             <div class="property-card">
                                 <div class="featured-badge">Destacado</div>
                                 <div class="">
