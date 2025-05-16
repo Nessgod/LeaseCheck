@@ -182,6 +182,7 @@
             overflow: hidden;
             transition: all 0.3s ease;
             box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+            height: 100%;
         }
 
             .property-card:hover {
@@ -203,13 +204,11 @@
             font-size: 1.3em;
             font-weight: 600;
             color: var(--primary-color);
-            margin-bottom: 10px;
         }
 
         .property-meta {
             font-size: 0.95em;
             color: #7f8c8d;
-            margin-bottom: 10px;
         }
 
         .property-price {
@@ -439,113 +438,140 @@
                 </div>
             </div>
         </div>
-
+        <%--     PROPIEDADES EN VENTA--%>
         <div class="container" style="margin-top: 50px;">
-            <h2 class="text-center" style="font-weight: normal; margin-bottom: 40px;">Últimas Propiedades</h2>
-
-            <div class="row">
-                <asp:Repeater ID="rptPropiedades" runat="server" OnItemDataBound="rptPropiedades_ItemDataBound">
+            <h2 class="text-center" style="font-weight: normal; margin-bottom: 40px;">Últimas Propiedades en Venta</h2>
+            <div class="row col-lg-12 col-md-12 col-sm-12">
+                <asp:Repeater ID="rptVenta" runat="server" OnItemDataBound="rptPropiedadesVenta_ItemDataBound">
                     <ItemTemplate>
                         <div class="col-md-4">
                             <div class="property-card">
                                 <div class="featured-badge">Destacado</div>
-                                <div class="property-card">
+                                <div class="">
                                     <asp:Image ID="imgPropiedad" runat="server" CssClass="property-image" />
                                     <div class="property-details">
-                                        <asp:Label ID="lblTitulo" runat="server" CssClass="property-title" />
-                                        <asp:Label ID="lblPrecio" runat="server" CssClass="property-price" />
-                                        <p class="property-meta">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            <asp:Label ID="lblUbicacion" runat="server" />
-                                        </p>
-                                        <p class="property-meta">
-                                            <i class="fas fa-bed"></i>
-                                            <asp:Label ID="lblHabitaciones" runat="server" />
-                                            |
-                            <i class="fas fa-bath"></i>
-                                            <asp:Label ID="lblBanos" runat="server" />
-                                            |
-                            <i class="fas fa-ruler-combined"></i>
-                                            <asp:Label ID="lblMetros" runat="server" />
-                                            m²
-                                        </p>
-                                        <p class="property-meta">
-                                            <i class="far fa-clock"></i>
-                                            <asp:Label ID="lblPublicado" runat="server" />
-                                        </p>
-                                        <p class="property-meta">
-                                            <i class="fas fa-user"></i>Corredora:
-                                        <asp:Label ID="lblNombreCorredora" runat="server" />
-                                        </p>
-                                        <asp:HyperLink ID="lnkDetalle" runat="server" CssClass="btn btn-custom" Text="Ver más detalles" />
+                                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                                            <asp:Label ID="lblTitulo" runat="server" CssClass="property-title" />
+                                        </div>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                                            <asp:Label ID="lblPrecio" runat="server" CssClass="property-price" />
+                                        </div>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                                            <p class="property-meta">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <asp:Label ID="lblUbicacion" runat="server" />
+                                            </p>
+                                        </div>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                                            <p class="property-meta">
+                                                <i class="fas fa-bed"></i>
+                                                <asp:Label ID="lblHabitaciones" runat="server" />
+                                                |
+                                            <i class="fas fa-bath"></i>
+                                                <asp:Label ID="lblBanos" runat="server" />
+                                                |
+                                             <i class="fas fa-ruler-combined"></i>
+                                                <asp:Label ID="lblMetros" runat="server" />
+                                                m²
+                                            </p>
+                                        </div>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                                            <p class="property-meta">
+                                                <i class="far fa-clock"></i>
+                                                <asp:Label ID="lblPublicado" runat="server" />
+                                            </p>
+                                        </div>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                                            <p class="property-meta">
+                                                <i class="fas fa-user"></i>Corredora:
+                                                <asp:Label ID="lblNombreCorredora" runat="server" />
+                                            </p>
+                                        </div>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                                            <p class="property-meta">
+                                                <i class="fas fa-handshake"></i>Servicio:
+                                                <asp:Label ID="lblTipoServicio" runat="server" />
+                                            </p>
+                                        </div>
+                                        <div class=" row col-lg-12 col-md-12 col-sm-12">
+                                            <asp:HyperLink ID="lnkDetalle" runat="server" CssClass="btn btn-custom" Text="Ver más detalles" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+        </div>
+        <%--     PROPIEDADES EN VENTA--%>
+        <div class="container" style="margin-top: 50px;">
+            <h2 class="text-center" style="font-weight: normal; margin-bottom: 40px;">Últimas Propiedades en Arriendo</h2>
+            <div class="row col-lg-12 col-md-12 col-sm-12">
+                <asp:Repeater ID="rptArriendo" runat="server" OnItemDataBound="rptPropiedadesArriendo_ItemDataBound">
+                    <ItemTemplate>
+                        <div class="col-md-4">
+                            <div class="property-card">
+                                <div class="featured-badge">Destacado</div>
+                                <div class="">
+                                    <asp:Image ID="imgPropiedad" runat="server" CssClass="property-image" />
+                                    <div class="property-details">
+                                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                                            <asp:Label ID="lblTitulo" runat="server" CssClass="property-title" />
+                                        </div>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                                            <asp:Label ID="lblPrecio" runat="server" CssClass="property-price" />
+                                        </div>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                                            <p class="property-meta">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <asp:Label ID="lblUbicacion" runat="server" />
+                                            </p>
+                                        </div>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                                            <p class="property-meta">
+                                                <i class="fas fa-bed"></i>
+                                                <asp:Label ID="lblHabitaciones" runat="server" />
+                                                |
+                                     <i class="fas fa-bath"></i>
+                                                <asp:Label ID="lblBanos" runat="server" />
+                                                |
+                                      <i class="fas fa-ruler-combined"></i>
+                                                <asp:Label ID="lblMetros" runat="server" />
+                                                m²
+                                            </p>
+                                        </div>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                                            <p class="property-meta">
+                                                <i class="far fa-clock"></i>
+                                                <asp:Label ID="lblPublicado" runat="server" />
+                                            </p>
+                                        </div>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                                            <p class="property-meta">
+                                                <i class="fas fa-user"></i>Corredora:
+                                         <asp:Label ID="lblNombreCorredora" runat="server" />
+                                            </p>
+                                        </div>
+                                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                                            <p class="property-meta">
+                                                <i class="fas fa-handshake"></i>Servicio:
+                                                    <asp:Label ID="lblTipoServicio" runat="server" />
+                                            </p>
+                                        </div>
+                                        <div class=" row col-lg-12 col-md-12 col-sm-12">
+                                            <asp:HyperLink ID="lnkDetalle" runat="server" CssClass="btn btn-custom" Text="Ver más detalles" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
-
-
         </div>
-        +
-        <div class="container" style="margin-top: 60px;">
-            <h2 class="text-center" style="margin-bottom: 30px;">Propiedades en Chile</h2>
-            <div class="row text-center">
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/region-antofagasta.jpg" class="img-responsive" /><p>Antofagasta</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/concon.jpg" class="img-responsive" /><p>Concón</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/concepcion.png" class="img-responsive" /><p>Concepción</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/santiago.png" class="img-responsive" /><p>Santiago</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/temuco.png" class="img-responsive" /><p>Temuco</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/la_serena.png" class="img-responsive" /><p>La Serena</p>
-                </div>
-            </div>
-            <div class="row text-center" style="margin-top: 20px;">
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/pucon.png" class="img-responsive" /><p>Pucón</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/vina.png" class="img-responsive" /><p>Viña del Mar</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/iquique.png" class="img-responsive" /><p>Iquique</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/rancagua.png" class="img-responsive" /><p>Rancagua</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/valdivia.png" class="img-responsive" /><p>Valdivia</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/coquimbo.png" class="img-responsive" /><p>Coquimbo</p>
-                </div>
-            </div>
-            <div class="row text-center" style="margin-top: 20px;">
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/valparaiso.png" class="img-responsive" /><p>Valparaíso</p>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <img src="Portal/pto_varas.png" class="img-responsive" /><p>Pto. Varas</p>
-                </div>
-            </div>
-        </div>
-
-
-
         <!-- CTA full-width -->
-        <div class="cta-full-width">
+        <div class="cta-full-width mt-4">
             <h2 class="cta-title">¿Listo para Encontrar Tu Hogar Perfecto?</h2>
             <p class="cta-subtitle">Únete a miles de clientes satisfechos que encontraron sus propiedades ideales con nosotros.</p>
             <a href="#" class="btn-white">Explorar Propiedades</a>

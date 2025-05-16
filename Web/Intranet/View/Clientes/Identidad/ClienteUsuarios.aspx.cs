@@ -26,6 +26,7 @@ public partial class View_Clientes_Identidad_ClienteUsuarios : System.Web.UI.Pag
             gridUsuarios.AddColumn("usu_id", "", "2%", Align: HorizontalAlign.Center);
             gridUsuarios.AddColumn("nombreCompleto", "NOMBRE", "", HorizontalAlign.Left);
             gridUsuarios.AddColumn("perfil_nombre", "PERFIL", "", HorizontalAlign.Left);
+            gridUsuarios.AddColumn("nombre_propiedad", "PROPIEDAD", "", HorizontalAlign.Left);
             gridUsuarios.AddCheckboxColumn("usu_habilitado", "HABILITADO", "10%");
         }
     }
@@ -42,9 +43,25 @@ public partial class View_Clientes_Identidad_ClienteUsuarios : System.Web.UI.Pag
         {
             Usuarios item = new Usuarios();
             if (wucFiltro.Filtro() != "") item.filtro = wucFiltro.Filtro();
-            gridUsuarios.DataSource = controller.GetClienteUsuariosIdentidad(item);
-            gridUsuarios.DataBind();
+            string[] perfiles = LeaseCheck.Session.UsuarioPerfil().Split(',');
 
+            // Verificar si el usuario tiene el perfil de Ejecutivo (per_id = 7)
+            if (perfiles.Contains(Convert.ToInt32(LeaseCheck.LeaseCheck.Perfiles.Ejecutivo).ToString()))
+            {
+                item.perfiles = "7";
+                gridUsuarios.DataSource = controller.GetClienteUsuariosIdentidad(item);
+                gridUsuarios.DataBind();
+
+                LinkButton lnkReset = (LinkButton)gridUsuarios.MasterTableView.GetItems(GridItemType.CommandItem)[0].FindControl("lnkReset");
+                lnkReset.Visible = false;
+                LinkButton lnkEliminarUsuario = (LinkButton)gridUsuarios.MasterTableView.GetItems(GridItemType.CommandItem)[0].FindControl("lnkEliminarUsuario");
+                lnkEliminarUsuario.Visible = false;
+            }
+            else
+            {
+                gridUsuarios.DataSource = controller.GetClienteUsuariosIdentidad(item);
+                gridUsuarios.DataBind();
+            }
         }
         else
         {
@@ -161,8 +178,8 @@ public partial class View_Clientes_Identidad_ClienteUsuarios : System.Web.UI.Pag
 
 
                 if (!respuesta.error)
-                    Tools.tools.ClientAlert(respuesta.detalle + "la nueva contraseña provisoria es 123456","ok");
-                else 
+                    Tools.tools.ClientAlert(respuesta.detalle + "la nueva contraseña provisoria es 123456", "ok");
+                else
                     Tools.tools.ClientAlert(respuesta.detalle, "alerta");
 
             }

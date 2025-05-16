@@ -53,6 +53,6 @@ namespace LeaseCheck.Root.Model
         public int usu_estado_civil { get; set; }
         public string usu_rut { get; set; }
         public int usu_nacionalidad { get; set; }
-
+        public string nombre_propiedad { get; set; }
     }
 }

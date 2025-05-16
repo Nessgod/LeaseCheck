@@ -1734,6 +1734,7 @@ namespace LeaseCheck.Root.Controller
                     cmd.CommandText = "SEL_USUARIOS";
                     cmd.Parameters.AddWithValue("@USUARIO", Session.UsuarioId());
                     if (item.filtro != "") cmd.Parameters.AddWithValue("@FILTRO", item.filtro);
+                    if (item.perfiles != "") cmd.Parameters.AddWithValue("@PERFIL", item.perfiles);
 
                     using (SqlDataReader dr = Conexion.GetDataReader(cmd))
                     {
@@ -1756,6 +1757,7 @@ namespace LeaseCheck.Root.Controller
                             usuario.usu_perfil = int.Parse(dr["USU_PERFIL"].ToString());
                             usuario.usu_pais = int.Parse(dr["USU_PAIS"].ToString());
                             usuario.perfil_nombre = dr["PERFIL"].ToString();
+                            if(!string.IsNullOrEmpty(dr["NOMBRE_PROPIEDAD"].ToString())) usuario.nombre_propiedad = dr["NOMBRE_PROPIEDAD"].ToString();
 
                             usuarios.Add(usuario);
                         }

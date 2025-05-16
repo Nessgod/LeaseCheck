@@ -91,7 +91,7 @@
 
         @media (max-width: 768px) {
             .responsive-logo {
-                width: 280px;
+                width: 328px;
             }
         }
         /* Estilos del mensaje de error */
@@ -176,7 +176,7 @@
 
             .contenedor-login {
                 min-height: 600px;
-                width: 400px;
+                width: 472px;
             }
         }
 
@@ -327,7 +327,7 @@
                                     <label for="txtLogin" class="form-label">Login</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" style="color:#003566;">
+                                            <span class="input-group-text" style="color: #003566;">
                                                 <i class="fas fa-user"></i>
                                             </span>
                                         </div>
@@ -338,7 +338,7 @@
                                     <label for="txtPassword" class="form-label">Password</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" style="color:#003566;">
+                                            <span class="input-group-text" style="color: #003566;">
                                                 <i class="fas fa-lock"></i>
                                             </span>
                                         </div>
@@ -358,7 +358,7 @@
                                     <label for="txtCodigoPostulante" class="form-label mb-0 mr-2">Código</label>
                                     <div class="input-group justify-content-center">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" style="color:#003566;">
+                                            <span class="input-group-text" style="color: #003566;">
                                                 <i class="fas fa-key"></i>
                                             </span>
                                         </div>

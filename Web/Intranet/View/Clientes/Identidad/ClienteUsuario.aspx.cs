@@ -81,7 +81,20 @@ public partial class View_Clientes_Identidad_ClienteUsuario : System.Web.UI.Page
                 {
                     case "cboPerfil":
 
-                        ctrl.DataSource = controller.GetPerfiles();
+                        string[] perfiles = LeaseCheck.Session.UsuarioPerfil().Split(',');
+
+                        // Verificar si el usuario tiene el perfil de Ejecutivo (per_id = 7)
+                        if (perfiles.Contains(Convert.ToInt32(LeaseCheck.LeaseCheck.Perfiles.Ejecutivo).ToString()))
+                        {
+                            // Solo carga el perfil Ejecutivo
+                            ctrl.DataSource = controller.GetPerfiles().Where(p => p.per_id == 7).ToList();
+                        }
+                        else
+                        {
+                            // Carga todos los perfiles
+                            ctrl.DataSource = controller.GetPerfiles();
+                        }
+
                         ctrl.DataValueField = "per_id";
                         ctrl.DataTextField = "per_nombre";
 

@@ -8,14 +8,73 @@ using System.Linq;
 
 public class ClientePropiedadDetallePortalController
 {
-    public List<ClientePropiedad> GetListadoPropiedadesPortal()
+    public List<ClientePropiedad> GetListadoPropiedadesPortalVenta()
     {
         List<ClientePropiedad> listado = new List<ClientePropiedad>();
         SqlCommand cmd = new SqlCommand();
 
         try
         {
-            cmd.CommandText = "SEL_CLIENTE_PROPIEDAD_PORTAL";
+            cmd.CommandText = "SEL_CLIENTE_PROPIEDAD_VENTA_PORTAL";
+
+            using (SqlDataReader dr = Conexion.GetDataReader(cmd))
+            {
+                while (dr.Read())
+                {
+                    ClientePropiedad item = new ClientePropiedad();
+                    item.cpd_id = int.Parse(dr["cpd_id"].ToString());
+                    item.cpd_tipo_propiedad = int.Parse(dr["cpd_tipo_propiedad"].ToString());
+                    item.cpd_tipo_servicio = int.Parse(dr["cpd_tipo_servicio"].ToString());
+                    item.cpd_tipo_entrega = int.Parse(dr["cpd_tipo_entrega"].ToString());
+                    item.cpd_cliente = int.Parse(dr["cpd_cliente"].ToString());
+                    item.cpd_titulo = dr["cpd_titulo"].ToString();
+                    item.cpd_valor_uf = int.Parse(dr["cpd_valor_uf"].ToString());
+                    item.cpd_valor_venta = int.Parse(dr["cpd_valor_venta"].ToString());
+                    item.cpd_valor_evaluo_fiscal = int.Parse(dr["cpd_valor_evaluo_fiscal"].ToString());
+                    item.cpd_usuario_creacion = int.Parse(dr["cpd_usuario_creacion"].ToString());
+                    item.cpd_fecha_creacion = DateTime.Parse(dr["cpd_fecha_creacion"].ToString());
+
+                    item.ESTADO = dr["ESTADO"].ToString();
+                    item.TIPO_PROPIEDAD = dr["TIPO_PROPIEDAD"].ToString();
+                    item.TIPO_SERVICIO = dr["TIPO_SERVICIO"].ToString();
+                    item.CLIENTE = dr["CLIENTE"].ToString();
+                    item.UBICACION = dr["UBICACION"].ToString();
+
+                    item.SUPERFICIE_UTIL = dr["SUPERFICIE_UTIL"].ToString();
+                    item.SUPERFICIE_TOTAL = dr["SUPERFICIE_TOTAL"].ToString();
+                    item.DORMITORIOS = int.Parse(dr["DORMITORIOS"].ToString());
+                    item.BAÑOS = int.Parse(dr["BAÑOS"].ToString());
+                    item.PISOS = int.Parse(dr["PISOS"].ToString());
+
+                    // Binario FRONTIS (puede venir como 0 si era NULL en DB)
+                    item.IMAGEN_BINARIA = dr["CMB_BINARIO"] != DBNull.Value ? (byte[])dr["CMB_BINARIO"] : new byte[] { 0 };
+
+                    listado.Add(item);
+                }
+            }
+
+            cmd.Connection.Close();
+            cmd.Dispose();
+
+            return listado;
+        }
+        catch (Exception ex)
+        {
+            cmd.Connection.Close();
+            cmd.Dispose();
+            return listado;
+        }
+    }
+
+
+    public List<ClientePropiedad> GetListadoPropiedadesPortalArriendo()
+    {
+        List<ClientePropiedad> listado = new List<ClientePropiedad>();
+        SqlCommand cmd = new SqlCommand();
+
+        try
+        {
+            cmd.CommandText = "SEL_CLIENTE_PROPIEDAD_ARRIENDO_PORTAL";
 
             using (SqlDataReader dr = Conexion.GetDataReader(cmd))
             {
